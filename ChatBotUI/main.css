@@ -73,6 +73,10 @@ body {
   font-weight: bold;
 }
 
+.chat-box-options {
+  clear: both;
+}
+
 .chat-box-options span {
   margin: 5px;
 }

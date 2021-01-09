@@ -7,19 +7,18 @@ $(function () {
         $('#chat-box').removeClass('chat-box-show');
     });
 
-    LoadQuery(1);
+    LoadQuery(1, null, '');
 
-    function LoadQuery(ID) {
+    function LoadQuery(id, options, message) {
 
-        var OptionTemplate = "<span class='badge rounded-pill bg-info text-dark' type='button'>Info</span>";
-        "<span class='badge rounded-pill bg-info text-dark' type='button'>Info</span>";
-        "<span class='badge rounded-pill bg-info text-dark' type='button'>Info</span>";
-        "<span class='badge rounded-pill bg-info text-dark' type='button'>Info</span>";
-        "<span class='badge rounded-pill bg-info text-dark' type='button'>Info</span>";
-        "<span class='badge rounded-pill bg-info text-dark' type='button'>Info</span>";
+        var optionTemplate = "<span class='badge rounded-pill bg-info text-dark' type='button'>Option1</span>" +
+            "<span class='badge rounded-pill bg-info text-dark' type='button'>Option2</span>" +
+            "<span class='badge rounded-pill bg-info text-dark' type='button'>Option3</span>" +
+            "<span class='badge rounded-pill bg-info text-dark' type='button'>Option4</span>" +
+            "<span class='badge rounded-pill bg-info text-dark' type='button'>Option5</span>" +
+            "<span class='badge rounded-pill bg-info text-dark' type='button'>Option6</span>";
 
-        var linkTemplate = "<a href='https://google.com'>link to click</a>";
-        var textTemplate = "this is a message";
+        var linkTemplate = "<a href='https://google.com' target='_blank'>link to click</a>";
 
         var chatTemplate = "<div class='chat-box-message-template'>" +
             "<i class='fa fa-user-circle fa-2x float-start' aria-hidden='true'></i>" +
@@ -36,26 +35,13 @@ $(function () {
             "<span id='chat-box-message-text' class='chat-box-message-text'>Please select text </span>" +
             "<br>" +
             "<div id='chat-box-options' class='chat-box-options'>" +
-            OptionTemplate +
+            optionTemplate +
             "</div>" +
             "</div>" +
             "</div>";
-
-        var chatTemplate2 = "<div class='chat-box-message-template'>" +
-            "<i class='fa fa-user-circle fa-2x float-start' aria-hidden='true'></i>" +
-            "<span id='chat-box-message-text' class='chat-box-message-text'>Please select text </span>" +
-            "<br>" +
-            "<div id='chat-box-options' class='chat-box-options'>" +
-            textTemplate +
-            "</div>" +
-            "</div>" +
-            "</div>";
-
-
-        document.getElementById("chat-box-messages").innerHTML += chatTemplate1;
-
-        document.getElementById("chat-box-messages").innerHTML += chatTemplate2;
 
         document.getElementById("chat-box-messages").innerHTML += chatTemplate;
+
+        document.getElementById("chat-box-messages").innerHTML += chatTemplate1;
     }
 });
