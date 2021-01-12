@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <title>ChatBot</title>
+ 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/brands.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/fontawesome.min.css">
+ 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+ 
+    <link rel="stylesheet" href="main.css">
+ 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+ 
+    <script src="main.js"></script>
+    <script src="dataset.js"></script>
+</head>
+ 
+<body>
+    <a href="#" id="chat-floating-Icon" class="chat-floating-icon"><i class="fas fa-comment-dots fa-3x"></i></a>
+ 
+    <div class="chat-box" id="chat-box">
+ 
+        <div class="chat-box-header">
+            <div class="float-start">
+                Customer Support
+            </div>
+            <div class="float-end">
+                <a href="#" id="chat-box-close"><i class="fas fa-times"></i></a>
+            </div>
+        </div>
+ 
+        <div id="chat-box-container" class="container chat-box-container">
+            <div id="chat-box-chat" class="chat-box-chat">
+                <div id="chat-box-messages" class="chat-box-messages">
+                    <div>
+                    </div>
+                    <div id="chat-box-message-loading" class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+        <div class="chat-box-footer">
+            <input id="chat-box-message" type="text" class="float-start form-control" disabled>
+        </div>
+ 
+    </div>
+ 
+</body>
+ 
