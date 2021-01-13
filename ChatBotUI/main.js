@@ -17,15 +17,20 @@ $(function () {
         $('#chat-box').removeClass('chat-box-show');
     });
 
+    $("#chat-box-reset").click(function () {
+        restChat();
+    });
+
     LoadQuery(1);
 });
 
 function LoadQuery(id) {
 
     document.getElementById("chat-box-message-loading").style.visibility = "visible";
-    
+
     var query = queries.find(x => x.ID == id);
     var queryText = query.Query;
+    var responseQueryID;
 
     if (query.Enabletext == "TRUE") {
         document.getElementById("chat-box-message").disabled = false;
@@ -50,8 +55,8 @@ function LoadQuery(id) {
             }
             else if (response.Type == "Link") {
                 templateGenerated += linkTemplate.format(element, response.Response);
+                responseQueryID = response.Query;
             }
-
         });
     }
 
@@ -69,21 +74,25 @@ function LoadQuery(id) {
         document.getElementById("chat-box-message-loading").style.visibility = "hidden";
         document.getElementById("chat-box-messages").getElementsByTagName("div")[0].innerHTML += chatTemplate;
         document.getElementById("chat-box-message-loading").scrollIntoView();
-    }, 1800);
+    }, 600);
+
+    if (responseQueryID != null) {
+        LoadQuery(responseQueryID);
+    }
+}
+
+function restChat() {
+    document.getElementById("chat-box-messages").getElementsByTagName("div")[0].innerHTML = "";
+    LoadQuery(1);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    var inputField = document.getElementById("chat-box-message");
-    inputField.addEventListener("keydown", (e) => {
-        if (e.code === "Enter") {
-            var input = inputField.value;
-            inputField.value = "";
-            var selectedID = document.getElementById("chat-box-message");
-            console.log("The input is " + input);
+    var chattextbox = document.getElementById("chat-box-message");
+
+    chattextbox.addEventListener("keydown", (e) => {
+        if (e.code === "Enter" || e.code === "NumpadEnter") {
+            var value = inputField.value;
+            chattextbox.disabled = true;
         }
     });
 });
-
-function ChatMessage(id) {
-
-}

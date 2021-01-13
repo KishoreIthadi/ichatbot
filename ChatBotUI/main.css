@@ -86,3 +86,7 @@ body {
   margin: 0px;
   padding: 0px 10px 10px 10px;
 }
+
+.pad-right-5px {
+  padding-right: 5px;
+}
