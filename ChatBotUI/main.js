@@ -22,6 +22,8 @@ $(function () {
 
 function LoadQuery(id) {
 
+    document.getElementById("chat-box-message-loading").style.visibility = "visible";
+    
     var query = queries.find(x => x.ID == id);
     var queryText = query.Query;
 
@@ -55,7 +57,7 @@ function LoadQuery(id) {
 
     var chatTemplate = "<div class='chat-box-message-template'>" +
         "<i class='fa fa-user-circle fa-2x float-start' aria-hidden='true'></i>" +
-        "<span id='chat-box-message-text' class='chat-box-message-text'>" + queryText + "</span>" +
+        "<span id='" + query.ID + "' class='chat-box-message-text'>" + queryText + "</span>" +
         "<br>" +
         "<div id='chat-box-options' class='chat-box-options'>" +
         templateGenerated +
@@ -63,10 +65,25 @@ function LoadQuery(id) {
         "</div>" +
         "</div>";
 
-    document.getElementById("chat-box-messages").innerHTML += chatTemplate;
+    setTimeout(() => {
+        document.getElementById("chat-box-message-loading").style.visibility = "hidden";
+        document.getElementById("chat-box-messages").getElementsByTagName("div")[0].innerHTML += chatTemplate;
+        document.getElementById("chat-box-message-loading").scrollIntoView();
+    }, 1800);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    var inputField = document.getElementById("chat-box-message");
+    inputField.addEventListener("keydown", (e) => {
+        if (e.code === "Enter") {
+            var input = inputField.value;
+            inputField.value = "";
+            var selectedID = document.getElementById("chat-box-message");
+            console.log("The input is " + input);
+        }
+    });
+});
 
 function ChatMessage(id) {
-    
-}
 
+}

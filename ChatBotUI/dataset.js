@@ -14,21 +14,18 @@ var queries =
     {
       "ID": "3",
       "Query": "Please enter telephone number",
-      "Response": "102",
       "Enabletext": "TRUE"
     },
     {
       "ID": "4",
       "Query": "Please enter broadband customer id",
-      "Response": "103",
       "Enabletext": "TRUE"
     },
     {
       "ID": "5",
-      "Query": "",
-      "Response": "Invalid mobile number",
-      "Query": "2"
-    },
+      "Query": "Invalid mobile number",
+      "Enabletext": "TRUE"
+    }
   ]
 
 var responses =
@@ -50,5 +47,6 @@ var responses =
       "Response": "BroadBand",
       "Type": "Option",
       "Query": "4"
-    },
+    }
   ]
+
