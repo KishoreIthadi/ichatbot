@@ -18,8 +18,15 @@
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>
 
-    <script src="main.js"></script>
-    <script src="dataset.js"></script>
+    <script src="iChatBotConfig.js"></script>
+    <script src="iChatBotUtility.js"></script>
+    <script src="iChatBotDataset.js"></script>
+
+    <script>
+        $(function () {
+            iChatBotUtility.Initialize();
+        });
+    </script>
 </head>
 
 <body>
@@ -52,9 +59,11 @@
         </div>
 
         <div class="chat-box-footer">
+            <div id="chat-box-char-count" class="float-right">
+                <span id="current">0</span>
+                <span id="maximum">/ 500</span>
+            </div>
             <input id="chat-box-message" type="text" class="float-start form-control" disabled autocomplete="off">
         </div>
-
     </div>
-
 </body>
