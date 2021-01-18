@@ -23,14 +23,37 @@ $(function () {
 
     $("#chat-box-message").keydown(function (e) {
         if (e.code === "Enter" || e.code === "NumpadEnter") {
+
             var input = e.target.value;
-            e.target.disabled = true;
-            e.target.value = "";
+            var charCount = e.target.value.length;
+            var minLength = e.target.minLength;
+
+            if (charCount >= minLength) {
+                iChatBotUtility.UserResponseDisplay(input);
+                e.target.disabled = true;
+                e.target.value = "";
+            }
 
             //TODO fire user function
             //TODO append user input text to chatbox
         }
     });
+
+    $("#chat-box-message").keyup(function (e) {
+
+        var charCount = e.target.value.length;
+        var minLength = e.target.minLength;
+
+        $("#chat-box-char-count").text(charCount + '/' + e.target.maxLength);
+
+        if (charCount < minLength) {
+            $(this).addClass('chat-box-message-error');
+        }
+        else {
+            $(this).removeClass('chat-box-message-error');
+        }
+    });
+
 });
 
 "use strict";
@@ -44,15 +67,24 @@ var iChatBotUtility = (function () {
 
         var dataset = loadDataSetFun(_globalConfig);
         loadQueryFun(_globalConfig.IntialQueryID);
+
+        document.getElementById("chat-box-message").minLength = _globalConfig.ChatMessageLengthMin;
+        document.getElementById("chat-box-message").maxLength = _globalConfig.ChatMessageLengthMax;
+
+        document.getElementById("chat-box-char-count").innerHTML = "0/" + _globalConfig.ChatMessageLengthMax;
     }
 
     var loadQueryFun = function LoadQuery(id) {
 
         document.getElementById("chat-box-message-loading").style.visibility = "visible";
 
+        if (document.getElementById("chat-box-options") != null) {
+            document.getElementById("chat-box-options").classList.add("disabled-options");
+        }
+
         var query = _globalDataset.Queries.find(x => x.ID == id);
         var queryText = query.Query;
-        var responseQueryID;
+        var responseQueryID = null;
 
         if (query.Enabletext == "TRUE") {
             document.getElementById("chat-box-message").disabled = false;
@@ -83,12 +115,12 @@ var iChatBotUtility = (function () {
         }
 
         var chatTemplate = "<div class='chat-box-message-template'>" +
-            "<i class='fa fa-user-circle fa-2x float-start' aria-hidden='true'></i>" +
+            "<div class='d-flex justify-content-start'>" +
+            "<i class='fa fa-user-circle fa-2x' aria-hidden='true'></i>" +
             "<span id='" + query.ID + "' class='chat-box-message-text'>" + queryText + "</span>" +
-            "<br>" +
+            "</div>" +
             "<div id='chat-box-options' class='chat-box-options'>" +
             templateGenerated +
-            "</div>" +
             "</div>" +
             "</div>";
 
@@ -118,11 +150,37 @@ var iChatBotUtility = (function () {
         _globalDataset = iChatBotDataset;
     }
 
+    var strLineSetter = function StringNewLineSet(userInput) {
+        var inputDisplayer = "";
+        var maxLength = 25;
+        var numOfLines = Math.floor(userInput.length / maxLength);
+        for (var i = 0; i < numOfLines + 1; i++) {
+            inputDisplayer += userInput.substr(i * maxLength, maxLength);
+            if (i !== numOfLines) { inputDisplayer += "\n"; }
+        }
+        return userInput;
+    }
+
+    var userResponseDisplayFun = function userResponseDisplay(userInput) {
+
+        var parsedInput = strLineSetter(userInput);
+
+        var userResponseTemplate = "<div class='chat-box-message-template'>" +
+            "<div class='d-flex justify-content-end'>" +
+            "<span class='chat-box-message-text'>" + parsedInput + "</span>" +
+            "<i class='fa fa-user-circle fa-2x' aria-hidden='true'></i>" +
+            "</div>";
+
+        document.getElementById("chat-box-messages").getElementsByTagName("div")[0].innerHTML += userResponseTemplate;
+        document.getElementById("chat-box-message-loading").scrollIntoView();
+    }
+
     return {
+        Initialize: intializeFun,
         LoadDataset: loadDataSetFun,
         LoadQuery: loadQueryFun,
         ResetChat: resetChatFun,
-        Initialize: intializeFun
+        UserResponseDisplay: userResponseDisplayFun
     }
 
 })();

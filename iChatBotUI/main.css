@@ -48,11 +48,11 @@ body {
   display: flex;
   flex-direction: column;
   overflow: scroll;
-  height: 90%;
+  height: 100%;
   width: 100%;
   background-color: rgb(232, 238, 238);
   padding: 15px;
-  margin: 15px;
+  margin: 5px;
   border-radius: 10px;
 }
 
@@ -87,6 +87,20 @@ body {
   padding: 0px 10px 10px 10px;
 }
 
-.pad-right-5px {
+.chat-box-char-count {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.chat-box-message-error {
+  box-shadow: 0 0 1px 0.07rem rgb(255, 0, 0) !important;
+}
+
+.disabled-options {
+   opacity: 0.4; 
+   pointer-events: none;
+}
+
+​​​​​ .pad-right-5px {
   padding-right: 5px;
 }

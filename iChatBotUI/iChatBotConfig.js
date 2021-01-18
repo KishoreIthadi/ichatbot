@@ -2,6 +2,6 @@ var iChatBotConfig =
 {
     "IntialQueryID": 1,
     "DataSetURL": "",
-    "ChatMessageLengthMin": "1",
+    "ChatMessageLengthMin": "5",
     "ChatMessageLengthMax": "500"
 }
