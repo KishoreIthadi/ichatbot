@@ -30,11 +30,10 @@ $(function () {
 
             if (charCount >= minLength) {
                 iChatBotUtility.UserResponseDisplay(input);
+                iChatBotUtility.FireUserEvent(e.target.value);
+
                 e.target.disabled = true;
                 e.target.value = "";
-
-                //TODO fire user function
-                //TODO append user input text to chatbox
             }
         }
     });
@@ -62,6 +61,7 @@ var iChatBotUtility = (function () {
 
     var _globalDataset = null;
     var _globalConfig = iChatBotConfig;
+    var _userEvent = null;
 
     var intializeFun = function Initialize() {
 
@@ -174,7 +174,7 @@ var iChatBotUtility = (function () {
         return result;
     }
 
-    var userResponseDisplayFun = function userResponseDisplay(userInput) {
+    var userResponseDisplayFun = function UserResponseDisplay(userInput) {
 
         var parsedInput = parseUserInput(userInput);
 
@@ -188,12 +188,22 @@ var iChatBotUtility = (function () {
         document.getElementById("chat-box-message-loading").scrollIntoView();
     }
 
+    var subsribeEvent = function SubsribeEvent(func) {
+        _userEvent = func;
+    }
+
+    var fireUserEvent = function FireUserEvent(data) {
+        _userEvent(data);
+    }
+
     return {
         Initialize: intializeFun,
         LoadDataset: loadDataSetFun,
         LoadQuery: loadQueryFun,
         ResetChat: resetChatFun,
-        UserResponseDisplay: userResponseDisplayFun
+        UserResponseDisplay: userResponseDisplayFun,
+        SubsribeEvent: subsribeEvent,
+        FireUserEvent: fireUserEvent
     }
 
 })();

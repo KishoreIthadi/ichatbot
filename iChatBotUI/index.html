@@ -24,6 +24,12 @@
     <script>
         $(function () {
             iChatBotUtility.Initialize();
+
+            var userFunction = function callFunction(data) {
+                console.log(data);
+            }
+
+            iChatBotUtility.SubsribeEvent(userFunction);
         });
     </script>
 </head>
