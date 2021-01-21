@@ -32,10 +32,10 @@ $(function () {
                 iChatBotUtility.UserResponseDisplay(input);
                 e.target.disabled = true;
                 e.target.value = "";
-            }
 
-            //TODO fire user function
-            //TODO append user input text to chatbox
+                //TODO fire user function
+                //TODO append user input text to chatbox
+            }
         }
     });
 
@@ -65,7 +65,8 @@ var iChatBotUtility = (function () {
 
     var intializeFun = function Initialize() {
 
-        var dataset = loadDataSetFun(_globalConfig);
+        _globalDataset = JSON.parse(loadDataSetFun(_globalConfig));
+
         loadQueryFun(_globalConfig.IntialQueryID);
 
         document.getElementById("chat-box-message").minLength = _globalConfig.ChatMessageLengthMin;
@@ -142,28 +143,40 @@ var iChatBotUtility = (function () {
 
     var loadDataSetFun = function LoadDataset(iChatBotConfig) {
 
-        if (iChatBotConfig.DataSetURL != null) {
+        var result;
+
+        if (iChatBotConfig.DataSetFilePath != "") {
+
+            $.ajax({
+                url: iChatBotConfig.DataSetFilePath,
+                async: false,
+                success: function (data) {
+                    result = data;
+                }
+            });
+        }
+        if (iChatBotConfig.DataSetURL != "") {
             //TODO : user to call API
             // _globalDataset = ;
         }
 
-        _globalDataset = iChatBotDataset;
+        return result;
     }
 
-    var strLineSetter = function StringNewLineSet(userInput) {
-        var inputDisplayer = "";
+    var parseUserInput = function ParseUserInput(userInput) {
+        var result = "";
         var maxLength = 25;
         var numOfLines = Math.floor(userInput.length / maxLength);
         for (var i = 0; i < numOfLines + 1; i++) {
-            inputDisplayer += userInput.substr(i * maxLength, maxLength);
-            if (i !== numOfLines) { inputDisplayer += "\n"; }
+            result += userInput.substr(i * maxLength, maxLength);
+            if (i !== numOfLines) { result += "\n"; }
         }
-        return userInput;
+        return result;
     }
 
     var userResponseDisplayFun = function userResponseDisplay(userInput) {
 
-        var parsedInput = strLineSetter(userInput);
+        var parsedInput = parseUserInput(userInput);
 
         var userResponseTemplate = "<div class='chat-box-message-template'>" +
             "<div class='d-flex justify-content-end'>" +
