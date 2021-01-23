@@ -18,21 +18,24 @@
         crossorigin="anonymous"></script>
 
     <script src="iChatBotConfig.js"></script>
-    <script src="iChatBotUtility.js"></script>
     <script src="iChatBotDataset.js"></script>
+    <script src="iChatBotUtility.js"></script>
     <script>
         $(function () {
             iChatBotUtility.Initialize();
-            var userFunction = function callFunction(data) {
+
+            var userFunction = function UserSelection(data) {
                 console.log(data);
             }
+
             iChatBotUtility.subscribeEvent(userFunction);
         });
     </script>
 </head>
 
 <body>
-    <div id="iChatGeneration">
+    <div id="ichatbot-container">
     </div>
 </body>
+
 </html>

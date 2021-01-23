@@ -2,40 +2,40 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-.chat-floating-icon {
+.ichatbot-floating-icon {
   position: fixed;
   bottom: 40px;
   right: 40px;
 }
 
-.chat-box-show {
+.ichatbot-show {
   display: block !important;
 }
 
-.chat-box-header {
+.ichatbot-header {
   margin: 10px;
   font-size: 20px;
 }
 
-.chat-box {
-  background-color: #ffffff;
+.ichatbot {
+  /* background-color: #ffffff; */
   border: 1px solid #b0b0b0;
   bottom: 5px;
   display: none;
-  height: 510px;
+  /* width: 400px;
+  height: 510px; */
   position: fixed;
-    right: 30px;
-    width: 400px;
+  right: 30px;
   font-family: 'Open Sans', sans-serif;
 }
 
-.chat-box-container {
+.ichatbot-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.chat-box-chat {
+.ichatbot-chat {
   height: 100%;
   width: 100%;
   display: flex;
@@ -44,81 +44,70 @@ body {
   align-items: center;
 }
 
-.chat-box-messages {
+.ichatbot-messages {
   display: flex;
   flex-direction: column;
   overflow: scroll;
   height: 100%;
   width: 100%;
-  background-color: rgb(232, 238, 238);
+  /* background-color: rgb(232, 238, 238); */
   padding: 15px;
   margin: 5px;
   border-radius: 10px;
 }
 
-.chat-box-messages::-webkit-scrollbar {
+.ichatbot-messages::-webkit-scrollbar {
   display: none;
 }
 
-.chat-box-message-template {
+.ichatbot-message-template {
   padding: 5px;
 }
 
-.chat-box-message-template i {
+.ichatbot-message-template i {
   margin-right: 5px;
 }
 
-.chat-box-message-text {
+.ichatbot-message-text {
   font-size: medium;
 }
 
-.chat-box-options {
+.ichatbot-options {
   clear: both;
 }
 
-.chat-box-options span {
+.ichatbot-options span {
   margin: 5px;
 }
 
-.chat-box-footer {
+.ichatbot-footer {
   width: 100%;
   margin: 0px;
   padding: 0px 10px 10px 10px;
 }
 
-.chat-box-char-count {
+.ichatbot-char-count {
   font-size: 10px;
   font-weight: bold;
 }
 
-.chat-box-message-error {
+.ichatbot-message-error {
   box-shadow: 0 0 1px 0.07rem rgb(255, 0, 0) !important;
 }
 
 .disabled-options {
-   opacity: 0.4; 
-   pointer-events: none;
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 ​​​​​ .pad-right-5px {
   padding-right: 5px;
 }
 
-.rightMarginText{
+.mar-right-5px {
   margin-right: 5px;
 }
 
-.fontBoldForText{
+.font-bold-true {
   font-weight: bold;
-}
-
-.popAdjustingCSS {
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-}
-
-.imageAdjust{
-  height: 50px;
-  width: 48px;
 }

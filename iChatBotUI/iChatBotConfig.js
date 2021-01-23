@@ -1,32 +1,33 @@
 var iChatBotConfig =
 {
     "IntialQueryID": 1,
+
     "DataSetURL": "",
-    "DataSetFilePath": "/iChatBotDataset.js",
-    "ChatMessageLengthMin": "5",
-    "ChatMessageLengthMax": "500",
+    "DataSetFilePath": "/iChatBotUI/iChatBotDataset.js",
 
-    "ChatBoxTitleMessage" : "Dynamic support system",
+    "UserMsgMinLen": "5",
+    "UserMsgMaxLen": "50",
 
-    "ChatBoxPopFAIcon" : "fab fa-rocketchat  fa-3x" ,
-    "ChatBoxPopImageIcon" : "",
+    "Title": "iChatBot",
 
-    "ChatBoxBackgroundColor" : "#786f77" ,
-    "ChatInnerBoxBackgroundColor" : "#d0f15d"  ,
+    "iChatBotHeight": "510px",
+    "iChatBotWidth": "400px",
+    "iChatBotBackgroundColor": "#ffffff",
+    "MessagesBackgroundColor": "rgb(232, 238, 238)",
 
-    "ChatHeaderResetIcon" : "fa-sync" ,
-    "ChatHeaderCloseIcon" : "fa-times" ,
+    "FloatingIconFAClass": "fas fa-comment-dots fa-3x",
+    "FloatingIconImagePath": "",
+    "FloatingIconCSSClass": "",
+
+    "ResetFAClass": "fas fa-sync pad-right-5px",
+    "ResetImagePath": "",
+    "ResetCSSClass": "",
+
+    "CloseFAClass": "fas fa-times",
+    "CloseImagePath": "",
+    "CloseCSSClass": "",
 
     //-----------
-    "ChatBoxUserIcon" : "fa-user-edit",
-    "ChatBoxBotIcon" : "fa-user-tie",
-    // either 1
-
-    "ChatBoxFloatingFAIconCSS" : "fa-times" ,
-    "ChatBoxFloatingIconImage" : "" ,
-    "ChatBoxFloatingIconClassName" : "", 
-
-    "ChatBoxHeight" : "510px" ,
-    "ChatBoxWidth" :  "410px"
+    "ChatBotUserIcon": "fa-user-tie",
+    "UserResponseIcon": "fa-user-edit"
 }
-    
