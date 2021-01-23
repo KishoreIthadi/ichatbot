@@ -2,8 +2,7 @@
 <html>
 
 <head>
-    <title>ChatBot</title>
-
+    <title> iChatBot </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/brands.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/fontawesome.min.css">
@@ -20,52 +19,20 @@
 
     <script src="iChatBotConfig.js"></script>
     <script src="iChatBotUtility.js"></script>
-
+    <script src="iChatBotDataset.js"></script>
     <script>
         $(function () {
             iChatBotUtility.Initialize();
-
             var userFunction = function callFunction(data) {
                 console.log(data);
             }
-
-            iChatBotUtility.SubsribeEvent(userFunction);
+            iChatBotUtility.subscribeEvent(userFunction);
         });
     </script>
 </head>
 
 <body>
-    <a href="#" id="chat-floating-Icon" class="chat-floating-icon"><i class="fas fa-comment-dots fa-3x"></i></a>
-
-    <div class="chat-box" id="chat-box">
-
-        <div class="chat-box-header">
-            <div class="float-start">
-                Customer Support
-            </div>
-            <div class="float-end">
-                <a href="#" id="chat-box-reset"><i class="fas fa-sync pad-right-5px" title="Refresh"></i></a>
-                <a href="#" id="chat-box-close"><i class="fas fa-times" title="Close"></i></a>
-            </div>
-        </div>
-
-        <div id="chat-box-container" class="container chat-box-container">
-            <div id="chat-box-chat" class="chat-box-chat">
-                <div id="chat-box-messages" class="chat-box-messages">
-                    <div>
-                    </div>
-                    <div id="chat-box-message-loading" class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="chat-box-footer">
-            <div id="chat-box-char-count" class="chat-box-char-count float-end"> </div>
-            <input id="chat-box-message" type="text" class="float-start form-control" disabled autocomplete="off">
-        </div>
+    <div id="iChatGeneration">
     </div>
 </body>
+</html>
