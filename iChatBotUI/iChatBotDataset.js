@@ -55,7 +55,7 @@ var iChatBotDataset =
         "Response": "BroadBand",
         "Type": "Option",
         "Query": "4",
-        "FireSubscribedEvent": "FALSE"
+        "FireSubscribedEvent": "TRUE"
       }
     ]
 }

@@ -12,19 +12,6 @@ $(function () {
     String.isNullOrEmpty = function (value) {
         return (!value || value == undefined || value == "" || value.length == 0);
     }
-
-    // Placed for Testing , Trash code , Remove. 
-    //    // Event for handling user selected option 
-    //    $("#ichatbot-options > span").click(function (e) {
-    //     console.log("chatbot buttons reached")
-    //     console.log(e);
-    //     var responseID = null;
-    //     var response = _gDataset.Responses.find((x) => x.Query == responseID);
-    //     if (response != null && response.FireSubscribedEvent != null && response.FireSubscribedEvent == "TRUE") {
-    //         fireUserEvent(response);
-    //     }
-    // });
-
 });
 
 // iChatbot Library
@@ -41,7 +28,6 @@ var iChatBotUtility = (function () {
         //_gDataset = JSON.parse(loadDataSetFun(_gConfig));
         renderHTMLTemplateFun();
         registerEventsFun();
-
         loadQueryFun(_gConfig.IntialQueryID);
     }
 
@@ -191,7 +177,6 @@ var iChatBotUtility = (function () {
                 if (charCount >= minLength) {
                     // Creating chat template
                     userResponseDisplayFun(input);
-
                     // Passing the user response to subscribed event
                     fireUserEventFun(e.target.value);
 
@@ -214,22 +199,15 @@ var iChatBotUtility = (function () {
                 $(this).removeClass('ichatbot-message-error');
             }
         });
-
-
-        // Click yet to be tested, yet to be done. 
+ 
         // Event for handling user selected option 
-        $("#ichatbot-options > span").click(function (e) {
-           
-        });
-
-        $('#ichatbot').on('click', '#ichatbot-options', function (e) {
-            console.log('111');
-            console.log("chatbot buttons reached")
-            console.log(e);
-            var responseID = null;
-            var response = _gDataset.Responses.find((x) => x.Query == responseID);
-            if (response != null && response.FireSubscribedEvent != null && response.FireSubscribedEvent == "TRUE") {
-                fireUserEvent(response);
+        $('#ichatbot').on('click', '#ichatbot-options', function (e){
+            var SelectedID = e.target.attributes.id.value
+            //var responseID = null;
+            var dataArray = new Array();
+            var response = _gDataset.Responses.find((x) => x.ID == SelectedID);
+            if (response != null && response.FireSubscribedEvent != null && response.FireSubscribedEvent == "TRUE") { 
+                fireUserEventFun(SelectedID , response);
             }
         });
 
@@ -367,15 +345,13 @@ var iChatBotUtility = (function () {
     var userResponseDisplayFun = function UserResponseDisplay(userInput) {
 
         var parsedInput = parseUserInput(userInput);
-      
         var userResponseTemplate;
-
+        // CSS for icons being fetched from the Config file.
         var UserResponseIconCSS = (_gConfig.UserResponseIconCSSClass != null && _gConfig.UserResponseIconCSSClass != "")?
         "class='" + _gConfig.UserResponseIconCSSClass + "'" : "";
 
+        // Checks done for null, empty or undefined. And template is created.
         if ( !String.isNullOrEmpty(_gConfig.UserResponseIcon) ) {
-            console.log(!String.isNullOrEmpty(_gConfig.UserResponseIcon))
-
             userResponseTemplate = "<div class='ichatbot-message-template'>" +
             "<div class='d-flex justify-content-end'>" +
             "<span class='ichatbot-message-text mar-right-5px '> {0} </span>" +
@@ -386,7 +362,6 @@ var iChatBotUtility = (function () {
         }
         else if( !String.isNullOrEmpty(_gConfig.UserResponseIconImage) )
         {
-
             userResponseTemplate = "<div class='ichatbot-message-template'>" +
             "<div class='d-flex justify-content-end'>" +
             "<span class='ichatbot-message-text mar-right-5px '> {0} </span>" +
@@ -409,8 +384,15 @@ var iChatBotUtility = (function () {
         _userEvent = func;
     }
 
-    var fireUserEventFun = function FireUserEvent(data) {
-        _userSelections.push(data);
+   
+    var fireUserEventFun = function FireUserEvent( object , data = 0) {
+        _userSelections.push(object);
+        if(data!=0)
+        {
+            _userSelections.push(data);
+        } 
+
+        console.log(_userSelections)
         _userEvent(_userSelections);
     }
 
