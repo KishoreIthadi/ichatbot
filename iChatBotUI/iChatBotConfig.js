@@ -1,13 +1,10 @@
 var iChatBotConfig =
 {
     "IntialQueryID": 1,
-
     "DataSetURL": "",
     "DataSetFilePath": "/iChatBotUI/iChatBotDataset.js",
-
     "UserMsgMinLen": "5",
     "UserMsgMaxLen": "50",
-
     "Title": "iChatBot",
 
     "iChatBotHeight": "510px",
@@ -15,31 +12,28 @@ var iChatBotConfig =
     "iChatBotBackgroundColor": "#ffffff",
     "MessagesBackgroundColor": "rgb(232, 238, 238)",
 
-    // Can either use FA icon, or use Image icon.
-    "FloatingIconFAClass": "fas fa-comment-dots fa-3x",
+    // Can either have FA icon or custom image
+    "FloatingIconFAClass": "fa fa-comment-dots fa-3x",
     "FloatingIconImagePath": "",
-    // The existing default CSS classes for icon sizing are as follows : popup-button-CSS , sizing-image-icon
-    "FloatingIconCSSClass": "",
+    "FloatingIconCSSClass": "", // Class will be applied to floating icon
 
-
-    "ResetFAClass": "fas fa-sync px-2",
+    // Can either have FA icon or custom image
+    "ResetFAClass": "fa fa-sync fa-1x",
     "ResetImagePath": "",
-    "ResetCSSClass": "",
+    "ResetCSSClass": "", // Class will be applied to floating icon
 
-    "CloseFAClass": "fas fa-times px-1",
+    // Can either have FA icon or custom image
+    "CloseFAClass": "fa fa-times fa-1x",
     "CloseImagePath": "",
     "CloseCSSClass": "",
 
-    
-    
-    // The existing default CSS classes for icon sizing are as follows :  sizing-image-icon, please ref css.
+    // Can either have FA icon or custom image
+    "ChatQueryIconFAClass": "fa fa-user-circle fa-2x",
+    "ChatQueryIconImagePath": "",
+    "ChatQueryIconCSSClass": "",
 
-    "ChatBotUserIconFA": "fa-user-tie",
-    "ChatBotUserIconImage": "",
-    "ChatBotIconCSSClass" : "",
-
-    "UserResponseIcon": "fa-user-edit",
-    "UserResponseIconImage": "",
-    "UserResponseIconCSSClass" : ""
-
+    // Can either have FA icon or custom image
+    "ChatResponseIconFAClass": "fa fa-user-circle fa-2x",
+    "ChatResponseIconImagePath": "",
+    "ChatResponseIconCSSClass": ""
 }

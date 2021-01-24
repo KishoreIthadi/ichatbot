@@ -8,10 +8,6 @@ $(function () {
         }
         return formatted;
     };
-
-    String.isNullOrEmpty = function (value) {
-        return (!value || value == undefined || value == "" || value.length == 0);
-    }
 });
 
 // iChatbot Library
@@ -22,10 +18,16 @@ var iChatBotUtility = (function () {
     var _userEvent = null;
     var _userSelections = new Array();
 
+    var isNullOrEmpty = function isNullOrEmptyFun(value) {
+        return (!value || value == undefined || value == "" || value.length == 0);
+    }
+
     var intializeFun = function Initialize() {
+
         _gConfig = iChatBotConfig;
         _gDataset = iChatBotDataset;
         //_gDataset = JSON.parse(loadDataSetFun(_gConfig));
+
         renderHTMLTemplateFun();
         registerEventsFun();
         loadQueryFun(_gConfig.IntialQueryID);
@@ -33,36 +35,6 @@ var iChatBotUtility = (function () {
 
     // Function to render ichatbot html tempalte into user created #ichatbot div  
     var renderHTMLTemplateFun = function RenderHTMLTemplate() {
-
-         // Exception handling for intital configurations which are important as well. 
-         if( String.isNullOrEmpty( _gConfig.IntialQueryID) )
-         {
-             throw 'An essential configuration - InitialQueryID is missing! Without passing this, no functions start';
-         }
-         if( String.isNullOrEmpty( _gConfig.Title) )
-         {
-             throw 'An essential configuration - Title is missing!';
-         }
- 
-         if( String.isNullOrEmpty( _gConfig.iChatBotHeight) )
-         {
-             throw 'An essential configuration - ChatBotHeight is missing!';
-         }
-         
-         if( String.isNullOrEmpty( _gConfig.iChatBotWidth) )
-         {
-             throw 'An essential configuration - ChatBotHeight is missing!';
-         }
-         
-         if( String.isNullOrEmpty( _gConfig.UserMsgMinLen) )
-         {
-             throw 'An essential configuration - Minimum message length for input is missing!';
-         }
-         
-         if( String.isNullOrEmpty( _gConfig.UserMsgMaxLen) )
-         {
-             throw 'An essential configuration - Maximum message length for input is missing!';
-         }
 
         // Main chatbot height, width and background color
         var ichatbotstyle = "style='height:" + _gConfig.iChatBotHeight + ";width:" + _gConfig.iChatBotWidth +
@@ -73,47 +45,30 @@ var iChatBotUtility = (function () {
         var closeIcon = "";
 
         // Floating icon
-        if (_gConfig.FloatingIconFAClass != null && _gConfig.FloatingIconFAClass != "") 
-        {
+        if (!isNullOrEmpty(_gConfig.FloatingIconFAClass)) {
             floatingIcon = " <i class='" + _gConfig.FloatingIconFAClass + "'></i> ";;
         }
-        else if (_gConfig.FloatingIconImagePath != null && _gConfig.FloatingIconImagePath != "") 
-        {
-            var cssClass = (_gConfig.FloatingIconCSSClass != null && _gConfig.FloatingIconCSSClass != "")
-                ? "class='" + _gConfig.FloatingIconCSSClass + "'" : "";
+        else if (!isNullOrEmpty(_gConfig.FloatingIconImagePath)) {
+            var cssClass = (!isNullOrEmpty(_gConfig.FloatingIconCSSClass)) ? "class='" + _gConfig.FloatingIconCSSClass + "'" : "";
             floatingIcon = "<img src='" + _gConfig.FloatingIconImagePath + "' " + cssClass + "></img>";
-        }
-        else
-        {
-            throw 'One of the essential configurations - Floating Icon has not been configured';
         }
 
         // Reset icon
-        if (_gConfig.ResetFAClass != null && _gConfig.ResetFAClass != "") {
+        if (!isNullOrEmpty(_gConfig.ResetFAClass)) {
             resetIcon = "<i class='" + _gConfig.ResetFAClass + "' title='Reset'></i> ";
         }
-        else if (_gConfig.ResetImagePath != null && _gConfig.ResetImagePath != "") {
-            var cssClass = (_gConfig.ResetCSSClass != null && _gConfig.ResetCSSClass != "")
-                ? "class='" + _gConfig.ResetCSSClass + "'" : "";
+        else if (!isNullOrEmpty(_gConfig.ResetImagePath)) {
+            var cssClass = (!isNullOrEmpty(_gConfig.ResetCSSClass)) ? "class='" + _gConfig.ResetCSSClass + "'" : "";
             resetIcon = "<img src='" + _gConfig.ResetImagePath + "' " + cssClass + "></img>";
-        }
-        else
-        {
-            throw 'One of the essential configurations - Reset Icon has not been configured';
         }
 
         // Close icon
-        if (_gConfig.CloseFAClass != null && _gConfig.CloseFAClass != "") {
+        if (!isNullOrEmpty(_gConfig.CloseFAClass)) {
             closeIcon = " <i class='" + _gConfig.CloseFAClass + "' title='Close'></i> ";;
         }
-        else if (_gConfig.CloseImagePath != null && _gConfig.CloseImagePath != "") {
-            var cssClass = (_gConfig.CloseCSSClass != null && _gConfig.CloseCSSClass != "")
-                ? "class='" + _gConfig.CloseCSSClass + "'" : "";
+        else if (!isNullOrEmpty(_gConfig.CloseImagePath)) {
+            var cssClass = (!isNullOrEmpty(_gConfig.CloseCSSClass)) ? "class='" + _gConfig.CloseCSSClass + "'" : "";
             closeIcon = "<img src='" + _gConfig.CloseImagePath + "' " + cssClass + "></img>";
-        }
-        else
-        {
-            throw 'One of the essential configurations - Close Icon has not been configured';
         }
 
         // Chatbot template along with floating icon
@@ -143,7 +98,7 @@ var iChatBotUtility = (function () {
             "<div id='ichatbot-char-count' class='ichatbot-char-count float-end'>" +
             "0/" + _gConfig.UserMsgMaxLen + "</div>" +
             "<input id='ichatbot-message' type='text' class='float-start form-control' disabled " +
-            "minlength=" + _gConfig.UserMsgMinLen + "maxlength=" + _gConfig.UserMsgMaxLen + " " +
+            "minlength='" + _gConfig.UserMsgMinLen + "' maxlength='" + _gConfig.UserMsgMaxLen + "' " +
             "autocomplete='off'>" +
             "</div>" +
             "</div>" +
@@ -183,6 +138,7 @@ var iChatBotUtility = (function () {
                     e.target.disabled = true;
                     e.target.value = "";
                 }
+                $("#ichatbot-char-count").text('0/' + e.target.maxLength);
                 document.getElementById("ichatbot-char-count").innerHTML = "0/" + e.target.maxLength;
             }
         });
@@ -191,26 +147,28 @@ var iChatBotUtility = (function () {
         $("#ichatbot-message").keyup(function (e) {
             var charCount = e.target.value.length;
             var minLength = e.target.minLength;
-            $("#ichatbot-char-count").text(charCount + '/' + e.target.maxLength);
+
             if (charCount < minLength) {
                 $(this).addClass('ichatbot-message-error');
             }
             else {
                 $(this).removeClass('ichatbot-message-error');
             }
-        });
- 
-        // Event for handling user selected option 
-        $('#ichatbot').on('click', '#ichatbot-options', function (e){
-            var SelectedID = e.target.attributes.id.value
-            //var responseID = null;
-            var dataArray = new Array();
-            var response = _gDataset.Responses.find((x) => x.ID == SelectedID);
-            if (response != null && response.FireSubscribedEvent != null && response.FireSubscribedEvent == "TRUE") { 
-                fireUserEventFun(SelectedID , response);
-            }
+
+            console.log(e.target.maxLength);
+
+            $("#ichatbot-char-count").text(charCount + '/' + e.target.maxLength);
         });
 
+        // Event for handling user selected option 
+        $('#ichatbot').on('click', '#ichatbot-options', function (e) {
+            var SelectedID = e.target.attributes.id.value
+            var response = _gDataset.Responses.find((x) => x.ID == SelectedID);
+
+            if (response != null && response.FireSubscribedEvent != null && response.FireSubscribedEvent == "TRUE") {
+                fireUserEventFun(response);
+            }
+        });
     }
 
     // Function that loads our Query, processes it from Dataset.
@@ -240,7 +198,9 @@ var iChatBotUtility = (function () {
 
         // Are being sent to a format function, to be parsed correctly. 
         if (query.Response != null) {
+
             var responseIDS = query.Response.split(',');
+
             responseIDS.forEach(element => {
                 var response = _gDataset.Responses.find(x => x.ID == element);
                 if (response.Type == "Option") {
@@ -252,48 +212,59 @@ var iChatBotUtility = (function () {
             });
         }
 
+        var chatQueryIcon;
+
+        // Picks either the FA user icon, or Image user icon for chat messages. 
+        if (!isNullOrEmpty(_gConfig.ChatQueryIconFAClass)) {
+            chatQueryIcon = "<i class='" + _gConfig.ChatQueryIconFAClass + "'></i>";
+        }
+        else if (!isNullOrEmpty(_gConfig.ChatQueryIconImagePath)) {
+            var cssClass = (!isNullOrEmpty(_gConfig.ChatQueryIconCSSClass)) ? "class='" + _gConfig.ChatQueryIconCSSClass + "'" : "";
+            chatQueryIcon = "<img decoding  src='" + _gConfig.ChatQueryIconImagePath + "' class='" + cssClass + "'></img>  ";
+        }
+
         // Template for Chat message
-        var chatTemplate;
+        var chatTemplate = "<div class='ichatbot-message-template'>" +
+            "<div class='d-flex justify-content-start'>" +
+            chatQueryIcon +
+            "<span id='{0}' class='ichatbot-message-text {1}'>{2}</span>" +
+            "</div>" +
+            "<div id='ichatbot-options' class='ichatbot-options'>{3}</div>" +
+            "</div>";
 
         var boldClass = query.Bold == "TRUE" ? " font-bold-true " : "";
-        var ChatBotUserIconPicker;
 
-        // Picks either the FA user icon, or Image user icon for chat messages. If neither, error. 
-        if ( !String.isNullOrEmpty(_gConfig.ChatBotUserIconFA) ) {
-            ChatBotUserIconPicker = _gConfig.ChatBotUserIconFA;
-            chatTemplate = "<div class='ichatbot-message-template'>" +
-            "<div class='d-flex justify-content-start'>" +
-            "<i class='fa {0} fa-2x {1}' aria-hidden='true'></i>" +
-            "<span id='{2}' class='ichatbot-message-text {3}'> {4} </span>" +
-            "</div>" +
-            "<div id='ichatbot-options' class='ichatbot-options'> {5} </div>" +
-            "</div>";
-        }
-        else if( !String.isNullOrEmpty(_gConfig.ChatBotUserIconImage) )
-        {
-            ChatBotUserIconPicker = _gConfig.ChatBotUserIconImage;
-            chatTemplate = "<div class='ichatbot-message-template'>" +
-            "<div class='d-flex justify-content-start'>" +
-            " <img decoding = 'async' src='{0}' class='sizing-image-icon {1}'>  </img>  " +
-            "<span id='{2}' class='ichatbot-message-text {3}'> {4} </span>" +
-            "</div>" +
-            "<div id='ichatbot-options' class='ichatbot-options'> {5} </div>" +
-            "</div>";
-        }
-        else
-        {
-            throw 'One of the Essential configurations : ChatBotUserIcon  hasnt been defined!';
-        }
-        var ChatBotIconCSS = (_gConfig.ChatBotIconCSSClass != null && _gConfig.ChatBotIconCSSClass != "")?
-                                     "class='" + _gConfig.ChatBotIconCSSClass + "'" : "";
-        
         setTimeout(() => {
             document.getElementById("ichatbot-message-loading").style.visibility = "hidden";
             document.getElementById("ichatbot-messages").getElementsByTagName("div")[0].innerHTML +=
-                chatTemplate.format(ChatBotUserIconPicker, ChatBotIconCSS, query.ID, boldClass,
-                                     queryText, templateGenerated);
+                chatTemplate.format(query.ID, boldClass, queryText, templateGenerated);
             document.getElementById("ichatbot-message-loading").scrollIntoView();
         }, 600);
+    }
+
+    // Function that handles work after User Responds. 
+    var userResponseDisplayFun = function UserResponseDisplay(userInput) {
+        var parsedInput = parseUserInput(userInput);
+        var chatResponseIcon = "";
+
+        // Picks either the FA user icon, or Image user icon for chat messages. 
+        if (!isNullOrEmpty(_gConfig.ChatResponseIconFAClass)) {
+            chatResponseIcon = "<i class='" + _gConfig.ChatResponseIconFAClass + "'></i>";
+        }
+        else if (!isNullOrEmpty(_gConfig.ChatResponseIconImagePath)) {
+            var cssClass = (!isNullOrEmpty(_gConfig.ChatResponseIconCSSClass)) ? "class='" + _gConfig.ChatResponseIconCSSClass + "'" : "";
+            chatResponseIcon = "<img decoding  src='" + _gConfig.ChatResponseIconImagePath + "' class='" + cssClass + "'></img>  ";
+        }
+
+        var userResponseTemplate = "<div class='ichatbot-message-template'>" +
+            "<div class='d-flex justify-content-end'>" +
+            "<span class='ichatbot-message-text mar-right-5px'>{0}</span>" +
+            chatResponseIcon +
+            "</div>";
+
+        document.getElementById("ichatbot-messages").getElementsByTagName("div")[0].innerHTML +=
+            userResponseTemplate.format(parsedInput);
+        document.getElementById("ichatbot-message-loading").scrollIntoView();
     }
 
     // Function that Resets chat
@@ -306,7 +277,7 @@ var iChatBotUtility = (function () {
     var loadDataSetFun = function LoadDataset(iChatBotConfig) {
         var result;
 
-        if (!String.isNullOrEmpty(_gConfig.DataSetFilePath )) {
+        if (isNullOrEmpty(_gConfig.DataSetFilePath)) {
             $.ajax({
                 url: iChatBotConfig.DataSetFilePath,
                 async: false,
@@ -315,15 +286,9 @@ var iChatBotUtility = (function () {
                 }
             });
         }
-
-        else if (!String.isNullOrEmpty( _gConfig.DataSetURL )) {
+        else if (isNullOrEmpty(_gConfig.DataSetURL)) {
             //TODO : user to call API
             // _gDataset = ;
-        }
-
-        else
-        {
-            throw 'No Dataset Sources (Path Or URL) have been given';
         }
 
         return result;
@@ -341,58 +306,13 @@ var iChatBotUtility = (function () {
         return result;
     }
 
-    // Function that handles work after User Responds. 
-    var userResponseDisplayFun = function UserResponseDisplay(userInput) {
-
-        var parsedInput = parseUserInput(userInput);
-        var userResponseTemplate;
-        // CSS for icons being fetched from the Config file.
-        var UserResponseIconCSS = (_gConfig.UserResponseIconCSSClass != null && _gConfig.UserResponseIconCSSClass != "")?
-        "class='" + _gConfig.UserResponseIconCSSClass + "'" : "";
-
-        // Checks done for null, empty or undefined. And template is created.
-        if ( !String.isNullOrEmpty(_gConfig.UserResponseIcon) ) {
-            userResponseTemplate = "<div class='ichatbot-message-template'>" +
-            "<div class='d-flex justify-content-end'>" +
-            "<span class='ichatbot-message-text mar-right-5px '> {0} </span>" +
-            "<i class='fa {1} fa-2x {2} ' aria-hidden='true'></i>" +
-            "</div>";
-            document.getElementById("ichatbot-messages").getElementsByTagName("div")[0].innerHTML +=
-            userResponseTemplate.format(parsedInput, _gConfig.UserResponseIcon, UserResponseIconCSS);
-        }
-        else if( !String.isNullOrEmpty(_gConfig.UserResponseIconImage) )
-        {
-            userResponseTemplate = "<div class='ichatbot-message-template'>" +
-            "<div class='d-flex justify-content-end'>" +
-            "<span class='ichatbot-message-text mar-right-5px '> {0} </span>" +
-            "<img decoding = 'async'  src='{1}' class='sizing-image-icon {2}'>  </img>";  +
-            "</div>";
-
-            document.getElementById("ichatbot-messages").getElementsByTagName("div")[0].innerHTML +=
-            userResponseTemplate.format(parsedInput, _gConfig.UserResponseIconImage, UserResponseIconCSS);
-        }
-        else
-        {
-            throw 'One of the Essential configurations : UserResponseIcon hasnt been defined!';
-        }
-
-    
-        document.getElementById("ichatbot-message-loading").scrollIntoView();
-    }
 
     var SubscribeEventFun = function subscribeEvent(func) {
         _userEvent = func;
     }
 
-   
-    var fireUserEventFun = function FireUserEvent( object , data = 0) {
+    var fireUserEventFun = function FireUserEvent(data) {
         _userSelections.push(object);
-        if(data!=0)
-        {
-            _userSelections.push(data);
-        } 
-
-        console.log(_userSelections)
         _userEvent(_userSelections);
     }
 
