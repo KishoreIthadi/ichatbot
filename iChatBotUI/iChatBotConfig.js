@@ -32,7 +32,7 @@ var iChatBotConfig =
     "ChatQueryIconImagePath": "",
     "ChatQueryIconCSSClass": "",
 
-    // Can either have FA icon or custom image
+    // Can either have FA icon or custom image 
     "ChatResponseIconFAClass": "fa fa-user-circle fa-2x",
     "ChatResponseIconImagePath": "",
     "ChatResponseIconCSSClass": ""
