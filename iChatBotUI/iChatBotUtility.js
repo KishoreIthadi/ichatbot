@@ -18,51 +18,69 @@ var iChatBotUtility = (function () {
     var _userEvent = null;
     var _userSelections = new Array();
 
-    var isNullOrEmpty = function isNullOrEmptyFun(value) {
+    var isNullOrEmptyFun = function isNullOrEmpty(value) {
         return (!value || value == undefined || value == "" || value.length == 0);
     }
 
     var validateConfigFun = function validateConfiguration() {
-        var errorMessage = ""; 
-      
+        var errorMessage = "";
+
         // Checks the Configuration js file for essential properties to be defined.
-        if (_gConfig.IntialQueryID == undefined) {  errorMessage += "IntialQueryID, " ;
-        }  if (_gConfig.DataSetURL == undefined) {  errorMessage += "DataSetURL, " ;
-        }  if (_gConfig.DataSetFilePath == undefined) { errorMessage += "DataSetFilePath, " ;
-        }  if (_gConfig.UserMsgMinLen == undefined) {   errorMessage += "UserMsgMinLen, " ;
-        }  if (_gConfig.UserMsgMaxLen == undefined) {   errorMessage += "UserMsgMaxLen, " ;
-        }  if (_gConfig.Title == undefined) {   errorMessage += "Title  " ;
-
-        }  if (_gConfig.iChatBotHeight == undefined) {  errorMessage += "iChatBotHeight, " ;
-        }  if (_gConfig.iChatBotWidth == undefined) {   errorMessage += "iChatBotWidth, " ;
-
-        }  if (_gConfig.iChatBotBackgroundColor == undefined) { errorMessage += "iChatBotBackgroundColor, " ;
-        }  if (_gConfig.MessagesBackgroundColor == undefined) { errorMessage += "MessagesBackgroundColor, " ;
-
-        }  if (_gConfig.FloatingIconFAClass == undefined) { errorMessage += "FloatingIconFAClass, " ;
-        }  if (_gConfig.FloatingIconImagePath == undefined) {   errorMessage += "FloatingIconImagePath, " ;
-        }  if (_gConfig.FloatingIconCSSClass == undefined) {    errorMessage += "FloatingIconCSSClass, " ;
-            
-        }  if (_gConfig.ResetFAClass == undefined) {    errorMessage += "ResetFAClass, " ;
-        }  if (_gConfig.ResetImagePath == undefined) {  errorMessage += "ResetImagePath, " ;
-        }  if (_gConfig.ResetCSSClass == undefined) {   errorMessage += "ResetCSSClass, " ;
-
-        }  if (_gConfig.CloseFAClass == undefined) {    errorMessage += "CloseFAClass, " ;
-        }  if (_gConfig.CloseImagePath == undefined) {  errorMessage += "CloseImagePath, " ;
-        }  if (_gConfig.CloseCSSClass == undefined) {   errorMessage += "CloseCSSClass, " ;
-
-        }  if (_gConfig.ChatQueryIconFAClass == undefined) {   errorMessage += "ChatQueryIconFAClass, " ;
-        }  if (_gConfig.ChatQueryIconImagePath == undefined) {    errorMessage += "ChatQueryIconImagePath, ";
-        }  if (_gConfig.ChatQueryIconCSSClass == undefined) {    errorMessage += "ChatQueryIconCSSClass, " ; 
-
-        }  if (_gConfig.ChatResponseIconFAClass == undefined) {    errorMessage += "ChatResponseIconFAClass, " ;
-        }  if (_gConfig.ChatResponseIconImagePath == undefined) {   errorMessage += "ChatResponseIconImagePath, " ;
-        }  if (_gConfig.ChatResponseIconCSSClass == undefined) {   errorMessage += "ChatResponseIconCSSClass " ;
+        if (_gConfig.IntialQueryID == undefined) {
+            errorMessage += "IntialQueryID, ";
+        } if (_gConfig.DataSetURL == undefined) {
+            errorMessage += "DataSetURL, ";
+        } if (_gConfig.DataSetFilePath == undefined) {
+            errorMessage += "DataSetFilePath, ";
+        } if (_gConfig.UserMsgMinLen == undefined) {
+            errorMessage += "UserMsgMinLen, ";
+        } if (_gConfig.UserMsgMaxLen == undefined) {
+            errorMessage += "UserMsgMaxLen, ";
+        } if (_gConfig.Title == undefined) {
+            errorMessage += "Title  ";
+        } if (_gConfig.iChatBotHeight == undefined) {
+            errorMessage += "iChatBotHeight, ";
+        } if (_gConfig.iChatBotWidth == undefined) {
+            errorMessage += "iChatBotWidth, ";
+        } if (_gConfig.iChatBotBackgroundColor == undefined) {
+            errorMessage += "iChatBotBackgroundColor, ";
+        } if (_gConfig.MessagesBackgroundColor == undefined) {
+            errorMessage += "MessagesBackgroundColor, ";
+        } if (_gConfig.FloatingIconFAClass == undefined) {
+            errorMessage += "FloatingIconFAClass, ";
+        } if (_gConfig.FloatingIconImagePath == undefined) {
+            errorMessage += "FloatingIconImagePath, ";
+        } if (_gConfig.FloatingIconCSSClass == undefined) {
+            errorMessage += "FloatingIconCSSClass, ";
+        } if (_gConfig.ResetFAClass == undefined) {
+            errorMessage += "ResetFAClass, ";
+        } if (_gConfig.ResetImagePath == undefined) {
+            errorMessage += "ResetImagePath, ";
+        } if (_gConfig.ResetCSSClass == undefined) {
+            errorMessage += "ResetCSSClass, ";
+        } if (_gConfig.CloseFAClass == undefined) {
+            errorMessage += "CloseFAClass, ";
+        } if (_gConfig.CloseImagePath == undefined) {
+            errorMessage += "CloseImagePath, ";
+        } if (_gConfig.CloseCSSClass == undefined) {
+            errorMessage += "CloseCSSClass, ";
+        } if (_gConfig.ChatQueryIconFAClass == undefined) {
+            errorMessage += "ChatQueryIconFAClass, ";
+        } if (_gConfig.ChatQueryIconImagePath == undefined) {
+            errorMessage += "ChatQueryIconImagePath, ";
+        } if (_gConfig.ChatQueryIconCSSClass == undefined) {
+            errorMessage += "ChatQueryIconCSSClass, ";
+        } if (_gConfig.ChatResponseIconFAClass == undefined) {
+            errorMessage += "ChatResponseIconFAClass, ";
+        } if (_gConfig.ChatResponseIconImagePath == undefined) {
+            errorMessage += "ChatResponseIconImagePath, ";
+        } if (_gConfig.ChatResponseIconCSSClass == undefined) {
+            errorMessage += "ChatResponseIconCSSClass ";
         }
-        
+
         // Error message is thrown.
-        if(errorMessage!=""){
-            throw errorMessage+' are missing in the Configurations. Please check.';
+        if (errorMessage != "") {
+            throw errorMessage + ' are missing in the Configurations. Please check.';
         }
     }
 
@@ -84,43 +102,45 @@ var iChatBotUtility = (function () {
     var renderHTMLTemplateFun = function RenderHTMLTemplate() {
 
         // Main chatbot height, width and background color
-        var ichatbotstyle = "style='height:" + _gConfig.iChatBotHeight + ";width:" + _gConfig.iChatBotWidth +
-            ";background-color:" + _gConfig.iChatBotBackgroundColor + ";' ";
+        var ichatbotStyle = "style='background-color:" + _gConfig.iChatBotBackgroundColor + ";' ";
+        var ichatbotMessageStyle = "style='background-color:" + _gConfig.MessagesBackgroundColor + " ;height:" +
+            _gConfig.iChatBotHeight + ";width:" + _gConfig.iChatBotWidth + ";' ";
+
 
         var floatingIcon = "";
         var resetIcon = "";
         var closeIcon = "";
 
         // Floating icon
-        if (!isNullOrEmpty(_gConfig.FloatingIconFAClass)) {
+        if (!isNullOrEmptyFun(_gConfig.FloatingIconFAClass)) {
             floatingIcon = " <i class='" + _gConfig.FloatingIconFAClass + "'></i> ";;
         }
-        else if (!isNullOrEmpty(_gConfig.FloatingIconImagePath)) {
-            var cssClass = (!isNullOrEmpty(_gConfig.FloatingIconCSSClass)) ? "class='" + _gConfig.FloatingIconCSSClass + "'" : "";
+        else if (!isNullOrEmptyFun(_gConfig.FloatingIconImagePath)) {
+            var cssClass = (!isNullOrEmptyFun(_gConfig.FloatingIconCSSClass)) ? "class='" + _gConfig.FloatingIconCSSClass + "'" : "";
             floatingIcon = "<img src='" + _gConfig.FloatingIconImagePath + "' " + cssClass + "></img>";
         }
 
         // Reset icon
-        if (!isNullOrEmpty(_gConfig.ResetFAClass)) {
+        if (!isNullOrEmptyFun(_gConfig.ResetFAClass)) {
             resetIcon = "<i class='" + _gConfig.ResetFAClass + "' title='Reset'></i> ";
         }
-        else if (!isNullOrEmpty(_gConfig.ResetImagePath)) {
-            var cssClass = (!isNullOrEmpty(_gConfig.ResetCSSClass)) ? "class='" + _gConfig.ResetCSSClass + "'" : "";
+        else if (!isNullOrEmptyFun(_gConfig.ResetImagePath)) {
+            var cssClass = (!isNullOrEmptyFun(_gConfig.ResetCSSClass)) ? "class='" + _gConfig.ResetCSSClass + "'" : "";
             resetIcon = "<img src='" + _gConfig.ResetImagePath + "' " + cssClass + "></img>";
         }
 
         // Close icon
-        if (!isNullOrEmpty(_gConfig.CloseFAClass)) {
+        if (!isNullOrEmptyFun(_gConfig.CloseFAClass)) {
             closeIcon = " <i class='" + _gConfig.CloseFAClass + "' title='Close'></i> ";;
         }
-        else if (!isNullOrEmpty(_gConfig.CloseImagePath)) {
-            var cssClass = (!isNullOrEmpty(_gConfig.CloseCSSClass)) ? "class='" + _gConfig.CloseCSSClass + "'" : "";
+        else if (!isNullOrEmptyFun(_gConfig.CloseImagePath)) {
+            var cssClass = (!isNullOrEmptyFun(_gConfig.CloseCSSClass)) ? "class='" + _gConfig.CloseCSSClass + "'" : "";
             closeIcon = "<img src='" + _gConfig.CloseImagePath + "' " + cssClass + "></img>";
         }
 
         // Chatbot template along with floating icon
         var htmlTemplate =
-            "<div class='ichatbot' " + ichatbotstyle + "id='ichatbot'>" +
+            "<div class='ichatbot' " + ichatbotStyle + "id='ichatbot'>" +
             "<div class='ichatbot-header'>" +
             "<div class='float-start'>" +
             "<span id='ichatbot-title-head'>" + _gConfig.Title + "</span>" +
@@ -132,7 +152,7 @@ var iChatBotUtility = (function () {
             "</div>" +
             "<div id='ichatbot-container' class='container ichatbot-container'>" +
             "<div id='ichatbot-chat' class='ichatbot-chat'>" +
-            "<div id='ichatbot-messages' style='background-color:" + _gConfig.MessagesBackgroundColor + "' class='ichatbot-messages'>" + "<div></div>" +
+            "<div id='ichatbot-messages' " + ichatbotMessageStyle + " class='ichatbot-messages'>" + "<div></div>" +
             "<div id='ichatbot-message-loading' class='d-flex justify-content-center'>" +
             "<div class='spinner-border' role='status'>" +
             "<span class='sr-only'>Loading...</span>" +
@@ -202,7 +222,7 @@ var iChatBotUtility = (function () {
             else {
                 $(this).removeClass('ichatbot-message-error');
             }
-    
+
             $("#ichatbot-char-count").text(charCount + '/' + e.target.maxLength);
         });
 
@@ -264,11 +284,11 @@ var iChatBotUtility = (function () {
         var chatQueryIcon;
 
         // Picks either the FA user icon, or Image user icon for chat messages. 
-        if (!isNullOrEmpty(_gConfig.ChatQueryIconFAClass)) {
+        if (!isNullOrEmptyFun(_gConfig.ChatQueryIconFAClass)) {
             chatQueryIcon = "<i class='" + _gConfig.ChatQueryIconFAClass + "'></i>";
         }
-        else if (!isNullOrEmpty(_gConfig.ChatQueryIconImagePath)) {
-            var cssClass = (!isNullOrEmpty(_gConfig.ChatQueryIconCSSClass)) ? "class='" + _gConfig.ChatQueryIconCSSClass + "'" : "";
+        else if (!isNullOrEmptyFun(_gConfig.ChatQueryIconImagePath)) {
+            var cssClass = (!isNullOrEmptyFun(_gConfig.ChatQueryIconCSSClass)) ? "class='" + _gConfig.ChatQueryIconCSSClass + "'" : "";
             chatQueryIcon = "<img decoding  src='" + _gConfig.ChatQueryIconImagePath + "' class='" + cssClass + "'></img>  ";
         }
         // Template for Chat message
@@ -296,11 +316,11 @@ var iChatBotUtility = (function () {
         var chatResponseIcon = "";
 
         // Picks either the FA user icon, or Image user icon for chat messages. 
-        if (!isNullOrEmpty(_gConfig.ChatResponseIconFAClass)) {
+        if (!isNullOrEmptyFun(_gConfig.ChatResponseIconFAClass)) {
             chatResponseIcon = "<i class='" + _gConfig.ChatResponseIconFAClass + "'></i>";
         }
-        else if (!isNullOrEmpty(_gConfig.ChatResponseIconImagePath)) {
-            var cssClass = (!isNullOrEmpty(_gConfig.ChatResponseIconCSSClass)) ? "class='" + _gConfig.ChatResponseIconCSSClass + "'" : "";
+        else if (!isNullOrEmptyFun(_gConfig.ChatResponseIconImagePath)) {
+            var cssClass = (!isNullOrEmptyFun(_gConfig.ChatResponseIconCSSClass)) ? "class='" + _gConfig.ChatResponseIconCSSClass + "'" : "";
             chatResponseIcon = "<img decoding  src='" + _gConfig.ChatResponseIconImagePath + "' class='" + cssClass + "'></img>  ";
         }
 
@@ -326,7 +346,7 @@ var iChatBotUtility = (function () {
     var loadDataSetFun = function LoadDataset(iChatBotConfig) {
         var result;
 
-        if (isNullOrEmpty(_gConfig.DataSetFilePath)) {
+        if (isNullOrEmptyFun(_gConfig.DataSetFilePath)) {
             $.ajax({
                 url: iChatBotConfig.DataSetFilePath,
                 async: false,
@@ -335,7 +355,7 @@ var iChatBotUtility = (function () {
                 }
             });
         }
-        else if (isNullOrEmpty(_gConfig.DataSetURL)) {
+        else if (isNullOrEmptyFun(_gConfig.DataSetURL)) {
             //TODO : user to call API
             // _gDataset = ;
         }
