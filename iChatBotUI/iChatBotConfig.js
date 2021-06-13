@@ -5,7 +5,7 @@ var iChatBotConfig =
     "UserMsgMaxLen": "50",
     "Title": "iChatBot",
     "TitleCSSClass": "font-bold-true",
-    "DisableSelectedButton": "TRUE",
+    "DisableSelectedButton": true,
 
     "iChatBotHeight": "400px",
     "iChatBotWidth": "400px",

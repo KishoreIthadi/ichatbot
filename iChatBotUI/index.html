@@ -26,12 +26,29 @@
             // iChatbotConfig and IchatbotDataset are loaded from iChatBotConfig.js and iChatBotDataset.js
             iChatBotUtility.Initialize(iChatBotConfig, iChatBotDataset);
 
-            var userFunction = function UserSelection(data) {
-                console.log('ichatbot : user evernt fired')
+            //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
+            var userTextEvent = function UserText(data) {
+                console.log('ichatbot : user text input event fired')
                 console.log(data);
             }
 
-            iChatBotUtility.subscribeEvent(userFunction);
+            var buttonClickEvent = function ButtonClick(data) {
+                console.log('ichatbot : user button click event fired')
+                console.log(data);
+            }
+
+            var resetEvent = function Reset(data) {
+                console.log('ichatbot : chat reset event fired')
+                console.log(data);
+            }
+
+            var closeEvent = function Close(data) {
+                console.log('ichatbot : chat close event fired')
+                console.log(data);
+            }
+
+            iChatBotUtility.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent);
+
         });
     </script>
 

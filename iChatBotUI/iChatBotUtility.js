@@ -16,7 +16,7 @@ var iChatBotUtility = (function () {
     var _gConfig = null;
     var _gDataset = null;
 
-    var _userEvent = null;
+    var _userTextEvent = null;
     var _chatCloseEvent = null;
     var _chatResetEvent = null;
     var _chatButtonClickEvent = null;
@@ -38,8 +38,6 @@ var iChatBotUtility = (function () {
         renderHTMLTemplateFun();
         registerEventsFun();
         loadQueryFun(_gConfig.IntialQueryID);
-
-        _chatSession.push({ "QueryID": _gConfig.IntialQueryID });
     }
 
     var validateConfigFun = function ValidateConfiguration() {
@@ -194,11 +192,15 @@ var iChatBotUtility = (function () {
 
         $("#ichatbot-close").click(function () {
             $('#ichatbot').removeClass('ichatbot-show');
+            _chatSession.push({ "Close": "UserClose" });
+            fireChatCloseEventFun();
         });
 
         // Function that captures the reset button's click
         $("#ichatbot-reset").click(function () {
             iChatBotUtility.ResetChat();
+            _chatSession.push({ "Reset": "UserReset" });
+            fireChatResetEventFun();
         });
 
         // Event for handling user input 
@@ -209,18 +211,11 @@ var iChatBotUtility = (function () {
                 var minLength = e.target.minLength;
 
                 if (charCount >= minLength) {
-                    // Creating chat template
                     userResponseDisplayFun(input);
 
-                    // var queryID = (_chatSession[_chatSession.length - 1]).ID;
-                    // var selectedQuery = _gDataset.Responses.find(x => x.ID == Query);
+                    _chatSession.push({ "UserTextInput": input });
 
-                    // if (isNullOrEmptyFun(selectedQuery.QueryID)) {
-
-                    // }
-                    // else { }
-                    // Passing the user response to subscribed event
-                    fireUserEventFun(e.target.value);
+                    fireUserTextEventFun();
                 }
 
                 e.target.disabled = true;
@@ -258,8 +253,8 @@ var iChatBotUtility = (function () {
                 _chatSession.push(response);
 
                 // Makes sure that Subscribed events are fired only when it's relative check is true. 
-                if (response != null && !isNullOrEmptyFun(response.FireSubscribedEvent) && response.FireSubscribedEvent == "TRUE") {
-                    fireUserEventFun(response);
+                if (response != null && !isNullOrEmptyFun(response.FireSubscribedEvent) && response.FireSubscribedEvent == true) {
+                    fireUserButtonClickEventFun();
                 }
             }
         });
@@ -275,7 +270,7 @@ var iChatBotUtility = (function () {
 
         // Disabling the selected clickable buttons
         if (!isNullOrEmptyFun(_gConfig.DisableSelectedButton)) {
-            if (_gConfig.DisableSelectedButton == "TRUE") {
+            if (_gConfig.DisableSelectedButton == true) {
 
                 var clickableButtons = document.getElementsByClassName("ichatbotbtn");
 
@@ -290,8 +285,10 @@ var iChatBotUtility = (function () {
         var query = _gDataset.Queries.find(x => x.ID == id);
         var queryText = query.Query;
 
+        _chatSession.push(query);
+
         // Taking care of input container to be set on and off.
-        if (query.Enabletext == "TRUE") {
+        if (query.Enabletext == true) {
             document.getElementById("ichatbot-message").disabled = false;
         }
         else {
@@ -304,9 +301,6 @@ var iChatBotUtility = (function () {
 
         var templateGenerated = '';
 
-        // For Links and Text, the last QueryID form the list will be selected 
-        var nextQueryID = "";
-
         // Are being sent to a format function, to be parsed correctly. 
         if (!isNullOrEmptyFun(query.Response)) {
 
@@ -316,11 +310,10 @@ var iChatBotUtility = (function () {
             responseIDS.forEach(element => {
                 var response = _gDataset.Responses.find(x => x.ID == element);
                 if (response.Type == "Button") {
-                    templateGenerated += buttonTemplate.format(element, response.FireSubscribedEvent == "False" ? response.Query : '', response.Response);
+                    templateGenerated += buttonTemplate.format(element, response.Query, response.Response);
                 }
                 else if (response.Type == "Link") {
                     templateGenerated += linkTemplate.format(response.Response, !isNullOrEmptyFun(response.LinkTitle) ? response.LinkTitle : "link");
-                    nextQueryID = response.Query;
                 }
             });
         }
@@ -351,8 +344,10 @@ var iChatBotUtility = (function () {
             document.getElementById("ichatbot-message-loading").scrollIntoView();
         }, 600);
 
-        if (nextQueryID != "") {
-            loadQueryFun(nextQueryID);
+        if (!isNullOrEmptyFun(query.QueryID)) {
+            if (query.QueryID != "") {
+                loadQueryFun(query.QueryID);
+            }
         }
     }
 
@@ -400,12 +395,27 @@ var iChatBotUtility = (function () {
         return result;
     }
 
-    var SubscribeEventFun = function subscribeEvent(func) {
-        _userEvent = func;
+    var SubscribeEventFun = function subscribeEvent(userTextEvent, buttonClickEvent, chatResetEvent, chatCloseEvent) {
+        _userTextEvent = userTextEvent;
+        _chatButtonClickEvent = buttonClickEvent;
+        _chatResetEvent = chatResetEvent;
+        _chatCloseEvent = chatCloseEvent;
     }
 
-    var fireUserEventFun = function FireUserEvent(data) {
-        _userEvent(_chatSession);
+    var fireUserTextEventFun = function FireUserTextEvent() {
+        _userTextEvent(_chatSession);
+    }
+
+    var fireChatResetEventFun = function FireChatResetEvent() {
+        _chatResetEvent(_chatSession);
+    }
+
+    var fireChatCloseEventFun = function FireChatCloseEvent() {
+        _chatCloseEvent(_chatSession);
+    }
+
+    var fireUserButtonClickEventFun = function FireUserButtonClickEvent() {
+        _chatButtonClickEvent(_chatSession);
     }
 
     return {
