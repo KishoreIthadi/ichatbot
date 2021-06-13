@@ -24,7 +24,6 @@ body {
 
 .ichatbot {
   border: 1px solid #b0b0b0;
-  font-weight: 600;
   bottom: 5px;
   display: none;
   position: fixed;
@@ -80,6 +79,10 @@ body {
   clear: both;
 }
 
+.ichatbot-options > a{
+  display: inline-block;
+}
+
 .ichatbot-options span {
   margin: 5px;
 }
@@ -99,7 +102,7 @@ body {
   box-shadow: 0 0 1px 0.07rem rgb(255, 0, 0) !important;
 }
 
-.disabled-options {
+.disabled-buttons {
   opacity: 0.4;
   pointer-events: none;
 }
@@ -110,6 +113,11 @@ body {
 
 .mar-right-5px {
   margin-right: 5px;
+}
+
+.mar-left-right-7px {
+  margin-left: 7px;
+  margin-right: 7px;;
 }
 
 .font-bold-true {

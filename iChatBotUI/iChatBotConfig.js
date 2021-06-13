@@ -1,39 +1,44 @@
 var iChatBotConfig =
 {
     "IntialQueryID": 1,
-    "DataSetURL": "",
-    "DataSetFilePath": "/iChatBotUI/iChatBotDataset.js",
     "UserMsgMinLen": "5",
     "UserMsgMaxLen": "50",
     "Title": "iChatBot",
+    "TitleCSSClass": "font-bold-true",
+    "DisableSelectedButton": "TRUE",
 
-    "iChatBotHeight": "510px",
+    "iChatBotHeight": "400px",
     "iChatBotWidth": "400px",
-    "iChatBotBackgroundColor": "#ffffff",
+    "iChatBotBackgroundColor": "rgb(255, 255, 255)",
     "MessagesBackgroundColor": "rgb(232, 238, 238)",
 
-    // Can either have FA icon or custom image
+    "ButtonCSSClass": "badge rounded-pill bg-info text-dark",
+    "LinkCSSClass": "mar-left-right-7px font-bold-true",
+
+    //Set FloatingIconFAClass or FloatingIconImagePath along with FloatingIconCSSClass(optional)
     "FloatingIconFAClass": "fa fa-comment-dots fa-3x",
     "FloatingIconImagePath": "",
-    "FloatingIconCSSClass": "", // Class will be applied to floating icon
+    "FloatingIconCSSClass": "",
 
-    // Can either have FA icon or custom image
+    //Set ResetFAClass or ResetImagePath along with ResetCSSClass(optional)
     "ResetFAClass": "fa fa-sync fa-1x",
     "ResetImagePath": "",
-    "ResetCSSClass": "", // Class will be applied to floating icon
+    "ResetCSSClass": "",
 
-    // Can either have FA icon or custom image
+    //Set CloseFAClass or CloseImagePath along with CloseCSSClass(optional)
     "CloseFAClass": "fa fa-times fa-1x",
     "CloseImagePath": "",
     "CloseCSSClass": "",
 
-    // Can either have FA icon or custom image
+    //Set ChatQueryIconFAClass or ChatQueryIconImagePath along with ChatQueryIconCSSClass(optional)
     "ChatQueryIconFAClass": "fa fa-user-circle fa-2x",
     "ChatQueryIconImagePath": "",
     "ChatQueryIconCSSClass": "",
+    "ChatMessageCSSClass": "ichatbot-message-text font-bold-true",
 
-    // Can either have FA icon or custom image 
+    //Set ChatResponseIconFAClass or ChatResponseIconImagePath along with ChatResponseIconCSSClass(optional)
     "ChatResponseIconFAClass": "fa fa-user-circle fa-2x",
     "ChatResponseIconImagePath": "",
-    "ChatResponseIconCSSClass": ""
+    "ChatResponseIconCSSClass": "",
+    "ChatResponseCSSClass": "",
 }
