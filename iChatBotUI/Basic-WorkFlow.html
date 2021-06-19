@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> iChatBot </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/brands.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/fontawesome.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="iChatBotStyle.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+
+    <script src="iChatBotConfig.js"></script>
+    <script src="iChatBotDataset-Basic-WorkFlow.js"></script>
+    <script src="iChatBotUtility.js"></script>
+
+</head>
+
+<body>
+    <div id="ichatbot-container">
+    </div>
+
+    <script>
+        // iChatbotConfig and IchatbotDataset are loaded from iChatBotConfig.js and iChatBotDataset.js
+        iChatBotUtility.Initialize(iChatBotConfig, iChatBotDataset);
+
+        //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
+        var userTextEvent = function UserText(data) {
+            console.log('ichatbot : user text input event fired')
+            console.log(data);
+        }
+
+        var buttonClickEvent = function ButtonClick(data) {
+            console.log('ichatbot : user button click event fired')
+            console.log(data);
+        }
+
+        var resetEvent = function Reset(data) {
+            console.log('ichatbot : chat reset event fired')
+            console.log(data);
+        }
+
+        var closeEvent = function Close(data) {
+            console.log('ichatbot : chat close event fired')
+            console.log(data);
+        }
+
+        iChatBotUtility.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent);
+
+    </script>
+</body>
+
+</html>

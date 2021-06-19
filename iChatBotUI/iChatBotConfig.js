@@ -40,5 +40,13 @@ var iChatBotConfig =
     "ChatResponseIconFAClass": "fa fa-user-circle fa-2x",
     "ChatResponseIconImagePath": "",
     "ChatResponseIconCSSClass": "",
-    "ChatResponseCSSClass": "",
+    "ChatResponseCSSClass": "ichatbot-message-text mar-right-5px font-bold-true",
+
+    //Set classes for loader
+
+
+    "SearchNotFoundMsg": "Keyword not found!!",
+
+    "ResetChatHistoryOnReset": true,
+    "ResetChatHistoryOnClose": true
 }
