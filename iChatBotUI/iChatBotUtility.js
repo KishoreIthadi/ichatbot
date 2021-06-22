@@ -11,11 +11,12 @@ var iChatBotUtility = (function () {
 
     var _chatSession = new Array();
 
+    // Checks if the variable is undefine/null/empty
     var isNullOrEmptyFun = function IsNullOrEmpty(value) {
-        return (value == undefined || value == "" || value.length == 0);
+        return (value == undefined || value == "" || value.length == 0) || value == null;
     }
 
-    // Function for string parsing with arguments 
+    // String parsing with arguments 
     String.prototype.format = function () {
         var formatted = this;
         for (var i = 0; i < arguments.length; i++) {
@@ -25,9 +26,8 @@ var iChatBotUtility = (function () {
         return formatted;
     };
 
-    // Initialize function is the start point, takes care of dataset loads, configurations, rendering template.
+    // Initialize function is the starting point. Setting dataset, configurations and rendering popup template.
     var intializeFun = function Initialize(config, dataset) {
-
         _gConfig = config;
         _gDataset = dataset;
 
@@ -35,9 +35,11 @@ var iChatBotUtility = (function () {
 
         renderHTMLTemplateFun();
         registerEventsFun();
+
         loadQueryFun(_gConfig.IntialQueryID);
     }
 
+    //Validates all the required and optional configurations
     var validateConfigFun = function ValidateConfiguration() {
 
         if (isNullOrEmptyFun(_gConfig)) {
@@ -53,10 +55,10 @@ var iChatBotUtility = (function () {
         }
 
         // Console warnings if any of CSS attributes miss, such as heights, colors. 
-        if (isNullOrEmptyFun(_gConfig.UserMsgMinLen)) {
-            console.warn("iChatBot : UserMsgMinLen property is undefined or null");
-        } if (isNullOrEmptyFun(_gConfig.UserMsgMaxLen)) {
-            console.warn("iChatBot : UserMsgMaxLen property is undefined or null");
+        if (isNullOrEmptyFun(_gConfig.UserInputMinLen)) {
+            console.warn("iChatBot : UserInputMinLen property is undefined or null");
+        } if (isNullOrEmptyFun(_gConfig.UserInputMaxLen)) {
+            console.warn("iChatBot : UserInputMaxLen property is undefined or null");
         } if (isNullOrEmptyFun(_gConfig.Title)) {
             console.warn("iChatBot : Title property is undefined or null");
         } if (isNullOrEmptyFun(_gConfig.iChatBotHeight)) {
@@ -90,23 +92,35 @@ var iChatBotUtility = (function () {
         }
 
         // Chat response icons, in message template
-        if (isNullOrEmptyFun(_gConfig.ChatResponseIconFAClass) && isNullOrEmptyFun(_gConfig.ChatResponseIconImagePath)) {
+        if (isNullOrEmptyFun(_gConfig.ChatUserInputIconFAClass) && isNullOrEmptyFun(_gConfig.ChatUserInputIconImagePath)) {
             console.error("iChatBot : Set either ChatResponseIconFAClass or ChatResponseIconImagePath property");
         }
-
-        // if (_gConfig.textSearchMessageInvalid == undefined) {
-        //     warningMessage += "textSearchMessageInvalid ";
-        // }
-
-        // if (_gConfig.textSearchMessageUnmatched == undefined) {
-        //     warningMessage += "textSearchMessageUnmatched ";
-        // }
-        // if (_gConfig.flowControlForInvalid == undefined) {
-        //     warningMessage += "flowControlForInvalid ";
-        // }
     }
 
-    // Function to render ichatbot html tempalte into user created #ichatbot div  
+    // Creates query template with options
+    var createQueryTemplateFun = function createQueryTemplate() {
+        var chatQueryIcon;
+
+        // Picks either the FA user icon, or Image user icon for chat messages. 
+        if (!isNullOrEmptyFun(_gConfig.ChatQueryIconFAClass)) {
+            chatQueryIcon = "<i class='" + _gConfig.ChatQueryIconFAClass + "'></i>";
+        }
+        else if (!isNullOrEmptyFun(_gConfig.ChatQueryIconImagePath)) {
+            var cssClass = (!isNullOrEmptyFun(_gConfig.ChatQueryIconCSSClass)) ? "class='" + _gConfig.ChatQueryIconCSSClass + "'" : "";
+            chatQueryIcon = "<img decoding  src='" + _gConfig.ChatQueryIconImagePath + "' class='" + cssClass + "'></img>  ";
+        }
+        // Template for Chat message
+        var template = "<div class='d-flex justify-content-start mar-top-bottom-5px'>" +
+            chatQueryIcon +
+            "<span id='{0}' class='{1}'>{2}</span>" +
+            "</div>" +
+            "<div id='ichatbot-options' class='ichatbot-options'>{3}</div>" +
+            "</div>";
+
+        return template;
+    }
+
+    // Renders ichatbot html tempalte into user created #ichatbot-div  
     var renderHTMLTemplateFun = function RenderHTMLTemplate() {
 
         // Main chatbot height, width and background color
@@ -157,33 +171,31 @@ var iChatBotUtility = (function () {
             "<a href='#' id='ichatbot-close'>" + closeIcon + "</a>" +
             "</div>" +
             "</div>" +
-            "<div id='ichatbot-container' class='container ichatbot-container'>" +
+            "<div class='ichatbot-container'>" +
             "<div id='ichatbot-chat' class='ichatbot-chat'>" +
-            "<div id='ichatbot-messages' " + ichatbotMessageStyle + " class='ichatbot-messages'>" + "<div></div>" +
-            "<div id='ichatbot-message-loading' class='d-flex justify-content-center'>" +
-            "<div class='spinner-border' role='status'>" +
-            "<span class='sr-only'>Loading...</span>" +
-            "</div>" +
+            "<div id='ichatbot-chat-inner-div' " + ichatbotMessageStyle + " class='ichatbot-chat-inner-div'>" + "<div></div>" +
+            "<div id='ichatbot-loader' class='d-flex justify-content-center'>" +
+            "<div class='loader'></div>" +
             "</div>" +
             "</div>" +
             "</div>" +
             "</div>" +
             "<div class='ichatbot-footer'>" +
             "<div id='ichatbot-char-count' class='ichatbot-char-count float-end'>" +
-            "0/" + _gConfig.UserMsgMaxLen + "</div>" +
-            "<input id='ichatbot-message' type='text' class='float-start form-control' disabled " +
-            "minlength='" + _gConfig.UserMsgMinLen + "' maxlength='" + _gConfig.UserMsgMaxLen + "' " +
+            "0/" + _gConfig.UserInputMaxLen + "</div>" +
+            "<input id='ichatbot-userinput' type='text' class='chatbot-userinput' disabled " +
+            "minlength='" + _gConfig.UserInputMinLen + "' maxlength='" + _gConfig.UserInputMaxLen + "' " +
             "autocomplete='off'>" +
             "</div>" +
             "</div>" +
-            " <a href='#' id='ichatbot-floating-Icon' class='ichatbot-floating-icon'>" + floatingIcon + "</a>";
+            "<a href='#' id='ichatbot-floating-Icon' class='ichatbot-floating-icon'>" + floatingIcon + "</a>";
 
-        document.getElementById("ichatbot-container").innerHTML = htmlTemplate;
+        document.getElementById("ichatbot-div").innerHTML = htmlTemplate;
     }
 
     var registerEventsFun = function RegisterEvents() {
 
-        document.getElementById("ichatbot-message")
+        document.getElementById("ichatbot-userinput")
             .addEventListener("keydown", function (e) {
 
                 if (e.code === "Enter" || e.code === "NumpadEnter") {
@@ -196,7 +208,7 @@ var iChatBotUtility = (function () {
                         e.target.disabled = true;
                         e.target.value = "";
 
-                        userResponseDisplayFun(input);
+                        userInputDisplayFun(input);
                         _chatSession.push({ "UserTextInput": input });
 
                         var queryID = "";
@@ -235,23 +247,7 @@ var iChatBotUtility = (function () {
                                 }
                                 else {
 
-                                    //TODO : check test already exists
-                                    var ichatBotErrorMsg = {
-                                        "ID": "IchatBotErrorMsg",
-                                        "Query": _gConfig.SearchNotFoundMsg,
-                                        "Response": "",
-                                        "Enabletext": false,
-                                        "QueryID": "",
-                                        "SearchInQueries": false,
-                                        "SearchKeywords": "",
-                                        "FireTextChangeEvent": false,
-                                    }
-
-                                    if (!_gDataset.Queries.find(x => x.ID == "IchatBotErrorMsg")) {
-                                        _gDataset.Queries.push(ichatBotErrorMsg);
-                                    }
-
-                                    loadQueryFun("IchatBotErrorMsg");
+                                    loadQueryFun(simpleQueryFun(_gConfig.SearchNotFoundMsg));
                                     loadQueryFun(query.ID);
                                 }
                             }
@@ -267,16 +263,16 @@ var iChatBotUtility = (function () {
             });
 
         // Event for handling the character count
-        document.getElementById("ichatbot-message")
+        document.getElementById("ichatbot-userinput")
             .addEventListener("keyup", function (e) {
                 var charCount = e.target.value.length;
                 var minLength = e.target.minLength;
 
                 if (charCount < minLength) {
-                    e.target.classList.add('ichatbot-message-error');
+                    e.target.classList.add('ichatbot-userinput-error');
                 }
                 else {
-                    e.target.classList.remove('ichatbot-message-error');
+                    e.target.classList.remove('ichatbot-userinput-error');
                 }
 
                 document.getElementById("ichatbot-char-count").innerHTML = charCount + '/' + e.target.maxLength;
@@ -314,7 +310,7 @@ var iChatBotUtility = (function () {
             return;
         }
 
-        document.getElementById("ichatbot-message-loading").style.visibility = "visible";
+        document.getElementById("ichatbot-loader").style.visibility = "visible";
 
         // Disabling the selected clickable buttons
         if (!isNullOrEmptyFun(_gConfig.DisableSelectedButton)) {
@@ -337,10 +333,10 @@ var iChatBotUtility = (function () {
 
         // Taking care of input container to be set on and off.
         if (query.Enabletext == true) {
-            document.getElementById("ichatbot-message").disabled = false;
+            document.getElementById("ichatbot-userinput").disabled = false;
         }
         else {
-            document.getElementById("ichatbot-message").disabled = true;
+            document.getElementById("ichatbot-userinput").disabled = true;
         }
 
         // The templates that generates Buttons, Link.
@@ -366,30 +362,14 @@ var iChatBotUtility = (function () {
             });
         }
 
-        var chatQueryIcon;
-
-        // Picks either the FA user icon, or Image user icon for chat messages. 
-        if (!isNullOrEmptyFun(_gConfig.ChatQueryIconFAClass)) {
-            chatQueryIcon = "<i class='" + _gConfig.ChatQueryIconFAClass + "'></i>";
-        }
-        else if (!isNullOrEmptyFun(_gConfig.ChatQueryIconImagePath)) {
-            var cssClass = (!isNullOrEmptyFun(_gConfig.ChatQueryIconCSSClass)) ? "class='" + _gConfig.ChatQueryIconCSSClass + "'" : "";
-            chatQueryIcon = "<img decoding  src='" + _gConfig.ChatQueryIconImagePath + "' class='" + cssClass + "'></img>  ";
-        }
         // Template for Chat message
-        var chatTemplate = "<div class='ichatbot-message-template'>" +
-            "<div class='d-flex justify-content-start'>" +
-            chatQueryIcon +
-            "<span id='{0}' class='{1}'>{2}</span>" +
-            "</div>" +
-            "<div id='ichatbot-options' class='ichatbot-options'>{3}</div>" +
-            "</div>";
+        var chatTemplate = createQueryTemplateFun();
 
         setTimeout(() => {
-            document.getElementById("ichatbot-message-loading").style.visibility = "hidden";
-            document.getElementById("ichatbot-messages").getElementsByTagName("div")[0].innerHTML +=
-                chatTemplate.format(query.ID, _gConfig.ChatMessageCSSClass, queryText, templateGenerated);
-            document.getElementById("ichatbot-message-loading").scrollIntoView();
+            document.getElementById("ichatbot-loader").style.visibility = "hidden";
+            document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML +=
+                chatTemplate.format(query.ID, _gConfig.ChatQueryCSSClass, queryText, templateGenerated);
+            document.getElementById("ichatbot-loader").scrollIntoView();
         }, 600);
 
         if (!isNullOrEmptyFun(query.QueryID)) {
@@ -401,38 +381,54 @@ var iChatBotUtility = (function () {
         }
     }
 
-    // Function that handles work after User Responds. 
-    var userResponseDisplayFun = function UserResponseDisplay(userInput) {
+
+    var simpleQueryFun = function simpleQuery(message) {
+        document.getElementById("ichatbot-loader").style.visibility = "visible";
+
+        // Template for Chat message
+        var chatTemplate = createQueryTemplateFun();
+
+        setTimeout(() => {
+            document.getElementById("ichatbot-loader").style.visibility = "hidden";
+            document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML +=
+                chatTemplate.format(null, _gConfig.ChatQueryCSSClass, message, "");
+            document.getElementById("ichatbot-loader").scrollIntoView();
+        }, 600);
+
+        _chatSession.push({ "SimpleQuery": message });
+    }
+
+    var userInputDisplayFun = function UserInputDisplay(userInput) {
         var parsedInput = parseUserInputFun(userInput);
-        var chatResponseIcon = "";
+        var chatUserInputIcon = "";
 
-        // Picks either the FA user icon, or Image user icon for chat messages. 
-        if (!isNullOrEmptyFun(_gConfig.ChatResponseIconFAClass)) {
-            chatResponseIcon = "<i class='" + _gConfig.ChatResponseIconFAClass + "'></i>";
+        // picks either the FA icon, or Image for chat user input display. 
+        if (!isNullOrEmptyFun(_gConfig.ChatUserInputIconFAClass)) {
+            chatUserInputIcon = "<i class='" + _gConfig.ChatUserInputIconFAClass + "'></i>";
         }
-        else if (!isNullOrEmptyFun(_gConfig.ChatResponseIconImagePath)) {
-            var cssClass = (!isNullOrEmptyFun(_gConfig.ChatResponseIconCSSClass)) ? "class='" + _gConfig.ChatResponseIconCSSClass + "'" : "";
-            chatResponseIcon = "<img decoding  src='" + _gConfig.ChatResponseIconImagePath + "' class='" + cssClass + "'></img>  ";
+        else if (!isNullOrEmptyFun(_gConfig.ChatUserInputIconImagePath)) {
+            var cssClass = (!isNullOrEmptyFun(_gConfig.ChatUserInputIconCSSClass)) ? "class='" + _gConfig.ChatUserInputCSSClass + "'" : "";
+            chatUserInputIcon = "<img decoding  src='" + _gConfig.ChatUserInputIconImagePath + "' class='" + cssClass + "'></img>  ";
         }
 
-        // The template for user response
-        var userResponseTemplate = "<div class='ichatbot-message-template'>" +
+        // template for user input
+        var userInputTemplate = "<div class='ichatbot-userinput-template mar-top-bottom-5px'>" +
             "<div class='d-flex justify-content-end'>" +
-            "<span class='" + _gConfig.ChatResponseCSSClass + "'>{0}</span>" +
-            chatResponseIcon +
+            "<span class='" + _gConfig.ChatUserInputCSSClass + "'>{0}</span>" +
+            chatUserInputIcon +
             "</div>";
 
-        document.getElementById("ichatbot-messages").getElementsByTagName("div")[0].innerHTML +=
-            userResponseTemplate.format(parsedInput);
-        document.getElementById("ichatbot-message-loading").scrollIntoView();
+        document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML +=
+            userInputTemplate.format(parsedInput);
+        document.getElementById("ichatbot-loader").scrollIntoView();
     }
 
     // Function that Resets chat
     var resetChatFun = function ResetChat() {
-        document.getElementById("ichatbot-messages").getElementsByTagName("div")[0].innerHTML = "";
-        document.getElementById("ichatbot-char-count").innerHTML = "0/" + _gConfig.UserMsgMaxLen;
-        document.getElementById("ichatbot-message").value = '';
-        document.getElementById("ichatbot-message").classList.remove('ichatbot-message-error');
+        document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML = "";
+        document.getElementById("ichatbot-char-count").innerHTML = "0/" + _gConfig.UserInputMaxLen;
+        document.getElementById("ichatbot-userinput").value = '';
+        document.getElementById("ichatbot-userinput").classList.remove('ichatbot-userinput-error');
 
         _chatSession.push({ "Reset": "UserReset" });
 
@@ -451,10 +447,10 @@ var iChatBotUtility = (function () {
         _chatSession.push({ "Close": "UserClose" });
 
         if (_gConfig.ResetChatHistoryOnClose == true) {
-            document.getElementById("ichatbot-messages").getElementsByTagName("div")[0].innerHTML = "";
-            document.getElementById("ichatbot-char-count").innerHTML = "0/" + _gConfig.UserMsgMaxLen;;
-            document.getElementById("ichatbot-message").value = '';
-            document.getElementById("ichatbot-message").classList.remove('ichatbot-message-error');
+            document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML = "";
+            document.getElementById("ichatbot-char-count").innerHTML = "0/" + _gConfig.UserInputMaxLen;;
+            document.getElementById("ichatbot-userinput").value = '';
+            document.getElementById("ichatbot-userinput").classList.remove('ichatbot-userinput-error');
 
             _chatSession = [];
         }
@@ -480,35 +476,39 @@ var iChatBotUtility = (function () {
         return result;
     }
 
-    var SubscribeEventFun = function subscribeEvent(userTextEvent, buttonClickEvent, chatResetEvent, chatCloseEvent) {
+    var subscribeEventFun = function subscribeEvent(userTextEvent, buttonClickEvent, chatResetEvent, chatCloseEvent) {
         _userTextEvent = userTextEvent;
         _chatButtonClickEvent = buttonClickEvent;
         _chatResetEvent = chatResetEvent;
         _chatCloseEvent = chatCloseEvent;
     }
 
-    var fireUserTextEventFun = function FireUserTextEvent() {
+    var fireUserTextEventFun = function fireUserTextEvent() {
         if (!isNullOrEmptyFun(_userTextEvent)) {
             _userTextEvent(_chatSession);
         }
     }
 
-    var fireChatResetEventFun = function FireChatResetEvent() {
+    var fireChatResetEventFun = function fireChatResetEvent() {
         if (!isNullOrEmptyFun(_chatResetEvent)) {
             _chatResetEvent(_chatSession);
         }
     }
 
-    var fireChatCloseEventFun = function FireChatCloseEvent() {
+    var fireChatCloseEventFun = function fireChatCloseEvent() {
         if (!isNullOrEmptyFun(_chatCloseEvent)) {
             _chatCloseEvent(_chatSession);
         }
     }
 
-    var fireUserButtonClickEventFun = function FireUserButtonClickEvent() {
+    var fireUserButtonClickEventFun = function fireUserButtonClickEvent() {
         if (!isNullOrEmptyFun(_chatButtonClickEvent)) {
             _chatButtonClickEvent(_chatSession);
         }
+    }
+
+    var getChatSessionFun = function getChatSession() {
+        return _chatSession;
     }
 
     return {
@@ -517,8 +517,9 @@ var iChatBotUtility = (function () {
         ResetChat: resetChatFun,
         CloseChat: closeChatFun,
         ShowChat: showChatFun,
-        UserResponseDisplay: userResponseDisplayFun,
-        subscribeEvent: SubscribeEventFun,
+        SubscribeEvent: subscribeEventFun,
+        SimpleQuery: simpleQueryFun,
+        getChatSession: getChatSessionFun
     }
 
 })();

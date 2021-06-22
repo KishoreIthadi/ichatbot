@@ -2,6 +2,19 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+/* iChatBot Styles --------------------------------- */
+
+.ichatbot {
+  border: 1px solid #b0b0b0;
+  bottom: 5px;
+  display: none;
+  position: fixed;
+  right: 30px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Floating Icon Styles ---------------------------- */
+
 .ichatbot-floating-icon {
   z-index: -1;
   position: fixed;
@@ -13,6 +26,8 @@ body {
   display: block !important;
 }
 
+/* Header Styles --------------------------------- */
+
 .ichatbot-header {
   margin: 10px;
   font-size: 20px;
@@ -22,64 +37,42 @@ body {
   text-decoration: none;
 }
 
-.ichatbot {
-  border: 1px solid #b0b0b0;
-  bottom: 5px;
-  display: none;
-  position: fixed;
-  right: 30px;
-  font-family: 'Open Sans', sans-serif;
-  padding-bottom: 10px;
-}
+/* Container Styles --------------------------------- */
 
 .ichatbot-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  padding-right: var(--bs-gutter-x, .75rem);
+  padding-left: var(--bs-gutter-x, .75rem);
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .ichatbot-chat {
   height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
-.ichatbot-messages {
-  display: flex;
-  flex-direction: column;
+.ichatbot-chat-inner-div {
   overflow: scroll;
-  height: 100%;
-  width: 100%;
-  /* background-color: rgb(232, 238, 238); */
   padding: 15px;
   margin: 5px;
   border-radius: 10px;
 }
 
-.ichatbot-messages::-webkit-scrollbar {
+.ichatbot-chat-inner-div::-webkit-scrollbar {
   display: none;
 }
 
-.ichatbot-message-template {
-  padding: 5px;
-}
-
-.ichatbot-message-template i {
-  margin-right: 5px;
-}
-
-.ichatbot-message-text {
-  font-size: medium;
-}
+/* Query Options Styles --------------------------------- */
 
 .ichatbot-options {
   clear: both;
 }
 
-.ichatbot-options > a{
+.ichatbot-options>a {
   display: inline-block;
 }
 
@@ -88,18 +81,8 @@ body {
 }
 
 .ichatbot-footer {
-  width: 100%;
   margin: 0px;
   padding: 0px 10px 10px 10px;
-}
-
-.ichatbot-char-count {
-  font-size: 10px;
-  font-weight: bold;
-}
-
-.ichatbot-message-error {
-  box-shadow: 0 0 1px 0.07rem rgb(255, 0, 0) !important;
 }
 
 .disabled-buttons {
@@ -107,25 +90,128 @@ body {
   pointer-events: none;
 }
 
+.ichatbot-button {
+  display: inline-block;
+  padding: .35em .65em;
+  font-size: .75em;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25rem;
+  background-color: #0dcaf0!important;
+  cursor: pointer;
+}
+
+/* User Input Styles --------------------------------- */
+
+.chatbot-userinput {
+  display: block;
+  width: 99%;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+}
+
+.chatbot-userinput:focus, textarea:focus, select:focus {
+  outline: none;
+}
+
+.ichatbot-char-count {
+  font-size: 10px;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.ichatbot-userinput-template {
+  padding: 5px;
+}
+
+.ichatbot-userinput-template i {
+  margin-right: 5px;
+}
+
+.ichatbot-userinput-error {
+  box-shadow: 0 0 1px 0.07rem rgb(255, 0, 0) !important;
+}
+
+/* Loader Styles ---------------------------------------- */
+
+.loader {
+  border: 5px solid black;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* General Styles --------------------------------------- */
+
 ​​​​​ .pad-right-5px {
   padding-right: 5px;
+}
+
+.mar-top-bottom-5px {
+  margin: 5px 0px 5px 0px;
 }
 
 .mar-right-5px {
   margin-right: 5px;
 }
 
+.mar-left-5px {
+  margin-left: 5px;
+}
+
+.mar-top-3px {
+  margin-top: 3px;
+}
+
 .mar-left-right-7px {
   margin-left: 7px;
-  margin-right: 7px;;
+  margin-right: 7px;
 }
 
 .font-bold-true {
   font-weight: bold;
 }
 
-.popup-button-CSS {
-  position: fixed;
-  bottom: 40px;
-  right: 40px;
+.justify-content-start {
+  justify-content: flex-start!important;
+}
+
+.justify-content-end {
+  justify-content: flex-end!important;
+}
+
+.justify-content-center {
+  justify-content: center!important;
+}
+
+.d-flex {
+  display: flex!important;
+}
+
+.float-start {
+  float: left!important
+}
+
+.float-end {
+  float: right!important;
 }

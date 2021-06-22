@@ -7,14 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/brands.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/fontawesome.min.css">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
     <link rel="stylesheet" href="iChatBotStyle.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-        crossorigin="anonymous"></script>
 
     <script src="iChatBotConfig.js"></script>
     <script src="iChatBotDataset-Basic-WorkFlow.js"></script>
@@ -23,7 +16,7 @@
 </head>
 
 <body>
-    <div id="ichatbot-container">
+    <div id="ichatbot-div">
     </div>
 
     <script>
@@ -51,7 +44,7 @@
             console.log(data);
         }
 
-        iChatBotUtility.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent);
+        iChatBotUtility.SubscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent);
 
     </script>
 </body>

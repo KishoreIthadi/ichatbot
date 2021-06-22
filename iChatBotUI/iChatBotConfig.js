@@ -1,8 +1,8 @@
 var iChatBotConfig =
 {
     "IntialQueryID": 1,
-    "UserMsgMinLen": "5",
-    "UserMsgMaxLen": "50",
+    "UserInputMinLen": "5",
+    "UserInputMaxLen": "50",
     "Title": "iChatBot",
     "TitleCSSClass": "font-bold-true",
     "DisableSelectedButton": true,
@@ -12,8 +12,8 @@ var iChatBotConfig =
     "iChatBotBackgroundColor": "rgb(255, 255, 255)",
     "MessagesBackgroundColor": "rgb(232, 238, 238)",
 
-    "ButtonCSSClass": "badge rounded-pill bg-info text-dark",
-    "LinkCSSClass": "mar-left-right-7px font-bold-true",
+    "ButtonCSSClass": "ichatbot-button",
+    "LinkCSSClass": "mar-left-right-7px",
 
     //Set FloatingIconFAClass or FloatingIconImagePath along with FloatingIconCSSClass(optional)
     "FloatingIconFAClass": "fa fa-comment-dots fa-3x",
@@ -34,13 +34,14 @@ var iChatBotConfig =
     "ChatQueryIconFAClass": "fa fa-user-circle fa-2x",
     "ChatQueryIconImagePath": "",
     "ChatQueryIconCSSClass": "",
-    "ChatMessageCSSClass": "ichatbot-message-text font-bold-true",
+    "ChatQueryCSSClass": "mar-left-5px mar-top-3px",
 
-    //Set ChatResponseIconFAClass or ChatResponseIconImagePath along with ChatResponseIconCSSClass(optional)
-    "ChatResponseIconFAClass": "fa fa-user-circle fa-2x",
-    "ChatResponseIconImagePath": "",
-    "ChatResponseIconCSSClass": "",
-    "ChatResponseCSSClass": "ichatbot-message-text mar-right-5px font-bold-true",
+    //Set ChatUserInpuIconFAClass or ChatUserInputIconImagePath along with ChatUserInputIconCSSClass(optional)
+    "ChatUserInputIconFAClass": "fa fa-user-circle fa-2x",
+    "ChatUserInputIconImagePath": "",
+    "ChatUserInputIconCSSClass": "",
+
+    "ChatUserInputCSSClass": "mar-right-5px mar-top-3px",
 
     //Set classes for loader
 
