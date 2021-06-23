@@ -44,10 +44,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding-right: var(--bs-gutter-x, .75rem);
-  padding-left: var(--bs-gutter-x, .75rem);
-  margin-right: auto;
-  margin-left: auto;
+  padding: var(--bs-gutter-x, .50rem);
 }
 
 .ichatbot-chat {
@@ -109,8 +106,8 @@ body {
 
 .chatbot-userinput {
   display: block;
-  width: 99%;
-  font-size: 1rem;
+  width: 98%;
+  font-size: 1.2rem;
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
@@ -121,6 +118,11 @@ body {
 
 .chatbot-userinput:focus, textarea:focus, select:focus {
   outline: none;
+}
+
+.chatbot-userinput:disabled {
+  background-color: #e9ecef;
+  opacity: 1;
 }
 
 .ichatbot-char-count {

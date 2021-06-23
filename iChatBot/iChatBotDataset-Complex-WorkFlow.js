@@ -5,7 +5,7 @@ var iChatBotDataset =
       {
         "ID": "1",
         "Query": "Enter a keyword to begin",
-        "Response": "",
+        "Options": "",
         "Enabletext": true,
         "QueryID": "",
         "SearchInQueries": true,
@@ -15,7 +15,7 @@ var iChatBotDataset =
       {
         "ID": "2",
         "Query": "Please select from below",
-        "Response": "101,102",
+        "Options": "101,102",
         "Enabletext": false,
         "QueryID": "",
         "SearchInQueries": false,
@@ -25,7 +25,7 @@ var iChatBotDataset =
       {
         "ID": "3",
         "Query": "Do you want to apply for a new credit card",
-        "Response": "103,104",
+        "Options": "103,104",
         "Enabletext": false,
         "QueryID": "",
         "SearchInQueries": false,
@@ -35,7 +35,7 @@ var iChatBotDataset =
       {
         "ID": "4",
         "Query": "Select type of credit card",
-        "Response": "105,106,107",
+        "Options": "105,106,107",
         "Enabletext": false,
         "QueryID": "",
         "SearchInQueries": false,
@@ -45,7 +45,7 @@ var iChatBotDataset =
       {
         "ID": "5",
         "Query": "Please provide your mobile number",
-        "Response": "",
+        "Options": "",
         "Enabletext": true,
         "QueryID": "6",
         "SearchInQueries": false,
@@ -55,7 +55,7 @@ var iChatBotDataset =
       {
         "ID": "6",
         "Query": "Please provide your email",
-        "Response": "",
+        "Options": "",
         "Enabletext": true,
         "QueryID": "7",
         "SearchInQueries": false,
@@ -65,7 +65,7 @@ var iChatBotDataset =
       {
         "ID": "7",
         "Query": "Our execute will reach out to you within 2 hours",
-        "Response": "",
+        "Options": "",
         "Enabletext": false,
         "QueryID": "8",
         "SearchInQueries": false,
@@ -75,7 +75,7 @@ var iChatBotDataset =
       {
         "ID": "8",
         "Query": "Thank you for reaching out to us!!!",
-        "Response": "",
+        "Options": "",
         "Enabletext": false,
         "QueryID": "",
         "SearchInQueries": false,
@@ -83,61 +83,61 @@ var iChatBotDataset =
         "FireTextChangeEvent": false
       }
     ],
-  "Responses":
+  "Options":
     [
       {
         "ID": "101",
-        "Response": "Existing Customer",
+        "Text": "Existing Customer",
         "Type": "Button",
-        "LinkTitle": "",
+        "URL": "",
         "Query": "",
         "FireSubscribedEvent": false
       },
       {
         "ID": "102",
-        "Response": "New Customer",
+        "Text": "New Customer",
         "Type": "Button",
-        "LinkTitle": "",
+        "URL": "",
         "Query": "3",
         "FireSubscribedEvent": false
       },
       {
         "ID": "103",
-        "Response": "Yes",
+        "Text": "Yes",
         "Type": "Button",
-        "LinkTitle": "",
+        "URL": "",
         "Query": "4",
         "FireSubscribedEvent": false
       },
       {
         "ID": "104",
-        "Response": "No",
+        "Text": "No",
         "Type": "Button",
-        "LinkTitle": "",
+        "URL": "",
         "Query": "",
         "FireSubscribedEvent": false
       },
       {
         "ID": "105",
-        "Response": "Basic",
+        "Text": "Basic",
         "Type": "Button",
-        "LinkTitle": "",
+        "URL": "",
         "Query": "5",
         "FireSubscribedEvent": true
       },
       {
         "ID": "106",
-        "Response": "Platinum",
+        "Text": "Platinum",
         "Type": "Button",
-        "LinkTitle": "",
+        "URL": "",
         "Query": "",
         "FireSubscribedEvent": false
       },
       {
         "ID": "107",
-        "Response": "Ultimate",
+        "Text": "Ultimate",
         "Type": "Button",
-        "LinkTitle": "",
+        "URL": "",
         "Query": "",
         "FireSubscribedEvent": true
       }

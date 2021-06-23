@@ -287,16 +287,16 @@ var iChatBotUtility = (function () {
                     if (!isNullOrEmptyFun(e.target.attributes.id)) {
 
                         var SelectedID = e.target.attributes.id.value;
-                        var response = _gDataset.Responses.find((x) => x.ID == SelectedID);
+                        var option = _gDataset.Options.find((x) => x.ID == SelectedID);
 
-                        _chatSession.push({ "Response": response });
+                        _chatSession.push({ "Selected Option": option });
 
-                        if (!isNullOrEmptyFun(response.Query)) {
-                            loadQueryFun(response.Query)
+                        if (!isNullOrEmptyFun(option.Query)) {
+                            loadQueryFun(option.Query)
                         }
 
                         // Makes sure that Subscribed events are fired only when it's relative check is true. 
-                        if (response != null && !isNullOrEmptyFun(response.FireSubscribedEvent) && response.FireSubscribedEvent == true) {
+                        if (option != null && !isNullOrEmptyFun(option.FireSubscribedEvent) && option.FireSubscribedEvent == true) {
                             fireUserButtonClickEventFun();
                         }
                     }
@@ -346,18 +346,18 @@ var iChatBotUtility = (function () {
         var templateGenerated = '';
 
         // Are being sent to a format function, to be parsed correctly. 
-        if (!isNullOrEmptyFun(query.Response)) {
+        if (!isNullOrEmptyFun(query.Options)) {
 
-            var responseIDS = query.Response.split(',');
+            var optionIDS = query.Options.split(',');
 
             //This block here checks for Query 'type', the Button and Link types.
-            responseIDS.forEach(element => {
-                var response = _gDataset.Responses.find(x => x.ID == element);
-                if (response.Type == "Button") {
-                    templateGenerated += buttonTemplate.format(element, response.Response);
+            optionIDS.forEach(element => {
+                var option = _gDataset.Options.find(x => x.ID == element);
+                if (option.Type == "Button") {
+                    templateGenerated += buttonTemplate.format(element, option.Text);
                 }
-                else if (response.Type == "Link") {
-                    templateGenerated += linkTemplate.format(response.Response, !isNullOrEmptyFun(response.LinkTitle) ? response.LinkTitle : "link");
+                else if (option.Type == "Link") {
+                    templateGenerated += linkTemplate.format(option.URL, !isNullOrEmptyFun(option.Text) ? option.Text : "link");
                 }
             });
         }

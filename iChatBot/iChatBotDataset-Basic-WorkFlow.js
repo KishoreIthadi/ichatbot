@@ -5,7 +5,7 @@ var iChatBotDataset =
       {
         "ID": "1",
         "Query": "Select a service",
-        "Response": "101,102,103",
+        "Options": "101,102,103",
         "Enabletext": false,
         "QueryID": "",
         "SearchInQueries": false,
@@ -15,7 +15,7 @@ var iChatBotDataset =
       {
         "ID": "2",
         "Query": "Select type of mobile service",
-        "Response": "104,105",
+        "Options": "104,105",
         "Enabletext": false,
         "QueryID": "",
         "SearchInQueries": false,
@@ -25,7 +25,7 @@ var iChatBotDataset =
       {
         "ID": "3",
         "Query": "Refer below links for more details",
-        "Response": "106,107",
+        "Options": "106,107",
         "Enabletext": false,
         "QueryID": "4",
         "SearchInQueries": false,
@@ -35,7 +35,7 @@ var iChatBotDataset =
       {
         "ID": "4",
         "Query": "Do you need more information?",
-        "Response": "108,109",
+        "Options": "108,109",
         "Enabletext": false,
         "QueryID": "",
         "SearchInQueries": false,
@@ -45,7 +45,7 @@ var iChatBotDataset =
       {
         "ID": "5",
         "Query": "Thank you for reaching out to us!!!",
-        "Response": "",
+        "Options": "",
         "Enabletext": false,
         "QueryID": "",
         "SearchInQueries": false,
@@ -53,77 +53,77 @@ var iChatBotDataset =
         "FireTextChangeEvent": false
       }
     ],
-  "Responses":
+  "Options":
     [
       {
         "ID": "101",
-        "Response": "Mobile",
+        "Text": "Mobile",
         "Type": "Button",
-        "LinkTitle": "",
+        "URL": "",
         "Query": "2",
         "FireSubscribedEvent": true
       },
       {
         "ID": "102",
-        "Response": "Landline",
+        "Text": "Landline",
         "Type": "Button",
-        "LinkTitle": "",
+        "URL": "",
         "Query": "",
         "FireSubscribedEvent": false
       },
       {
         "ID": "103",
-        "Response": "BroadBand",
+        "Text": "BroadBand",
         "Type": "Button",
-        "LinkTitle": "",
+        "URL": "",
         "Query": "",
         "FireSubscribedEvent": false
       },
       {
         "ID": "104",
-        "Response": "Prepaid",
+        "Text": "Prepaid",
         "Type": "Button",
-        "LinkTitle": "",
+        "URL": "",
         "Query": "",
         "FireSubscribedEvent": false
       },
       {
         "ID": "105",
-        "Response": "Postpaid",
+        "Text": "Postpaid",
         "Type": "Button",
-        "LinkTitle": "",
+        "URL": "",
         "Query": "3",
         "FireSubscribedEvent": true
       },
       {
         "ID": "106",
-        "Response": "http://google.com",
+        "Text": "link1",
         "Type": "Link",
-        "LinkTitle": "link1",
+        "URL": "http://google.com",
         "Query": "",
         "FireSubscribedEvent": false
       },
       {
         "ID": "107",
-        "Response": "http://yahoo.com",
+        "Text": "Link2",
         "Type": "Link",
-        "LinkTitle": "link2",
+        "URL": "http://yahoo.com",
         "Query": "",
         "FireSubscribedEvent": false
       },
       {
         "ID": "108",
-        "Response": "Yes",
+        "Text": "Yes",
         "Type": "Button",
-        "LinkTitle": "",
+        "URL": "",
         "Query": "1",
         "FireSubscribedEvent": false
       },
       {
         "ID": "109",
-        "Response": "No",
+        "Text": "No",
         "Type": "Button",
-        "LinkTitle": "",
+        "URL": "",
         "Query": "5",
         "FireSubscribedEvent": true
       }
