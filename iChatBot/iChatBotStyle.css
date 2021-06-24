@@ -1,7 +1,3 @@
-body {
-  font-family: 'Open Sans', sans-serif;
-}
-
 /* iChatBot Styles --------------------------------- */
 
 .ichatbot {
@@ -82,11 +78,6 @@ body {
   padding: 0px 10px 10px 10px;
 }
 
-.disabled-buttons {
-  opacity: 0.4;
-  pointer-events: none;
-}
-
 .ichatbot-button {
   display: inline-block;
   padding: .35em .65em;
@@ -98,13 +89,17 @@ body {
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: .25rem;
-  background-color: #0dcaf0!important;
   cursor: pointer;
+}
+
+.ichatbot-disabled-buttons {
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 /* User Input Styles --------------------------------- */
 
-.chatbot-userinput {
+.ichatbot-userinput {
   display: block;
   width: 98%;
   font-size: 1.2rem;
@@ -116,11 +111,11 @@ body {
   border-radius: .25rem;
 }
 
-.chatbot-userinput:focus, textarea:focus, select:focus {
+.ichatbot-userinput:focus {
   outline: none;
 }
 
-.chatbot-userinput:disabled {
+.ichatbot-userinput:disabled {
   background-color: #e9ecef;
   opacity: 1;
 }
@@ -145,7 +140,7 @@ body {
 
 /* Loader Styles ---------------------------------------- */
 
-.loader {
+.ichatbot-loader {
   border: 5px solid black;
   border-top: 5px solid #3498db;
   border-radius: 50%;
@@ -216,4 +211,12 @@ body {
 
 .float-end {
   float: right!important;
+}
+
+.blue-color {
+  color: #23a9c4!important;
+}
+
+.background-blue-color {
+  background-color: #23a9c4!important;
 }

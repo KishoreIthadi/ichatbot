@@ -12,21 +12,23 @@ var iChatBotConfig =
     "iChatBotBackgroundColor": "rgb(255, 255, 255)",
     "MessagesBackgroundColor": "rgb(232, 238, 238)",
 
-    "ButtonCSSClass": "ichatbot-button",
+    "ButtonCSSClass": "ichatbot-button background-blue-color",
     "LinkCSSClass": "mar-left-right-7px",
 
-    //Set FloatingIconFAClass or FloatingIconImagePath along with FloatingIconCSSClass(optional)
-    "FloatingIconFAClass": "fa fa-comment-dots fa-3x",
+    //Set FloatingIconFAClass or FloatingIconImagePath along with FloatingIconImageCSSClass(optional)
+    "FloatingIconFAClass": "fa fa-comment-dots fa-3x blue-color",
     "FloatingIconImagePath": "",
+    "FloatingIconImageCSSClass": "",
+    //Set floating icon styles like position, height, width etc, this will override the default styles
     "FloatingIconCSSClass": "",
 
     //Set ResetFAClass or ResetImagePath along with ResetCSSClass(optional)
-    "ResetFAClass": "fa fa-sync fa-1x",
+    "ResetFAClass": "fa fa-sync fa-1x blue-color",
     "ResetImagePath": "",
     "ResetCSSClass": "",
 
     //Set CloseFAClass or CloseImagePath along with CloseCSSClass(optional)
-    "CloseFAClass": "fa fa-times fa-1x",
+    "CloseFAClass": "fa fa-times fa-1x blue-color",
     "CloseImagePath": "",
     "CloseCSSClass": "",
 
@@ -36,15 +38,15 @@ var iChatBotConfig =
     "ChatQueryIconCSSClass": "",
     "ChatQueryCSSClass": "mar-left-5px mar-top-3px",
 
-    //Set ChatUserInpuIconFAClass or ChatUserInputIconImagePath along with ChatUserInputIconCSSClass(optional)
+    //Set ChatUserInputIconFAClass or ChatUserInputIconImagePath along with ChatUserInputIconCSSClass(optional)
     "ChatUserInputIconFAClass": "fa fa-user-circle fa-2x",
     "ChatUserInputIconImagePath": "",
     "ChatUserInputIconCSSClass": "",
-
     "ChatUserInputCSSClass": "mar-right-5px mar-top-3px",
 
-    //Set classes for loader
-
+    "LoaderCSSClass": "ichatbot-loader",
+    //Loader timeout in milli seconds
+    "LoaderTimeout": "600",
 
     "SearchNotFoundMsg": "Keyword not found!!",
 

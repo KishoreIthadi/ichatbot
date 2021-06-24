@@ -10,7 +10,8 @@ var iChatBotDataset =
         "QueryID": "",
         "SearchInQueries": true,
         "SearchKeywords": "",
-        "FireTextChangeEvent": false
+        "FireTextChangeEvent": false,
+        "Regex": ""
       },
       {
         "ID": "2",
@@ -50,7 +51,8 @@ var iChatBotDataset =
         "QueryID": "6",
         "SearchInQueries": false,
         "SearchKeywords": "",
-        "FireTextChangeEvent": false
+        "FireTextChangeEvent": false,
+        "Regex": ""
       },
       {
         "ID": "6",
@@ -60,7 +62,8 @@ var iChatBotDataset =
         "QueryID": "7",
         "SearchInQueries": false,
         "SearchKeywords": "",
-        "FireTextChangeEvent": false
+        "FireTextChangeEvent": false,
+        "Regex": "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
       },
       {
         "ID": "7",
