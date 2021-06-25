@@ -10,7 +10,8 @@ var iChatBotDataset =
         "QueryID": "",
         "SearchInQueries": false,
         "SearchKeywords": "",
-        "FireTextChangeEvent": false
+        "FireTextChangeEvent": false,
+        "Regex": ""
       },
       {
         "ID": "2",
@@ -20,7 +21,8 @@ var iChatBotDataset =
         "QueryID": "",
         "SearchInQueries": false,
         "SearchKeywords": "",
-        "FireTextChangeEvent": false
+        "FireTextChangeEvent": false,
+        "Regex": ""
       },
       {
         "ID": "3",
@@ -30,7 +32,8 @@ var iChatBotDataset =
         "QueryID": "4",
         "SearchInQueries": false,
         "SearchKeywords": "",
-        "FireTextChangeEvent": false
+        "FireTextChangeEvent": false,
+        "Regex": ""
       },
       {
         "ID": "4",
@@ -40,7 +43,8 @@ var iChatBotDataset =
         "QueryID": "",
         "SearchInQueries": false,
         "SearchKeywords": "",
-        "FireTextChangeEvent": false
+        "FireTextChangeEvent": false,
+        "Regex": ""
       },
       {
         "ID": "5",
@@ -50,7 +54,8 @@ var iChatBotDataset =
         "QueryID": "",
         "SearchInQueries": false,
         "SearchKeywords": "",
-        "FireTextChangeEvent": false
+        "FireTextChangeEvent": false,
+        "Regex": ""
       }
     ],
   "Options":

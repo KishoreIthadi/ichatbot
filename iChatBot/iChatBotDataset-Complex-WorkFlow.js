@@ -21,7 +21,8 @@ var iChatBotDataset =
         "QueryID": "",
         "SearchInQueries": false,
         "SearchKeywords": "Credit Card, CreditCard",
-        "FireTextChangeEvent": false
+        "FireTextChangeEvent": false,
+        "Regex": ""
       },
       {
         "ID": "3",
@@ -31,7 +32,8 @@ var iChatBotDataset =
         "QueryID": "",
         "SearchInQueries": false,
         "SearchKeywords": "",
-        "FireTextChangeEvent": false
+        "FireTextChangeEvent": false,
+        "Regex": ""
       },
       {
         "ID": "4",
@@ -41,7 +43,8 @@ var iChatBotDataset =
         "QueryID": "",
         "SearchInQueries": false,
         "SearchKeywords": "",
-        "FireTextChangeEvent": false
+        "FireTextChangeEvent": false,
+        "Regex": ""
       },
       {
         "ID": "5",
@@ -52,7 +55,7 @@ var iChatBotDataset =
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireTextChangeEvent": false,
-        "Regex": ""
+        "Regex": "^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$"
       },
       {
         "ID": "6",
@@ -73,7 +76,8 @@ var iChatBotDataset =
         "QueryID": "8",
         "SearchInQueries": false,
         "SearchKeywords": "",
-        "FireTextChangeEvent": true
+        "FireTextChangeEvent": true,
+        "Regex": ""
       },
       {
         "ID": "8",
@@ -83,7 +87,8 @@ var iChatBotDataset =
         "QueryID": "",
         "SearchInQueries": false,
         "SearchKeywords": "",
-        "FireTextChangeEvent": false
+        "FireTextChangeEvent": false,
+        "Regex": ""
       }
     ],
   "Options":
