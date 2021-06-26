@@ -1,0 +1,22 @@
+{
+  "name": "ichatbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KishoreIthadi/iChatbot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KishoreIthadi/iChatbot/issues"
+  },
+  "homepage": "https://github.com/KishoreIthadi/iChatbot#readme",
+  "devDependencies": {
+    "puppeteer": "^10.0.0"
+  }
+}

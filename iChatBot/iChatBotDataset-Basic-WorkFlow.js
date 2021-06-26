@@ -102,7 +102,7 @@ var iChatBotDataset =
       },
       {
         "ID": "106",
-        "Text": "link1",
+        "Text": "Link1",
         "Type": "Link",
         "URL": "http://google.com",
         "Query": "",
