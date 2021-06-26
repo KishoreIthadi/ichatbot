@@ -38,6 +38,9 @@
         var buttonClickEvent = function ButtonClick(data) {
             console.log('ichatbot : user button click event fired')
             console.log(data);
+
+            iChatBotUtility.SimpleQuery("GreatBro");
+            iChatBotUtility.ShowLoader(100000);
         }
 
         var resetEvent = function Reset(data) {
@@ -50,7 +53,13 @@
             console.log(data);
         }
 
-        iChatBotUtility.SubscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent);
+        var fileUploadEvent = function FileUpload(files, data) {
+            console.log('ichatbot : file upload event fired')
+            console.log(files);
+            console.log(data);
+        }
+
+        iChatBotUtility.SubscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
 
     </script>
 </body>

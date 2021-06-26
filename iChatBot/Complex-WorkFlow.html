@@ -45,12 +45,13 @@
             console.log(data);
         }
 
-        var closeEvent = function Close(data) {
-            console.log('ichatbot : chat close event fired')
+        var fileUploadEvent = function FileUpload(files, data) {
+            console.log('ichatbot : file upload event fired')
+            console.log(files);
             console.log(data);
         }
 
-        iChatBotUtility.SubscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent);
+        iChatBotUtility.SubscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
 
     </script>
 </body>

@@ -12,6 +12,7 @@ var iChatBotUtility = (function () {
     var _chatCloseEvent = null;
     var _chatResetEvent = null;
     var _chatButtonClickEvent = null;
+    var _fileUploadEvent = null;
 
     // Checks if the variable is undefine/null/empty
     var isNullOrEmptyFun = function IsNullOrEmpty(value) {
@@ -27,6 +28,24 @@ var iChatBotUtility = (function () {
         }
         return formatted;
     };
+
+    // Shows the loader, also can set timeout
+    var showLoaderFun = function showLoader(timeOut) {
+        document.getElementById("ichatbot-loader").style.visibility = "show";
+
+        if (timeOut != "") {
+            setTimeout(() => {
+                document.getElementById("ichatbot-loader").style.visibility = "hidden";
+                document.getElementById("ichatbot-loader").scrollIntoView();
+            }, timeOut);
+        }
+    }
+
+    // Hides the loader
+    var hideLoaderFun = function hideLoader() {
+        document.getElementById("ichatbot-loader").style.visibility = "hidden";
+        document.getElementById("ichatbot-loader").scrollIntoView();
+    }
 
     // Formats long user text inputs, break down words by 25 characters
     var parseUserTextInputFun = function ParseUserTextInput(userInput) {
@@ -64,7 +83,6 @@ var iChatBotUtility = (function () {
             return true;
         }
     }
-
 
     // Initialize function is the starting point. Setting dataset, configurations and rendering popup template.
     var intializeFun = function Initialize(config, dataset) {
@@ -282,66 +300,89 @@ var iChatBotUtility = (function () {
             .addEventListener("keydown", function (e) {
 
                 if (e.code === "Enter" || e.code === "NumpadEnter") {
-                    var input = e.target.value;
-                    var charCount = e.target.value.length;
-                    var minLength = e.target.minLength;
 
-                    if (validateUserTextInputFun(e)) {
-                        e.target.classList.remove('ichatbot-userinput-error');
 
-                        e.target.disabled = true;
-                        e.target.value = "";
+                    //Retriving queryID from _ChatSession
+                    var queryID = "";
 
-                        userTextInputDisplayFun(input);
-                        _gChatSession.push({ "UserTextInput": input });
+                    for (var i = _gChatSession.length - 1; i >= 0; i--) {
+                        if (!isNullOrEmptyFun(_gChatSession[i].Query)) {
+                            if (!isNullOrEmptyFun(_gChatSession[i].Query.ID)) {
+                                queryID = _gChatSession[i].Query.ID;
+                                break;
+                            }
+                        }
+                    }
 
-                        var queryID = "";
+                    var query = _gDataset.Queries.find(x => x.ID == queryID);
 
-                        for (var i = _gChatSession.length - 1; i >= 0; i--) {
-                            if (!isNullOrEmptyFun(_gChatSession[i].Query)) {
-                                if (!isNullOrEmptyFun(_gChatSession[i].Query.ID)) {
-                                    queryID = _gChatSession[i].Query.ID;
-                                    break;
-                                }
+                    //Checking if the input type is file
+                    if (e.target.type == "file") {
+                        if (e.target.files.length > 0) {
+                            // Makes sure events are fired only when FireSubscribedEvent propert is true. 
+                            if (query.FireSubscribedEvent == true) {
+                                fireFileUploadEventFun(e.target.files);
                             }
                         }
 
-                        var query = _gDataset.Queries.find(x => x.ID == queryID);
+                        e.target.type = "text";
+                        e.target.disabled = true;
+                        e.target.value = "";
+                    }
 
-                        if (query.SearchInQueries == false) {
-                            loadQueryFun(query.QueryID);
-                        }
-                        else {
-                            isQueryFound = false;
+                    //Checking if the input type is textbox
+                    if (e.target.type == "input") {
 
-                            for (var i = 0; i <= _gDataset.Queries.length - 1; i++) {
+                        if (validateUserTextInputFun(e)) {
+                            var input = e.target.value;
+                            var charCount = e.target.value.length;
+                            var minLength = e.target.minLength;
 
-                                if (!isNullOrEmptyFun(_gDataset.Queries[i].SearchKeywords)) {
-                                    if (_gDataset.Queries[i].SearchKeywords.toLowerCase().search(input.toLowerCase()) == 0) {
-                                        loadQueryFun(_gDataset.Queries[i].ID);
-                                        isQueryFound = true;
-                                        break;
+                            e.target.disabled = true;
+                            e.target.value = "";
+
+                            e.target.classList.remove('ichatbot-userinput-error');
+
+                            userTextInputDisplayFun(input);
+                            _gChatSession.push({ "UserTextInput": input });
+
+
+
+                            if (query.SearchInQueries == false) {
+                                loadQueryFun(query.QueryID);
+                            }
+                            else {
+                                isQueryFound = false;
+
+                                for (var i = 0; i <= _gDataset.Queries.length - 1; i++) {
+
+                                    if (!isNullOrEmptyFun(_gDataset.Queries[i].SearchKeywords)) {
+                                        if (_gDataset.Queries[i].SearchKeywords.toLowerCase().search(input.toLowerCase()) == 0) {
+                                            loadQueryFun(_gDataset.Queries[i].ID);
+                                            isQueryFound = true;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (!isQueryFound) {
+                                    if (!isNullOrEmptyFun(query.QueryID)) {
+                                        loadQueryFun(query.QueryID);
+                                    }
+                                    else {
+                                        loadQueryFun(simpleQueryFun(isNullOrEmptyFun(_gConfig.SearchNotFoundMsg) ? "Keyword not found!!" : _gConfig.SearchNotFoundMsg));
+                                        loadQueryFun(query.ID);
                                     }
                                 }
                             }
 
-                            if (!isQueryFound) {
-                                if (!isNullOrEmptyFun(query.QueryID)) {
-                                    loadQueryFun(query.QueryID);
-                                }
-                                else {
-                                    loadQueryFun(simpleQueryFun(isNullOrEmptyFun(_gConfig.SearchNotFoundMsg) ? "Keyword not found!!" : _gConfig.SearchNotFoundMsg));
-                                    loadQueryFun(query.ID);
-                                }
+                            // Makes sure events are fired only when FireSubscribedEvent propert is true. 
+                            if (query.FireSubscribedEvent == true) {
+                                fireUserTextEventFun();
                             }
-                        }
 
-                        // Makes sure events are fired only when FireSubscribedEvent propert is true. 
-                        if (query.FireSubscribedEvent == true) {
-                            fireUserTextEventFun();
+                            document.getElementById("ichatbot-char-count").innerHTML = "0/" + e.target.maxLength;
                         }
-
-                        document.getElementById("ichatbot-char-count").innerHTML = "0/" + e.target.maxLength;
                     }
                 }
             });
@@ -350,9 +391,11 @@ var iChatBotUtility = (function () {
         document.getElementById("ichatbot-userinput")
             .addEventListener("keyup", function (e) {
 
-                validateUserTextInputFun(e);
+                if (e.target.type == "text") {
+                    validateUserTextInputFun(e);
 
-                document.getElementById("ichatbot-char-count").innerHTML = e.target.value.length + '/' + e.target.maxLength;
+                    document.getElementById("ichatbot-char-count").innerHTML = e.target.value.length + '/' + e.target.maxLength;
+                }
             });
 
         // Event for handling user selected button
@@ -409,14 +452,23 @@ var iChatBotUtility = (function () {
 
         _gChatSession.push({ "Query": query });
 
-        // Taking care of input container to be set on and off.
-        if (query.Enabletext == true) {
+        document.getElementById("ichatbot-userinput").disabled = true;
+        document.getElementById("ichatbot-userinput").multiple = false;
+        document.getElementById("ichatbot-userinput").type = "text";
+
+        _regexPattern = "";
+
+        if (query.Type == "Text") {
             document.getElementById("ichatbot-userinput").disabled = false;
             _regexPattern = !isNullOrEmptyFun(query.Regex) ? new RegExp(query.Regex) : "";
         }
-        else {
-            document.getElementById("ichatbot-userinput").disabled = true;
-            _regexPattern = "";
+        else if (query.Type == "File" || query.Type == "MultipleFiles") {
+            document.getElementById("ichatbot-userinput").disabled = false;
+            document.getElementById("ichatbot-userinput").type = "file";
+
+            if (query.Type == "MultipleFiles") {
+                document.getElementById("ichatbot-userinput").multiple = true;
+            }
         }
 
         // The templates that generates Buttons, Link.
@@ -455,7 +507,7 @@ var iChatBotUtility = (function () {
         // Loading next query in recursive way
         if (!isNullOrEmptyFun(query.QueryID)) {
             if (query.QueryID != "") {
-                if (query.SearchInQueries == false && query.Enabletext == false) {
+                if (query.SearchInQueries == false && query.Type == "") {
                     loadQueryFun(query.QueryID);
                 }
             }
@@ -562,11 +614,12 @@ var iChatBotUtility = (function () {
     }
 
     // Setting the user passedd functions to event handlers
-    var subscribeEventFun = function subscribeEvent(userTextEvent, buttonClickEvent, chatResetEvent, chatCloseEvent) {
+    var subscribeEventFun = function subscribeEvent(userTextEvent, buttonClickEvent, chatResetEvent, chatCloseEvent, fileUploadEvent) {
         _userTextEvent = userTextEvent;
         _chatButtonClickEvent = buttonClickEvent;
         _chatResetEvent = chatResetEvent;
         _chatCloseEvent = chatCloseEvent;
+        _fileUploadEvent = fileUploadEvent;
     }
 
     var fireUserTextEventFun = function fireUserTextEvent() {
@@ -593,6 +646,12 @@ var iChatBotUtility = (function () {
         }
     }
 
+    var fireFileUploadEventFun = function fileUploadEventFun(e) {
+        if (!isNullOrEmptyFun(_fileUploadEvent)) {
+            _fileUploadEvent(e, _gChatSession);
+        }
+    }
+
     var getChatSessionFun = function getChatSession() {
         return _gChatSession;
     }
@@ -605,7 +664,9 @@ var iChatBotUtility = (function () {
         ShowChat: showChatFun,
         SubscribeEvent: subscribeEventFun,
         SimpleQuery: simpleQueryFun,
-        getChatSession: getChatSessionFun
+        GetChatSession: getChatSessionFun,
+        ShowLoader: showLoaderFun,
+        HideLoader: hideLoaderFun
     }
 
 })();

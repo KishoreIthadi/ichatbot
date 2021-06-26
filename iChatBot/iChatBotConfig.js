@@ -42,6 +42,7 @@ var iChatBotConfig =
     "ChatUserInputIconFAClass": "fa fa-user-circle fa-2x",
     "ChatUserInputIconImagePath": "",
     "ChatUserInputIconCSSClass": "",
+    //Applied to text box
     "ChatUserInputCSSClass": "mar-right-5px mar-top-3px",
 
     "LoaderCSSClass": "ichatbot-loader",
