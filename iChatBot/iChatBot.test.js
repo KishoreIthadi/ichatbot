@@ -84,10 +84,10 @@ const puppeteer = require('puppeteer');
   await page.click("span[id='105']");
   await page.waitForTimeout(2000);
 
-  await page.type('#ichatbot-userinput', '9959635', { delay: 700 })
+  await page.type('#ichatbot-userinput', '9849012', { delay: 700 })
   await page.keyboard.press(String.fromCharCode(13));
   await page.waitForTimeout(2000);
-  await page.type('#ichatbot-userinput', '735712', { delay: 700 })
+  await page.type('#ichatbot-userinput', '345678', { delay: 700 })
   await page.keyboard.press("Backspace", { delay: 700 });
   await page.keyboard.press("Backspace", { delay: 700 });
   await page.keyboard.press("Backspace", { delay: 700 });

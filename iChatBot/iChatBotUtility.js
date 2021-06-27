@@ -31,7 +31,7 @@ var iChatBotUtility = (function () {
 
     // Shows the loader, also can set timeout
     var showLoaderFun = function showLoader(timeOut) {
-        document.getElementById("ichatbot-loader").style.visibility = "show";
+        document.getElementById("ichatbot-loader").style.visibility = "visible";
 
         if (timeOut != "") {
             setTimeout(() => {
@@ -301,7 +301,6 @@ var iChatBotUtility = (function () {
 
                 if (e.code === "Enter" || e.code === "NumpadEnter") {
 
-
                     //Retriving queryID from _ChatSession
                     var queryID = "";
 
@@ -316,22 +315,8 @@ var iChatBotUtility = (function () {
 
                     var query = _gDataset.Queries.find(x => x.ID == queryID);
 
-                    //Checking if the input type is file
-                    if (e.target.type == "file") {
-                        if (e.target.files.length > 0) {
-                            // Makes sure events are fired only when FireSubscribedEvent propert is true. 
-                            if (query.FireSubscribedEvent == true) {
-                                fireFileUploadEventFun(e.target.files);
-                            }
-                        }
-
-                        e.target.type = "text";
-                        e.target.disabled = true;
-                        e.target.value = "";
-                    }
-
                     //Checking if the input type is textbox
-                    if (e.target.type == "input") {
+                    if (e.target.type == "text") {
 
                         if (validateUserTextInputFun(e)) {
                             var input = e.target.value;
@@ -345,8 +330,6 @@ var iChatBotUtility = (function () {
 
                             userTextInputDisplayFun(input);
                             _gChatSession.push({ "UserTextInput": input });
-
-
 
                             if (query.SearchInQueries == false) {
                                 loadQueryFun(query.QueryID);
@@ -384,6 +367,27 @@ var iChatBotUtility = (function () {
                             document.getElementById("ichatbot-char-count").innerHTML = "0/" + e.target.maxLength;
                         }
                     }
+
+                    //Checking if the input type is file
+                    if (e.target.type == "file") {
+                        if (e.target.files.length > 0) {
+                            // Makes sure events are fired only when FireSubscribedEvent propert is true. 
+                            if (query.FireSubscribedEvent == true) {
+                                fireFileUploadEventFun(e.target.files);
+
+                                var fileNames = "";
+                                for (var i = 0; i < e.target.files.length; i++) {
+                                    fileNames += e.target.files[i].name + ',';
+                                }
+
+                                _gChatSession.push({ "files Uploaded": fileNames.slice(0, -1) });
+
+                                e.target.type = "text";
+                                e.target.disabled = true;
+                                e.target.value = "";
+                            }
+                        }
+                    }
                 }
             });
 
@@ -401,6 +405,8 @@ var iChatBotUtility = (function () {
         // Event for handling user selected button
         document.getElementById("ichatbot")
             .addEventListener("click", function (e) {
+
+                document.getElementById("ichatbot-userinput").focus();
 
                 if (e.target.classList.contains('ichatbotbtn')) {
 

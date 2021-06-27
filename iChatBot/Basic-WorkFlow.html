@@ -20,10 +20,14 @@
     <div style="margin: 30px;">
         <a id="Basic-WorkFlow" href="Basic-WorkFlow.html" style="margin: 5px;">Basic-WorkFlow</a>
         <a id="Complex-WorkFlow" href="Complex-WorkFlow.html" style="margin: 5px;">Complex-WorkFlow</a>
+        <br><br>
+        <button onclick="showLoader(10000)">Show Loader(10000 ms)</button>
+        <button onclick="hideLoader()">Hide Loader</button>
     </div>
 
     <div id="ichatbot-div">
     </div>
+
 
     <script>
         // iChatbotConfig and IchatbotDataset are loaded from iChatBotConfig.js and iChatBotDataset.js
@@ -38,9 +42,6 @@
         var buttonClickEvent = function ButtonClick(data) {
             console.log('ichatbot : user button click event fired')
             console.log(data);
-
-            iChatBotUtility.SimpleQuery("GreatBro");
-            iChatBotUtility.ShowLoader(100000);
         }
 
         var resetEvent = function Reset(data) {
@@ -57,6 +58,14 @@
             console.log('ichatbot : file upload event fired')
             console.log(files);
             console.log(data);
+        }
+
+        var showLoader = function ShowLoader() {
+            iChatBotUtility.ShowLoader(5000);
+        }
+
+        var hideLoader = function HideLoader() {
+            iChatBotUtility.HideLoader();
         }
 
         iChatBotUtility.SubscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);

@@ -6,11 +6,11 @@ var iChatBotDataset =
         "ID": "1",
         "Query": "Select a service",
         "Options": "101,102,103",
-        "Type": "MultipleFiles",
+        "Type": "",
         "QueryID": "",
         "SearchInQueries": false,
         "SearchKeywords": "",
-        "FireSubscribedEvent": true,
+        "FireSubscribedEvent": false,
         "Regex": ""
       },
       {
