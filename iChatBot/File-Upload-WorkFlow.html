@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="iChatBotStyle.css">
 
     <script src="iChatBotConfig.js"></script>
-    <script src="iChatBotDataset-Complex-WorkFlow.js"></script>
+    <script src="iChatBot-FileUpload-WorkFlow.js"></script>
     <script src="iChatBotUtility.js"></script>
 
 </head>
@@ -57,6 +57,11 @@
             console.log('ichatbot : file upload event fired')
             console.log(files);
             console.log(data);
+
+            iChatBotUtility.SimpleQuery("<b>File Uploaded Sucessfully</b>")
+            iChatBotUtility.LoadQuery(5);
+
+            console.log(iChatBotUtility.GetChatSession());
         }
 
         var showLoader = function ShowLoader() {

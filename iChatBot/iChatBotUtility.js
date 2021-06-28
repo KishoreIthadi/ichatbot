@@ -316,7 +316,7 @@ var iChatBotUtility = (function () {
                     var query = _gDataset.Queries.find(x => x.ID == queryID);
 
                     //Checking if the input type is textbox
-                    if (e.target.type == "text") {
+                    if (e.target.type.toLowerCase() == "text") {
 
                         if (validateUserTextInputFun(e)) {
                             var input = e.target.value;
@@ -369,23 +369,24 @@ var iChatBotUtility = (function () {
                     }
 
                     //Checking if the input type is file
-                    if (e.target.type == "file") {
+                    if (e.target.type.toLowerCase() == "file") {
                         if (e.target.files.length > 0) {
+
+                            var fileNames = "";
+                            for (var i = 0; i < e.target.files.length; i++) {
+                                fileNames += e.target.files[i].name + ',';
+                            }
+
+                            _gChatSession.push({ "files Uploaded": fileNames.slice(0, -1) });
+
                             // Makes sure events are fired only when FireSubscribedEvent propert is true. 
                             if (query.FireSubscribedEvent == true) {
                                 fireFileUploadEventFun(e.target.files);
-
-                                var fileNames = "";
-                                for (var i = 0; i < e.target.files.length; i++) {
-                                    fileNames += e.target.files[i].name + ',';
-                                }
-
-                                _gChatSession.push({ "files Uploaded": fileNames.slice(0, -1) });
-
-                                e.target.type = "text";
-                                e.target.disabled = true;
-                                e.target.value = "";
                             }
+
+                            // e.target.type = "text";
+                            // e.target.disabled = true;
+                            // e.target.value = "";
                         }
                     }
                 }
@@ -395,7 +396,7 @@ var iChatBotUtility = (function () {
         document.getElementById("ichatbot-userinput")
             .addEventListener("keyup", function (e) {
 
-                if (e.target.type == "text") {
+                if (e.target.type.toLowerCase() == "text") {
                     validateUserTextInputFun(e);
 
                     document.getElementById("ichatbot-char-count").innerHTML = e.target.value.length + '/' + e.target.maxLength;
@@ -464,15 +465,15 @@ var iChatBotUtility = (function () {
 
         _regexPattern = "";
 
-        if (query.Type == "Text") {
+        if (query.Type.toLowerCase() == "text") {
             document.getElementById("ichatbot-userinput").disabled = false;
             _regexPattern = !isNullOrEmptyFun(query.Regex) ? new RegExp(query.Regex) : "";
         }
-        else if (query.Type == "File" || query.Type == "MultipleFiles") {
+        else if (query.Type.toLowerCase() == "file" || query.Type.toLowerCase() == "multiplefiles") {
             document.getElementById("ichatbot-userinput").disabled = false;
             document.getElementById("ichatbot-userinput").type = "file";
 
-            if (query.Type == "MultipleFiles") {
+            if (query.Type.toLowerCase() == "multiplefiles") {
                 document.getElementById("ichatbot-userinput").multiple = true;
             }
         }
@@ -491,10 +492,10 @@ var iChatBotUtility = (function () {
             //This block here checks for Query 'type', the Button and Link types.
             optionIDS.forEach(element => {
                 var option = _gDataset.Options.find(x => x.ID == element);
-                if (option.Type == "Button") {
+                if (option.Type.toLowerCase() == "button") {
                     templateGenerated += buttonTemplate.format(element, option.Text);
                 }
-                else if (option.Type == "Link") {
+                else if (option.Type.toLowerCase() == "link") {
                     templateGenerated += linkTemplate.format(option.URL, !isNullOrEmptyFun(option.Text) ? option.Text : "link");
                 }
             });
