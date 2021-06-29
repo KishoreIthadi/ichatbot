@@ -1,11 +1,11 @@
-var iChatBotDataset =
+var iChatBotDataset_FUWL =
 {
   "Queries":
     [
       {
         "ID": "1",
-        "Query": "Select a service",
-        "Options": "101,102,103",
+        "Query": "Please select from below",
+        "Options": "101,102",
         "Type": "",
         "QueryID": "",
         "SearchInQueries": false,
@@ -15,8 +15,8 @@ var iChatBotDataset =
       },
       {
         "ID": "2",
-        "Query": "Select type of mobile service",
-        "Options": "104,105",
+        "Query": "Please select from below",
+        "Options": "103,104",
         "Type": "",
         "QueryID": "",
         "SearchInQueries": false,
@@ -26,28 +26,39 @@ var iChatBotDataset =
       },
       {
         "ID": "3",
-        "Query": "Refer below links for more details",
-        "Options": "106,107",
-        "Type": "",
+        "Query": "Please provide your mobile number",
+        "Options": "",
+        "Type": "Text",
         "QueryID": "4",
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": ""
+        "Regex": "^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$"
       },
       {
         "ID": "4",
-        "Query": "Do you need more information?",
-        "Options": "108,109",
-        "Type": "",
+        "Query": "Please upload your recent bill",
+        "Options": "",
+        "Type": "file",
         "QueryID": "",
+        "SearchInQueries": false,
+        "SearchKeywords": "",
+        "FireSubscribedEvent": true,
+        "Regex": ""
+      },
+      {
+        "ID": "5",
+        "Query": "Our execute will reach out to you within 2 hours",
+        "Options": "",
+        "Type": "",
+        "QueryID": "6",
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
         "Regex": ""
       },
       {
-        "ID": "5",
+        "ID": "6",
         "Query": "Thank you for reaching out to us!!!",
         "Options": "",
         "Type": "",
@@ -62,15 +73,15 @@ var iChatBotDataset =
     [
       {
         "ID": "101",
-        "Text": "Mobile",
+        "Text": "BroadBand",
         "Type": "Button",
         "URL": "",
         "Query": "2",
-        "FireSubscribedEvent": true
+        "FireSubscribedEvent": false
       },
       {
         "ID": "102",
-        "Text": "Landline",
+        "Text": "DTH",
         "Type": "Button",
         "URL": "",
         "Query": "",
@@ -78,7 +89,7 @@ var iChatBotDataset =
       },
       {
         "ID": "103",
-        "Text": "BroadBand",
+        "Text": "New Connection",
         "Type": "Button",
         "URL": "",
         "Query": "",
@@ -86,51 +97,11 @@ var iChatBotDataset =
       },
       {
         "ID": "104",
-        "Text": "Prepaid",
-        "Type": "Button",
-        "URL": "",
-        "Query": "",
-        "FireSubscribedEvent": false
-      },
-      {
-        "ID": "105",
-        "Text": "Postpaid",
+        "Text": "Not Working",
         "Type": "Button",
         "URL": "",
         "Query": "3",
-        "FireSubscribedEvent": true
-      },
-      {
-        "ID": "106",
-        "Text": "Link1",
-        "Type": "Link",
-        "URL": "http://google.com",
-        "Query": "",
         "FireSubscribedEvent": false
-      },
-      {
-        "ID": "107",
-        "Text": "Link2",
-        "Type": "Link",
-        "URL": "http://yahoo.com",
-        "Query": "",
-        "FireSubscribedEvent": false
-      },
-      {
-        "ID": "108",
-        "Text": "Yes",
-        "Type": "Button",
-        "URL": "",
-        "Query": "1",
-        "FireSubscribedEvent": false
-      },
-      {
-        "ID": "109",
-        "Text": "No",
-        "Type": "Button",
-        "URL": "",
-        "Query": "5",
-        "FireSubscribedEvent": true
       }
     ]
 }

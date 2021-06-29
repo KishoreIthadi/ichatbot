@@ -1,4 +1,5 @@
-var iChatBotDataset =
+var iChatBotDataset_CWF
+ =
 {
   "Queries":
     [

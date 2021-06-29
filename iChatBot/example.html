@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> iChatBot </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <link rel="stylesheet" href="iChatBotStyle.css">
+
+    <script src="iChatBotConfig.js"></script>
+    <script src="iChatBotUtility.js"></script>
+    <script src="Dataset-Basic-WorkFlow.js"></script>
+    <script src="Dataset-Complex-WorkFlow.js"></script>
+    <script src="Dataset-FileUpload-WorkFlow.js"></script>
+</head>
+
+<body>
+
+    <div style="margin: 30px;">
+        <button id="btn_bwf" onclick="LoadChatBot('Basic')">Basic-WorkFlow</button>
+        <button id="btn_cwf" onclick="LoadChatBot('Complex')">Complex-WorkFlow</button>
+        <button id="btn_fuwf" onclick="LoadChatBot('FileUpload')">File-Upload-WorkFlow</button>
+        <br><br>
+        <button onclick="ShowLoader(10000)">Show Loader(10000 ms)</button>
+        <button onclick="HideLoader()">Hide Loader</button>
+        <br><br>
+        <button onclick="OpenChatBot(10000)">Show ChatBot</button>
+        <button onclick="CloseChatBot()">Hide ChatBot</button>
+    </div>
+
+    <div id="ichatbot-div">
+    </div>
+
+    <script>
+        // setting basic work flow on page load
+        LoadChatBot("Basic");
+
+        function LoadChatBot(value) {
+
+            if (value == "Basic") {
+                // Reading dataset from Basic-WorkFlow.js
+                dataset = iChatBotDataset_BWF
+            }
+            else if (value == "Complex") {
+                // Reading dataset from Complex-WorkFlow.js
+                dataset = iChatBotDataset_CWF
+            }
+            else {
+                // Reading dataset from File-Upload-WorkFlow.js
+                dataset = iChatBotDataset_FUWL;
+            }
+
+            // iChatBotConfig is loaded from iChatBotConfig.js, script is added in header section
+            iChatBotUtility.Initialize(iChatBotConfig, dataset);
+
+            //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
+            var userTextEvent = function UserText(chatSession) {
+                console.log('ichatbot : user text input event fired')
+                console.log(chatSession);
+            }
+
+            var buttonClickEvent = function ButtonClick(chatSession) {
+                console.log('ichatbot : user button click event fired')
+                console.log(chatSession);
+            }
+
+            var resetEvent = function Reset(chatSession) {
+                console.log('ichatbot : chat reset event fired')
+                console.log(chatSession);
+            }
+
+            var closeEvent = function Close(chatSession) {
+                console.log('ichatbot : chat close event fired')
+                console.log(chatSession);
+            }
+
+            var fileUploadEvent = function FileUpload(files, chatSession) {
+                console.log('ichatbot : file upload event fired')
+                console.log(files);
+                console.log(chatSession);
+
+                iChatBotUtility.SimpleQuery("<b>File Uploaded Sucessfully</b>")
+                iChatBotUtility.LoadQuery(5);
+
+                console.log(iChatBotUtility.GetChatSession());
+            }
+
+            iChatBotUtility.SubscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
+        }
+
+        function ShowLoader() {
+            iChatBotUtility.OpenChatBot();
+            iChatBotUtility.ShowLoader(5000);
+        }
+
+        function HideLoader() {
+            iChatBotUtility.OpenChatBot();
+            iChatBotUtility.HideLoader();
+        }
+
+        function OpenChatBot() {
+            iChatBotUtility.OpenChatBot();
+        }
+
+        function CloseChatBot() {
+            iChatBotUtility.CloseChatBot();
+            iChatBotUtility.HideLoader();
+        }
+
+
+    </script>
+</body>
+
+</html>
