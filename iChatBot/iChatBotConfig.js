@@ -1,9 +1,9 @@
 var iChatBotConfig =
 {
-    "IntialQueryID": 1,
+    "IntialQueryID": "1",
     "UserInputMinLen": "5",
     "UserInputMaxLen": "50",
-    "Title": "iChatBot",
+    "Title": "ChatBot",
     "TitleCSSClass": "font-bold-true",
     "DisableSelectedButton": true,
 
@@ -12,8 +12,15 @@ var iChatBotConfig =
     "iChatBotBackgroundColor": "rgb(255, 255, 255)",
     "MessagesBackgroundColor": "rgb(232, 238, 238)",
 
+    "ErrorMessageCSSClass": "ichatbot-error-msg",
+
     "ButtonCSSClass": "ichatbot-button background-blue-color",
     "LinkCSSClass": "mar-left-right-7px",
+
+    //Set TitleIconFAClass or TitleImagePath along with TitleImageCSSClass(optional)
+    "TitleIconFAClass": "fa fa-info blue-color",
+    "TitleImagePath": "",
+    "TitleImageCSSClass": "",
 
     //Set FloatingIconFAClass or FloatingIconImagePath along with FloatingIconImageCSSClass(optional)
     "FloatingIconFAClass": "fa fa-comment-dots fa-3x blue-color",

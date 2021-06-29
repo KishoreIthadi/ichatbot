@@ -121,9 +121,16 @@
 }
 
 .ichatbot-char-count {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: bold;
   margin-bottom: 2px;
+}
+
+.ichatbot-error-msg {
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 2px;
+  color: rgb(223, 21, 21);
 }
 
 .ichatbot-userinput-template {

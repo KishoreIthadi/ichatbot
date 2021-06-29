@@ -21,11 +21,14 @@
         <button id="btn_cwf" onclick="LoadChatBot('Complex')">Complex-WorkFlow</button>
         <button id="btn_fuwf" onclick="LoadChatBot('FileUpload')">File-Upload-WorkFlow</button>
         <br><br>
-        <button onclick="ShowLoader(10000)">Show Loader(10000 ms)</button>
-        <button onclick="HideLoader()">Hide Loader</button>
+        <button id="btn_showloader" onclick="ShowLoader(10000)">Show Loader(10000 ms)</button>
+        <button id="btn_hideloader" onclick="HideLoader()">Hide Loader</button>
         <br><br>
-        <button onclick="OpenChatBot(10000)">Show ChatBot</button>
-        <button onclick="CloseChatBot()">Hide ChatBot</button>
+        <button id="btn_showbot" onclick="OpenChatBot(10000)">Show ChatBot</button>
+        <button id="btn_hidebot" onclick="CloseChatBot()">Hide ChatBot</button>
+        <br><br>
+        <button id="btn_showerrormsg" onclick="ShowErrorMsg()">Show Error Message</button>
+        <button id="btn_hideerrormsg" onclick="HideErrorMsg()">Hide Error Message</button>
     </div>
 
     <div id="ichatbot-div">
@@ -51,7 +54,7 @@
             }
 
             // iChatBotConfig is loaded from iChatBotConfig.js, script is added in header section
-            iChatBotUtility.Initialize(iChatBotConfig, dataset);
+            iChatBotUtility.Initialize(iChatBotConfig, dataset), null;
 
             //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
             var userTextEvent = function UserText(chatSession) {
@@ -107,6 +110,15 @@
             iChatBotUtility.HideLoader();
         }
 
+        function ShowErrorMsg() {
+            iChatBotUtility.OpenChatBot();
+            iChatBotUtility.ShowErrorMsg("Error Message");
+        }
+
+        function HideErrorMsg() {
+            iChatBotUtility.OpenChatBot();
+            iChatBotUtility.ShowErrorMsg("");
+        }
 
     </script>
 </body>

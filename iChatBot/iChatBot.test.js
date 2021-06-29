@@ -30,8 +30,6 @@ const puppeteer = require('puppeteer');
 
   await page.click('#ichatbot-reset');
   await page.waitForTimeout(2000);
-  await page.click('#ichatbot-close');
-  await page.waitForTimeout(2000);
 
   await page.click('#ichatbot-floating-Icon');
   await page.waitForTimeout(2000);
@@ -132,17 +130,22 @@ const puppeteer = require('puppeteer');
   await page.waitForTimeout(2000);
   await page.focus("#ichatbot-userinput");
   await page.keyboard.press(String.fromCharCode(13));
-  await page.waitForTimeout(5000);
+  await page.waitForTimeout(10000);
 
   // Reset, Close, Open testing------------------------------------------------------------------------------------------------------------------------------
 
-  // await page.click('#ichatbot-reset');
-  // await page.waitForTimeout(000);
-  // await page.click('#ichatbot-close');
-  // await page.waitForTimeout(2000);
-  // await page.click('#ichatbot-floating-Icon');
-  // await page.waitForTimeout(2000);
-  // await page.click('#ichatbot-close');
+  await page.click('#btn_showloader');
+  await page.waitForTimeout(5000);
+  await page.click('#btn_hideloader');
+  await page.waitForTimeout(2000);
+  await page.click('#btn_showbot');
+  await page.waitForTimeout(2000);
+  await page.click('#btn_hidebot');
+  await page.waitForTimeout(2000);
+  await page.click('#btn_showerrormsg');
+  await page.waitForTimeout(5000);
+  await page.click('#btn_hideerrormsg');
+  await page.waitForTimeout(2000);
 
   // await browser.close();
 

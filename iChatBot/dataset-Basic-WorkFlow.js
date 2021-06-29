@@ -11,7 +11,7 @@ var iChatBotDataset_BWF =
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": ""
+        "Regex": "",
       },
       {
         "ID": "2",
