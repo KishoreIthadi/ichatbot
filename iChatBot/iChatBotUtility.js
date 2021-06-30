@@ -4,8 +4,8 @@ var iChatBotUtility = (function () {
     // Global variables
     var _gConfig = null;
     var _gDataset = null;
-    var _gChatSession = new Array();
-    var _regexPattern = null;
+    var _gChatSession = null;
+    var _gRecentQuery = null;
 
     // Event handlers
     var _userTextEvent = null;
@@ -64,34 +64,9 @@ var iChatBotUtility = (function () {
         return result;
     }
 
-    // Validates user input aganst min length/regex expression
-    function ValidateUserTextInput(e) {
-        var minLength = e.target.minLength;
-        var charCount = e.target.value.length;
-
-        if (!IsNullOrEmpty(_regexPattern)) {
-            if (!_regexPattern.test(e.target.value)) {
-                e.target.classList.add('ichatbot-userinput-error');
-                return false;
-            }
-            else {
-                e.target.classList.remove('ichatbot-userinput-error');
-                return true;
-            }
-        }
-
-        if (charCount < minLength) {
-            e.target.classList.add('ichatbot-userinput-error');
-            return false;
-        }
-        else {
-            e.target.classList.remove('ichatbot-userinput-error');
-            return true;
-        }
-    }
-
     // Initialize function is the starting point. Setting dataset, configurations and rendering popup template.
     function Initialize(config, dataset, intialQueryID) {
+        _gChatSession = new Array();
         _gConfig = config;
         _gDataset = dataset;
 
@@ -323,75 +298,87 @@ var iChatBotUtility = (function () {
 
         // Event for handling user text input on enter/numpad enter keys
         document.getElementById("ichatbot-userinput")
-            .addEventListener("keydown", function (e) {
+            .addEventListener("keyup", function (e) {
 
-                if (e.code === "Enter" || e.code === "NumpadEnter") {
+                var minLength = e.target.minLength;
+                var charCount = e.target.value.length;
 
-                    //Retriving queryID from _ChatSession
-                    var queryID = "";
+                // Validation check
+                e.target.classList.remove('ichatbot-userinput-error');
+                ShowErrorMsg("");
 
-                    for (var i = _gChatSession.length - 1; i >= 0; i--) {
-                        if (!IsNullOrEmpty(_gChatSession[i].Query)) {
-                            if (!IsNullOrEmpty(_gChatSession[i].Query.ID)) {
-                                queryID = _gChatSession[i].Query.ID;
-                                break;
-                            }
+                if (e.target.type.toLowerCase() == "text") {
+
+                    document.getElementById("ichatbot-char-count").innerHTML = e.target.value.length + '/' + e.target.maxLength;
+
+                    if (!IsNullOrEmpty(_gRecentQuery.Validation)) {
+                        if (!new RegExp(_gRecentQuery.Validation).test(e.target.value)) {
+                            e.target.classList.add('ichatbot-userinput-error');
+                            ShowErrorMsg(_gRecentQuery.ValidationErrorMsg);
+                            return;
                         }
                     }
+                    else if (charCount < minLength) {
+                        e.target.classList.add('ichatbot-userinput-error');
+                        return;
+                    }
 
-                    var query = _gDataset.Queries.find(x => x.ID == queryID);
+                }
 
+                if (e.code === "Enter" || e.code === "NumpadEnter") {
                     //Checking if the input type is textbox
                     if (e.target.type.toLowerCase() == "text") {
 
-                        if (ValidateUserTextInput(e)) {
-                            var input = e.target.value;
-                            var charCount = e.target.value.length;
-                            var minLength = e.target.minLength;
+                        var input = e.target.value;
+                        e.target.disabled = true;
+                        e.target.value = "";
 
-                            e.target.disabled = true;
-                            e.target.value = "";
+                        UserTextInputDisplay(input);
+                        _gChatSession.push({ "UserTextInput": input });
 
-                            e.target.classList.remove('ichatbot-userinput-error');
+                        if (_gRecentQuery.SearchInQueries == false) {
 
-                            UserTextInputDisplay(input);
-                            _gChatSession.push({ "UserTextInput": input });
-
-                            if (query.SearchInQueries == false) {
-                                LoadQuery(query.QueryID);
-                            }
-                            else {
-                                isQueryFound = false;
-
-                                for (var i = 0; i <= _gDataset.Queries.length - 1; i++) {
-
-                                    if (!IsNullOrEmpty(_gDataset.Queries[i].SearchKeywords)) {
-                                        if (_gDataset.Queries[i].SearchKeywords.toLowerCase().search(input.toLowerCase()) == 0) {
-                                            LoadQuery(_gDataset.Queries[i].ID);
-                                            isQueryFound = true;
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                if (!isQueryFound) {
-                                    if (!IsNullOrEmpty(query.QueryID)) {
-                                        LoadQuery(query.QueryID);
-                                    }
-                                    else {
-                                        LoadQuery(SimpleQuery(IsNullOrEmpty(_gConfig.SearchNotFoundMsg) ? "Keyword not found!!" : _gConfig.SearchNotFoundMsg));
-                                        LoadQuery(query.ID);
-                                    }
-                                }
-                            }
-
-                            // Makes sure events are fired only when FireSubscribedEvent propert is true. 
-                            if (query.FireSubscribedEvent == true) {
+                            if (_gRecentQuery.FireSubscribedEvent == true) {
                                 FireUserTextEvent();
                             }
-
-                            document.getElementById("ichatbot-char-count").innerHTML = "0/" + e.target.maxLength;
+                            if (!IsNullOrEmpty(_gRecentQuery.QueryID)) {
+                                LoadQuery(_gRecentQuery.QueryID);
+                            }
                         }
+                        else {
+                            var isQueryFound = false;
+
+                            for (var i = 0; i <= _gDataset.Queries.length - 1; i++) {
+                                if (!IsNullOrEmpty(_gDataset.Queries[i].SearchKeywords)) {
+                                    if (_gDataset.Queries[i].SearchKeywords.toLowerCase().search(input.toLowerCase()) == 0) {
+                                        if (_gRecentQuery.FireSubscribedEvent == true) {
+                                            FireUserTextEvent();
+                                        }
+                                        LoadQuery(_gDataset.Queries[i].ID);
+                                        isQueryFound = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            // if keyword not found as part of search in queries
+                            if (!isQueryFound) {
+                                LoadQuery(SimpleQuery(IsNullOrEmpty(_gConfig.SearchNotFoundMsg) ? "Keyword not found!!" : _gConfig.SearchNotFoundMsg));
+
+                                if (_gRecentQuery.FireSubscribedEvent == true) {
+                                    FireUserTextEvent();
+                                }
+
+                                if (!IsNullOrEmpty(_gRecentQuery.QueryID)) {
+                                    LoadQuery(_gRecentQuery.QueryID);
+                                }
+                                else {
+                                    LoadQuery(_gRecentQuery.ID);
+                                }
+                            }
+                        }
+
+                        document.getElementById("ichatbot-char-count").innerHTML = "0/" + e.target.maxLength;
                     }
 
                     //Checking if the input type is file
@@ -401,31 +388,28 @@ var iChatBotUtility = (function () {
                             var fileNames = "";
                             for (var i = 0; i < e.target.files.length; i++) {
                                 fileNames += e.target.files[i].name + ',';
+
+                                // Validating file extension
+                                if (!IsNullOrEmpty(_gRecentQuery.Validation)) {
+                                    if (_gRecentQuery.Validation.toLowerCase().search(e.target.files[i].name.split('.').pop().toLowerCase()) == -1) {
+                                        ShowErrorMsg(!IsNullOrEmpty(_gRecentQuery.ValidationErrorMsg) ? _gRecentQuery.ValidationErrorMsg : "_gRecentQuery.Validation are valid");
+                                        return;
+                                    }
+                                }
                             }
 
                             _gChatSession.push({ "files Uploaded": fileNames.slice(0, -1) });
 
                             // Makes sure events are fired only when FireSubscribedEvent propert is true. 
-                            if (query.FireSubscribedEvent == true) {
+                            if (_gRecentQuery.FireSubscribedEvent == true) {
                                 FireFileUploadEvent(e.target.files);
                             }
 
-                            // e.target.type = "text";
-                            // e.target.disabled = true;
-                            // e.target.value = "";
+                            e.target.type = "text";
+                            e.target.disabled = true;
+                            e.target.value = "";
                         }
                     }
-                }
-            });
-
-        // Event for handling the character count
-        document.getElementById("ichatbot-userinput")
-            .addEventListener("keyup", function (e) {
-
-                if (e.target.type.toLowerCase() == "text") {
-                    ValidateUserTextInput(e);
-
-                    document.getElementById("ichatbot-char-count").innerHTML = e.target.value.length + '/' + e.target.maxLength;
                 }
             });
 
@@ -444,13 +428,13 @@ var iChatBotUtility = (function () {
 
                         _gChatSession.push({ "Selected Option": option });
 
-                        if (!IsNullOrEmpty(option.Query)) {
-                            LoadQuery(option.Query)
-                        }
-
                         // Makes sure events are fired only when FireSubscribedEvent propert is true
                         if (option != null && !IsNullOrEmpty(option.FireSubscribedEvent) && option.FireSubscribedEvent == true) {
                             FireUserButtonClickEvent();
+                        }
+
+                        if (!IsNullOrEmpty(option.Query)) {
+                            LoadQuery(option.Query)
                         }
                     }
                 }
@@ -489,15 +473,13 @@ var iChatBotUtility = (function () {
         document.getElementById("ichatbot-userinput").multiple = false;
         document.getElementById("ichatbot-userinput").type = "text";
 
-        _regexPattern = "";
-
         if (query.Type.toLowerCase() == "text") {
             document.getElementById("ichatbot-userinput").disabled = false;
-            _regexPattern = !IsNullOrEmpty(query.Regex) ? new RegExp(query.Regex) : "";
         }
         else if (query.Type.toLowerCase() == "file" || query.Type.toLowerCase() == "multiplefiles") {
             document.getElementById("ichatbot-userinput").disabled = false;
             document.getElementById("ichatbot-userinput").type = "file";
+            document.getElementById("ichatbot-userinput").accept = !IsNullOrEmpty(query.Validation) ? query.Validation : "";
 
             if (query.Type.toLowerCase() == "multiplefiles") {
                 document.getElementById("ichatbot-userinput").multiple = true;
@@ -537,12 +519,12 @@ var iChatBotUtility = (function () {
             document.getElementById("ichatbot-loader").scrollIntoView();
         }, IsNullOrEmpty(_gConfig.LoaderTimeout) ? 600 : _gConfig.LoaderTimeout);
 
+        _gRecentQuery = query;
+
         // Loading next query in recursive way
         if (!IsNullOrEmpty(query.QueryID)) {
-            if (query.QueryID != "") {
-                if (query.SearchInQueries == false && query.Type == "") {
-                    LoadQuery(query.QueryID);
-                }
+            if (query.SearchInQueries == false && query.Type == "") {
+                LoadQuery(query.QueryID);
             }
         }
     }
@@ -593,7 +575,6 @@ var iChatBotUtility = (function () {
 
     // Function that Resets chat
     function ResetChat() {
-        _regexPattern = "";
         document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML = "";
         document.getElementById("ichatbot-char-count").innerHTML = "0/" + _gConfig.UserInputMaxLen;
         document.getElementById("ichatbot-error-msg").innerHTML = "";
@@ -622,7 +603,6 @@ var iChatBotUtility = (function () {
         // Clearing chatsession if ResetChatHistoryOnClose is true
         if (!IsNullOrEmpty(_gConfig.ResetChatHistoryOnClose)) {
             if (_gConfig.ResetChatHistoryOnClose == true) {
-                _regexPattern = "";
                 document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML = "";
                 document.getElementById("ichatbot-error-msg").innerHTML = "";
                 document.getElementById("ichatbot-char-count").innerHTML = "0/" + _gConfig.UserInputMaxLen;;

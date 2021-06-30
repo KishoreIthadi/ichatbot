@@ -1,5 +1,4 @@
-var iChatBotDataset_CWF
- =
+var iChatBotDataset_CWF =
 {
   "Queries":
     [
@@ -12,7 +11,8 @@ var iChatBotDataset_CWF
         "SearchInQueries": true,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": ""
+        "Validation": "",
+        "ValidationErrorMsg": ""
       },
       {
         "ID": "2",
@@ -23,7 +23,8 @@ var iChatBotDataset_CWF
         "SearchInQueries": false,
         "SearchKeywords": "Credit Card, CreditCard",
         "FireSubscribedEvent": false,
-        "Regex": ""
+        "Validation": "",
+        "ValidationErrorMsg": ""
       },
       {
         "ID": "3",
@@ -34,7 +35,8 @@ var iChatBotDataset_CWF
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": ""
+        "Validation": "",
+        "ValidationErrorMsg": ""
       },
       {
         "ID": "4",
@@ -45,7 +47,8 @@ var iChatBotDataset_CWF
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": ""
+        "Validation": "",
+        "ValidationErrorMsg": ""
       },
       {
         "ID": "5",
@@ -56,7 +59,8 @@ var iChatBotDataset_CWF
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": "^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$"
+        "Validation": "^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$",
+        "ValidationErrorMsg": ""
       },
       {
         "ID": "6",
@@ -67,7 +71,8 @@ var iChatBotDataset_CWF
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+        "Validation": "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$",
+        "ValidationErrorMsg": ""
       },
       {
         "ID": "7",
@@ -78,7 +83,8 @@ var iChatBotDataset_CWF
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": true,
-        "Regex": ""
+        "Validation": "",
+        "ValidationErrorMsg": ""
       },
       {
         "ID": "8",
@@ -89,7 +95,8 @@ var iChatBotDataset_CWF
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": ""
+        "Validation": "",
+        "ValidationErrorMsg": ""
       }
     ],
   "Options":

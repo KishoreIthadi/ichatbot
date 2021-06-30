@@ -11,7 +11,8 @@ var iChatBotDataset_BWF =
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": "",
+        "Validation": "",
+        "ValidationErrorMsg": ""
       },
       {
         "ID": "2",
@@ -22,7 +23,8 @@ var iChatBotDataset_BWF =
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": ""
+        "Validation": "",
+        "ValidationErrorMsg": ""
       },
       {
         "ID": "3",
@@ -33,7 +35,8 @@ var iChatBotDataset_BWF =
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": ""
+        "Validation": "",
+        "ValidationErrorMsg": ""
       },
       {
         "ID": "4",
@@ -44,7 +47,8 @@ var iChatBotDataset_BWF =
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": ""
+        "Validation": "",
+        "ValidationErrorMsg": ""
       },
       {
         "ID": "5",
@@ -55,7 +59,8 @@ var iChatBotDataset_BWF =
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": ""
+        "Validation": "",
+        "ValidationErrorMsg": ""
       }
     ],
   "Options":

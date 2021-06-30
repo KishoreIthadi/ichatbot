@@ -11,7 +11,8 @@ var iChatBotDataset_FUWL =
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": ""
+        "Validation": "",
+        "ValidationErrorMsg": ""
       },
       {
         "ID": "2",
@@ -22,7 +23,8 @@ var iChatBotDataset_FUWL =
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": ""
+        "Validation": "",
+        "ValidationErrorMsg": ""
       },
       {
         "ID": "3",
@@ -33,7 +35,8 @@ var iChatBotDataset_FUWL =
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": "^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$"
+        "Validation": "^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$",
+        "ValidationErrorMsg": ""
       },
       {
         "ID": "4",
@@ -44,7 +47,8 @@ var iChatBotDataset_FUWL =
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": true,
-        "Regex": ""
+        "Validation": ".pdf,.doc",
+        "ValidationErrorMsg": "only pdf/doc are allowed"
       },
       {
         "ID": "5",
@@ -55,7 +59,8 @@ var iChatBotDataset_FUWL =
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": ""
+        "Validation": "",
+        "ValidationErrorMsg": ""
       },
       {
         "ID": "6",
@@ -66,7 +71,8 @@ var iChatBotDataset_FUWL =
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
-        "Regex": ""
+        "Validation": "",
+        "ValidationErrorMsg": ""
       }
     ],
   "Options":
