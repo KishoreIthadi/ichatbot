@@ -122,6 +122,9 @@ var iChatBotUtility = (function () {
         if (IsNullOrEmpty(_gConfig.UserInputMaxLen)) {
             console.warn("iChatBot : UserInputMaxLen property is undefined or null");
         }
+        if (IsNullOrEmpty(_gConfig.IChatBotCSSClass)) {
+            console.warn("iChatBot : IChatBotCSSClass property is undefined or null");
+        }
         if (IsNullOrEmpty(_gConfig.Title)) {
             console.warn("iChatBot : Title property is undefined or null");
         }
@@ -197,7 +200,7 @@ var iChatBotUtility = (function () {
         }
         else if (!IsNullOrEmpty(_gConfig.ChatQueryIconImagePath)) {
             var cssClass = (!IsNullOrEmpty(_gConfig.ChatQueryIconCSSClass)) ? "class='" + _gConfig.ChatQueryIconCSSClass + "'" : "";
-            chatQueryIcon = "<img decoding  src='" + _gConfig.ChatQueryIconImagePath + "' class='" + cssClass + "'></img>  ";
+            chatQueryIcon = "<img decoding  src='" + _gConfig.ChatQueryIconImagePath + "' " + cssClass + "></img>  ";
         }
 
         return "<div class='d-flex justify-content-start mar-top-bottom-5px'>" +
@@ -259,7 +262,7 @@ var iChatBotUtility = (function () {
 
         // Chatbot template along with floating icon
         var htmlTemplate =
-            "<div id='ichatbot' class='ichatbot' " + ichatbotStyle + ">" +
+            "<div id='ichatbot' class='ichatbot " + _gConfig.IChatBotCSSClass + "' " + ichatbotStyle + ">" +
             "<div class='ichatbot-header'>" +
             "<div class='float-start'>" +
             titleIcon +
@@ -566,8 +569,8 @@ var iChatBotUtility = (function () {
             chatUserInputIcon = "<i class='" + _gConfig.ChatUserInputIconFAClass + "'></i>";
         }
         else if (!IsNullOrEmpty(_gConfig.ChatUserInputIconImagePath)) {
-            var cssClass = (!IsNullOrEmpty(_gConfig.ChatUserInputIconCSSClass)) ? "class='" + _gConfig.ChatUserInputCSSClass + "'" : "";
-            chatUserInputIcon = "<img decoding  src='" + _gConfig.ChatUserInputIconImagePath + "' class='" + cssClass + "'></img>  ";
+            var cssClass = (!IsNullOrEmpty(_gConfig.ChatUserInputIconCSSClass)) ? "class='" + _gConfig.ChatUserInputIconCSSClass + "'" : "";
+            chatUserInputIcon = "<img decoding  src='" + _gConfig.ChatUserInputIconImagePath + "' " + cssClass + "></img>  ";
         }
 
         // Template for user input

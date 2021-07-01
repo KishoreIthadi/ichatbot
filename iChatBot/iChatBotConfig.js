@@ -3,6 +3,10 @@ var iChatBotConfig =
     "IntialQueryID": "1",
     "UserInputMinLen": "5",
     "UserInputMaxLen": "50",
+
+    // Use !important to override ichatbot styles
+    "IChatBotCSSClass": "",
+
     "Title": "ChatBot",
     "TitleCSSClass": "font-bold-true",
     "DisableSelectedButton": true,
@@ -58,6 +62,6 @@ var iChatBotConfig =
 
     "SearchNotFoundMsg": "Keyword not found!!",
 
-    "ResetChatHistoryOnReset": true,
-    "ResetChatHistoryOnClose": true
+    "ResetChatHistoryOnReset": false,
+    "ResetChatHistoryOnClose": false,
 }
