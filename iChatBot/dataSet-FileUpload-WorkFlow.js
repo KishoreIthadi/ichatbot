@@ -47,7 +47,7 @@ var iChatBotDataset_FUWL =
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": true,
-        "Validation": ".pdf,.doc",
+        "Validation": ".js,.css",
         "ValidationErrorMsg": "only pdf/doc are allowed"
       },
       {

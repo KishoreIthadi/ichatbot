@@ -100,6 +100,7 @@ const puppeteer = require('puppeteer');
   await page.type('#ichatbot-userinput', '@gmail.com', { delay: 500 })
   await page.waitForTimeout(2000);
   await page.keyboard.press(String.fromCharCode(13));
+  await page.waitForTimeout(4000);
 
   // File-Upload-WorkFlow--------------------------------------------------------------------------------------------------------------------------------
 
@@ -126,6 +127,11 @@ const puppeteer = require('puppeteer');
   await page.waitForTimeout(2000);
 
   const inputUploadHandle = await page.$('input[type=file]');
+  inputUploadHandle.uploadFile('D:/Projects/iChatbot/iChatBot/example.html');
+  await page.waitForTimeout(2000);
+  await page.focus('input[type=file]');
+  await page.keyboard.press(String.fromCharCode(13));
+  await page.waitForTimeout(2000);
   inputUploadHandle.uploadFile('D:/Projects/iChatbot/iChatBot/dataset-Basic-WorkFlow.js');
   await page.waitForTimeout(2000);
   await page.focus("#ichatbot-userinput");

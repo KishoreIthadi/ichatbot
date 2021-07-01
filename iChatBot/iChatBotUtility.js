@@ -280,7 +280,7 @@ var iChatBotUtility = (function () {
             "</div>" +
             "</div>" +
             "<div class='ichatbot-footer'>" +
-            "<span id='ichatbot-error-msg' class='float-start " + _gConfig.ErrorMessageCSSClass + "'></span>" +
+            "<span id='ichatbot-error-msg' class='float-start display-contents " + _gConfig.ErrorMessageCSSClass + "'></span>" +
             "<div id='ichatbot-char-count' class='ichatbot-char-count float-end'>" +
             "0/" + _gConfig.UserInputMaxLen + "</div>" +
             "<input id='ichatbot-userinput' type='text' class='ichatbot-userinput' disabled " +
@@ -295,6 +295,15 @@ var iChatBotUtility = (function () {
 
     // Handling user text input and user option button click events
     function RegisterEvents() {
+
+        document.getElementById("ichatbot-userinput")
+            .addEventListener("keydown", function (e) {
+
+                // This will prevent opening on file upload on enter
+                if (e.code === "Enter" || e.code === "NumpadEnter") {
+                    e.preventDefault();
+                }
+            });
 
         // Event for handling user text input on enter/numpad enter keys
         document.getElementById("ichatbot-userinput")
@@ -322,7 +331,6 @@ var iChatBotUtility = (function () {
                         e.target.classList.add('ichatbot-userinput-error');
                         return;
                     }
-
                 }
 
                 if (e.code === "Enter" || e.code === "NumpadEnter") {
@@ -392,7 +400,7 @@ var iChatBotUtility = (function () {
                                 // Validating file extension
                                 if (!IsNullOrEmpty(_gRecentQuery.Validation)) {
                                     if (_gRecentQuery.Validation.toLowerCase().search(e.target.files[i].name.split('.').pop().toLowerCase()) == -1) {
-                                        ShowErrorMsg(!IsNullOrEmpty(_gRecentQuery.ValidationErrorMsg) ? _gRecentQuery.ValidationErrorMsg : "_gRecentQuery.Validation are valid");
+                                        ShowErrorMsg(!IsNullOrEmpty(_gRecentQuery.ValidationErrorMsg) ? _gRecentQuery.ValidationErrorMsg : _gRecentQuery.Validation + " are allowed");
                                         return;
                                     }
                                 }
@@ -417,6 +425,7 @@ var iChatBotUtility = (function () {
         document.getElementById("ichatbot")
             .addEventListener("click", function (e) {
 
+                // This is for file upload enter key to work
                 document.getElementById("ichatbot-userinput").focus();
 
                 if (e.target.classList.contains('ichatbotbtn')) {

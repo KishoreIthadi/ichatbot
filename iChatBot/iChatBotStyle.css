@@ -227,3 +227,7 @@
 .background-blue-color {
   background-color: #23a9c4!important;
 }
+
+.display-contents {
+  display: contents;
+}
