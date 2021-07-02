@@ -62,6 +62,6 @@ var iChatBotConfig =
 
     "SearchNotFoundMsg": "Keyword not found!!",
 
-    "ResetChatHistoryOnReset": false,
-    "ResetChatHistoryOnClose": false,
+    "ResetChatHistoryOnReset": true,
+    "ResetChatHistoryOnClose": true
 }
