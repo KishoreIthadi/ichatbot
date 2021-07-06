@@ -377,6 +377,7 @@ var iChatBot = (function () {
                             // if keyword not found as part of search in queries
                             if (!isQueryFound) {
                                 LoadQuery(SimpleQuery(IsNullOrEmpty(_gConfig.SearchNotFoundMsg) ? "Keyword not found!!" : _gConfig.SearchNotFoundMsg));
+                                document.getElementById("ichatbot-userinput").focus();
 
                                 if (_gRecentQuery.FireSubscribedEvent == true) {
                                     FireUserTextEvent();
@@ -489,8 +490,10 @@ var iChatBot = (function () {
 
         if (query.Type.toLowerCase() == "text") {
             document.getElementById("ichatbot-userinput").disabled = false;
+            document.getElementById("ichatbot-userinput").focus();
         }
         else if (query.Type.toLowerCase() == "file" || query.Type.toLowerCase() == "multiplefiles") {
+            document.getElementById("ichatbot-userinput").focus();
             document.getElementById("ichatbot-userinput").disabled = false;
             document.getElementById("ichatbot-userinput").type = "file";
             document.getElementById("ichatbot-userinput").accept = !IsNullOrEmpty(query.Validation) ? query.Validation : "";

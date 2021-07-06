@@ -1,8 +1,8 @@
 # **iChatBot**
 
-![Alt Text](/images/Simple.gif)
-![Alt Text](/images/Complex.gif)
-![Alt Text](/images/FileUpload.gif)
+<img src="images/complex.gif" width="49%" height="50%">
+<img src="images/fileupload.gif" width="49%" height="50%">
+
 
 ## Table of Contents
 * [What is **iChatBot**?](#what-is-iChatBot?)
