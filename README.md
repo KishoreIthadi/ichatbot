@@ -1,7 +1,7 @@
 # **iChatBot**
 
-<img src="images/complex.gif" width="49%" height="50%">
-<img src="images/fileupload.gif" width="49%" height="50%">
+<img src="images/Complex.gif" width="49%" height="50%">
+<img src="images/Fileupload.gif" width="49%" height="50%">
 
 
 ## Table of Contents
