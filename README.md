@@ -1,5 +1,9 @@
 # **iChatBot**
 
+![Alt Text](/images/Simple.gif)
+![Alt Text](/images/Complex.gif)
+![Alt Text](/images/FileUpload.gif)
+
 ## Table of Contents
 * [What is **iChatBot**?](#what-is-iChatBot?)
 * [Installation](#install-the-extension)
@@ -17,5 +21,7 @@
 ### **What is iChatBot?**
 
 iChatBot is a fully customisable library which enables you to create a chatbot with different configurable workflows in very short time.
+
+
 
 ---

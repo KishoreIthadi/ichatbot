@@ -45,4 +45,4 @@ gulp.task('copy-original-files', function () {
         .pipe(gulp.dest('dist/'))
 });
 
-gulp.task('minify', gulp.series('clean', 'minify-js', 'minify-css', 'copy-md-files', 'copy-original-files'));
+gulp.task('minify', gulp.series('clean', 'minify-js', 'copy-original-files'));
