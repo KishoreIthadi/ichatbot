@@ -14,7 +14,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('minify-js', function () {
-    return gulp.src(['iChatBot/iChatBotUtility.js'])
+    return gulp.src(['iChatBot/iChatBot.js'])
         .pipe(minify({
             noSource: true,
             ext: {
@@ -39,7 +39,7 @@ gulp.task('copy-md-files', function () {
 });
 
 gulp.task('copy-original-files', function () {
-    return gulp.src(['iChatBot/iChatBotStyle.css', 'iChatBot/iChatBotUtility.js'])
+    return gulp.src(['iChatBot/iChatBotStyle.css', 'iChatBot/iChatBot.js'])
         .pipe(rename({ suffix: '-' + json.version }))
         .pipe(header('/* iChatbot library v' + json.version + '  *************** */ \n'))
         .pipe(gulp.dest('dist/'))

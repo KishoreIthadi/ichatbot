@@ -1,5 +1,7 @@
+"use strict";
+
 // iChatbot Utility
-var iChatBotUtility = (function () {
+var iChatBot = (function () {
 
     // Global variables
     var _gConfig = null;
@@ -226,29 +228,29 @@ var iChatBotUtility = (function () {
 
         // Floating icon
         if (!IsNullOrEmpty(_gConfig.FloatingIconFAClass)) {
-            floatingIcon = " <i onclick ='iChatBotUtility.OpenChatBot(true)' class='" + _gConfig.FloatingIconFAClass + "'></i> ";;
+            floatingIcon = " <i onclick ='iChatBot.OpenChatBot(true)' class='" + _gConfig.FloatingIconFAClass + "'></i> ";;
         }
         else if (!IsNullOrEmpty(_gConfig.FloatingIconImagePath)) {
             var cssClass = (!IsNullOrEmpty(_gConfig.FloatingIconImageCSSClass)) ? "class='" + _gConfig.FloatingIconImageCSSClass + "'" : "";
-            floatingIcon = "<img onclick ='iChatBotUtility.OpenChatBot(true)' src='" + _gConfig.FloatingIconImagePath + "' " + cssClass + "></img>";
+            floatingIcon = "<img onclick ='iChatBot.OpenChatBot(true)' src='" + _gConfig.FloatingIconImagePath + "' " + cssClass + "></img>";
         }
 
         // Reset icon
         if (!IsNullOrEmpty(_gConfig.ResetFAClass)) {
-            resetIcon = "<i onclick ='iChatBotUtility.ResetChat()' class='" + _gConfig.ResetFAClass + "' title='Reset'></i> ";
+            resetIcon = "<i onclick ='iChatBot.ResetChat()' class='" + _gConfig.ResetFAClass + "' title='Reset'></i> ";
         }
         else if (!IsNullOrEmpty(_gConfig.ResetImagePath)) {
             var cssClass = (!IsNullOrEmpty(_gConfig.ResetCSSClass)) ? "class='" + _gConfig.ResetCSSClass + "'" : "";
-            resetIcon = "<img onclick='iChatBotUtility.ResetChat()' src='" + _gConfig.ResetImagePath + "' " + cssClass + "></img>";
+            resetIcon = "<img onclick='iChatBot.ResetChat()' src='" + _gConfig.ResetImagePath + "' " + cssClass + "></img>";
         }
 
         // Close icon
         if (!IsNullOrEmpty(_gConfig.CloseFAClass)) {
-            closeIcon = " <i onclick ='iChatBotUtility.CloseChatBot()' class='" + _gConfig.CloseFAClass + "' title='Close'></i> ";;
+            closeIcon = " <i onclick ='iChatBot.CloseChatBot()' class='" + _gConfig.CloseFAClass + "' title='Close'></i> ";;
         }
         else if (!IsNullOrEmpty(_gConfig.CloseImagePath)) {
             var cssClass = (!IsNullOrEmpty(_gConfig.CloseCSSClass)) ? "class='" + _gConfig.CloseCSSClass + "'" : "";
-            closeIcon = "<img onclick ='iChatBotUtility.CloseChatBot()' src='" + _gConfig.CloseImagePath + "' " + cssClass + "></img>";
+            closeIcon = "<img onclick ='iChatBot.CloseChatBot()' src='" + _gConfig.CloseImagePath + "' " + cssClass + "></img>";
         }
 
         // title icon

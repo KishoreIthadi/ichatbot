@@ -7,8 +7,8 @@
 
     <link rel="stylesheet" href="iChatBotStyle.css">
 
+    <script src="iChatBot.js"></script>
     <script src="iChatBotConfig.js"></script>
-    <script src="iChatBotUtility.js"></script>
     <script src="Dataset-Basic-WorkFlow.js"></script>
     <script src="Dataset-Complex-WorkFlow.js"></script>
     <script src="Dataset-FileUpload-WorkFlow.js"></script>
@@ -56,7 +56,7 @@
             }
 
             // iChatBotConfig is loaded from iChatBotConfig.js, script is added in header section
-            iChatBotUtility.Initialize(iChatBotConfig, dataset), null;
+            iChatBot.Initialize(iChatBotConfig, dataset), null;
 
             //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
             var userTextEvent = function UserText(chatSession) {
@@ -84,46 +84,46 @@
                 console.log(files);
                 console.log(chatSession);
 
-                iChatBotUtility.SimpleQuery("<b>File Uploaded Sucessfully</b>")
-                iChatBotUtility.LoadQuery(5);
+                iChatBot.SimpleQuery("<b>File Uploaded Sucessfully</b>")
+                iChatBot.LoadQuery(5);
 
-                console.log(iChatBotUtility.GetChatSession());
+                console.log(iChatBot.GetChatSession());
             }
 
-            iChatBotUtility.SubscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
+            iChatBot.SubscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
         }
 
         function ShowLoader() {
-            iChatBotUtility.OpenChatBot();
-            iChatBotUtility.ShowLoader(5000);
+            iChatBot.OpenChatBot();
+            iChatBot.ShowLoader(5000);
         }
 
         function HideLoader() {
-            iChatBotUtility.OpenChatBot();
-            iChatBotUtility.HideLoader();
+            iChatBot.OpenChatBot();
+            iChatBot.HideLoader();
         }
 
         function OpenChatBot() {
-            iChatBotUtility.OpenChatBot();
+            iChatBot.OpenChatBot();
         }
 
         function CloseChatBot() {
-            iChatBotUtility.CloseChatBot();
-            iChatBotUtility.HideLoader();
+            iChatBot.CloseChatBot();
+            iChatBot.HideLoader();
         }
 
         function ShowErrorMsg() {
-            iChatBotUtility.OpenChatBot();
-            iChatBotUtility.ShowErrorMsg("Error Message");
+            iChatBot.OpenChatBot();
+            iChatBot.ShowErrorMsg("Error Message");
         }
 
         function HideErrorMsg() {
-            iChatBotUtility.OpenChatBot();
-            iChatBotUtility.ShowErrorMsg("");
+            iChatBot.OpenChatBot();
+            iChatBot.ShowErrorMsg("");
         }
 
         function ShowChatSession() {
-            console.log(iChatBotUtility.GetChatSession());
+            console.log(iChatBot.GetChatSession());
         }
 
     </script>
