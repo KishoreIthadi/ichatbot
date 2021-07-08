@@ -221,11 +221,15 @@
 }
 
 .blue-color {
-  color: #23a9c4!important;
+  color: #0dc2e6!important;
 }
 
 .background-blue-color {
-  background-color: #23a9c4!important;
+  background-color: #0dc2e6!important;
+}
+
+.border-blue-color {
+  border: 4px solid #0dc2e6;
 }
 
 .display-contents {

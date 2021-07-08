@@ -36,11 +36,11 @@ Add styles and scripts in **angular.json**
 
 ```json
 "styles": [
-  "node_modules/ichatbot/ichatbot-v1.0.0.min.css"
+  "node_modules/iChatBot/iChatBot-1.0.0.min.css"
 ],
 "scripts": [
-  "node_modules/ichatbot/ichatbot-v1.0.0.js",
-  "node_modules/ichatbot/src/dataset-Basic-WorkFlow.js"
+  "node_modules/iChatBot/iChatBot-1.0.0.js",
+  "src/iChatBotConfig.js"
 ]
 ```
 
@@ -97,7 +97,7 @@ export class AppComponent {
             "ID": "101",
             "Text": "Documentation",
             "Type": "Link",
-            "URL": "https://github.com/KishoreIthadi/iChatbot#readme",
+            "URL": "https://github.com/KishoreIthadi/iChatbot",
             "Query": "",
             "FireSubscribedEvent": false
           }
@@ -105,8 +105,52 @@ export class AppComponent {
     }
 
     iChatBot.Initialize(iChatBotConfig, iChatBotDataset);
+
+    //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
+    var userTextEvent = function UserText(chatSession: any) {
+      console.log('ichatbot : user text input event fired')
+      console.log(chatSession);
+    }
+
+    var buttonClickEvent = function ButtonClick(chatSession: any) {
+      console.log('ichatbot : user button click event fired')
+      console.log(chatSession);
+    }
+
+    var resetEvent = function Reset(chatSession: any) {
+      console.log('ichatbot : chat reset event fired')
+      console.log(chatSession);
+    }
+
+    var closeEvent = function Close(chatSession: any) {
+      console.log('ichatbot : chat close event fired')
+      console.log(chatSession);
+    }
+
+    var fileUploadEvent = function FileUpload(files: any, chatSession: any) {
+      console.log('ichatbot : file upload event fired')
+      console.log(files);
+      console.log(chatSession);
+
+      iChatBot.SimpleQuery("<b>File Uploaded Sucessfully</b>")
+      iChatBot.LoadQuery(5);
+
+      console.log(iChatBot.GetChatSession());
+    }
+
+    iChatBot.SubscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
+
+    // iChatBot.ShowLoader(5000);
+    // iChatBot.HideLoader();
+
+    // iChatBot.OpenChatBot();
+    // iChatBot.CloseChatBot();
+
+    // iChatBot.ShowErrorMsg("Error Message");
+    // iChatBot.GetChatSession();
   }
 }
+
 ```
 ---
 
@@ -203,6 +247,16 @@ Add below in body section
         }
 
         iChatBot.SubscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
+
+        // iChatBot.ShowLoader(5000);
+        // iChatBot.HideLoader();
+
+        // iChatBot.OpenChatBot();
+        // iChatBot.CloseChatBot();
+
+        // iChatBot.ShowErrorMsg("Error Message");
+        // iChatBot.GetChatSession();
+
     </script>
 </body>
 ```
@@ -210,5 +264,104 @@ Add below in body section
 ---
 
 ### **iChatbotConfig.js**
+
+The following image explains most of the properties
+
+<img src="images/ichatbotconfig.png">
+
+1. IntialQueryID: "1"
+    
+   Query to be loaded initially, you can also set this while initializing ichatbot
+   iChatBot.Initialize(config, dataset, IntialQueryID);
+
+2. UserInputMinLen: "5"
+   UserInputMaxLen": "50"
+
+   User text input minimum and maximum character lenght. The text box border will be red if this criteria is not met
+
+3. IChatBotCSSClass: "class1 class2"
+
+   These css classes will be applied to chatbot by overriding default styles applied to outermost div, specify multiple classes seperated by space
+
+4. DisableSelectedButton: true
+
+   Whether the clickable option/button should be disabled after user clicks on it
+
+5. TitleIconFAClass: "fa fa-info blue-color"
+   TitleImagePath: ""
+   TitleImageCSSClass: ""
+
+   Icon displayed on top left of chatbot
+   Set either TitleIconFAClass (font-awesome class) **or** TitleImagePath along with TitleImageCSSClass(optional) as below
+
+   TitleIconFAClass: ""
+   TitleImagePath: "~/images/tiltleicon.png"
+   TitleImageCSSClass: "class1 class2"
+
+   The above is applicable for Resets, Close, FloatingIcon, ChatQueryIcon, ChatUserInputIcon
+
+6. SearchNotFoundMsg: "Keyword not found!!"
+
+7. ResetChatHistoryOnReset: true,
+   ResetChatHistoryOnClose: true,
+
+   by default all the activity is stored in sequential order and this can be accessed by calling GetChatSession() method
+
+### **DataSet**
+
+DataSet consists of two arrays queries and oprions as shown below
+
+```JSON
+var iChatBotDataset_BWF =
+{
+  "Queries":
+    [
+      {
+        "ID": "1",
+        "Query": "Select a service",
+        "Options": "101,102",
+        "Type": "",
+        "QueryID": "",
+        "SearchInQueries": false,
+        "SearchKeywords": "",
+        "FireSubscribedEvent": false,
+        "Validation": "",
+        "ValidationErrorMsg": ""
+      },
+      {
+        "ID": "2",
+        "Query": "Select type of mobile service",
+        "Options": "103,104",
+        "Type": "",
+        "QueryID": "",
+        "SearchInQueries": false,
+        "SearchKeywords": "",
+        "FireSubscribedEvent": false,
+        "Validation": "",
+        "ValidationErrorMsg": ""
+      }
+    ]
+  "Options":
+    [
+      {
+        "ID": "101",
+        "Text": "Mobile",
+        "Type": "Button",
+        "URL": "",
+        "Query": "2",
+        "FireSubscribedEvent": true
+      },
+      {
+        "ID": "102",
+        "Text": "Landline",
+        "Type": "Button",
+        "URL": "",
+        "Query": "",
+        "FireSubscribedEvent": false
+      }
+    ]
+}
+```
+
 
 ---

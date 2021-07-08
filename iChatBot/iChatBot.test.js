@@ -136,7 +136,7 @@ const puppeteer = require('puppeteer');
   await page.waitForTimeout(2000);
   await page.focus("#ichatbot-userinput");
   await page.keyboard.press(String.fromCharCode(13));
-  await page.waitForTimeout(10000);
+  await page.waitForTimeout(5000);
 
   // Reset, Close, Open testing------------------------------------------------------------------------------------------------------------------------------
 
@@ -152,7 +152,9 @@ const puppeteer = require('puppeteer');
   await page.waitForTimeout(5000);
   await page.click('#btn_hideerrormsg');
   await page.waitForTimeout(2000);
+  await page.click('#btn_showchatsession');
+  await page.waitForTimeout(5000);
 
-  // await browser.close();
+  //await browser.close();
 
 })();

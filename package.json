@@ -6,7 +6,8 @@
     "iChatBot"
   ],
   "scripts": {
-    "test": ""
+    "test": "node ./iChatBot/iChatBot.test.js",
+    "minify": "gulp minify"
   },
   "repository": {
     "type": "git",

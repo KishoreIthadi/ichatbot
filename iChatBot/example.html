@@ -39,6 +39,7 @@
     <script>
         // setting basic work flow on page load
         LoadChatBot("Basic");
+        document.getElementsByTagName("button")[0].classList.add('border-blue-color');
 
         function LoadChatBot(value) {
 
@@ -125,6 +126,21 @@
         function ShowChatSession() {
             console.log(iChatBot.GetChatSession());
         }
+
+        // Logic for adding border to selected button
+        var buttons = document.getElementsByTagName("button");
+        for (var i = 0; i < buttons.length; i++) {
+
+            buttons[i].addEventListener("click", function (e) {
+                var temp = document.getElementsByTagName("button");
+                for (var j = 0; j < temp.length; j++) {
+                    temp[j].classList.remove('border-blue-color');
+                }
+                e.target.classList.add('border-blue-color');
+            });
+        }
+
+
 
     </script>
 </body>
