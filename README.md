@@ -5,11 +5,12 @@
 ---
 
 ### **Table of Contents**
-* [What is **iChatBot**?](#what-is-iChatBot?)
+* [What is **iChatBot**?](#what-is-ichatbot)
 * [Installation](#Installation)
-    * [1. NPM-Angular](#1.-NPM-Angular)
-    * [2. HTML](#2.-HTML)
-* [iChatbotConfig.js](#iChatbotConfig.js)
+    * [1. NPM-Angular](#1-NPM-Angular)
+    * [2. HTML](#2-HTML)
+* [iChatbotConfig.js](#ichatbotconfigjs)
+* [Dataset](#dataset)
 * [Workflows](#Add-Remove-Project-Reference)
     * [Simple Workflow](#Add-Remove-DLL-Reference)
     * [Complex Workflow](#Add/Remove-Nuget-packages)
@@ -307,12 +308,12 @@ The following image explains most of the properties
 
    by default all the activity is stored in sequential order and this can be accessed by calling GetChatSession() method
 
-### **DataSet**
+### **Dataset**
 
-DataSet consists of two arrays queries and oprions as shown below
+Dataset consists of two arrays queries and oprions as shown below
 
-```JSON
-var iChatBotDataset_BWF =
+```javascript
+var iChatBotDataset =
 {
   "Queries":
     [
@@ -362,6 +363,5 @@ var iChatBotDataset_BWF =
     ]
 }
 ```
-
 
 ---
