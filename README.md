@@ -4,6 +4,15 @@
 
 ---
 
+### **Example Workflows**
+
+<big><pre>
+[https://github.com/user/repo/blob/branch/other_file.md](https://kishoreithadi.github.io/iChatbot/)
+</pre></big>
+```
+
+---
+
 ### **Table of Contents**
 * [What is **iChatBot**?](#what-is-ichatbot)
 * [Installation](#Installation)
