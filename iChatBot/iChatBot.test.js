@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 (async () => {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
-  await page.goto('http://127.0.0.1:5500/iChatBot/example.html');
+  await page.goto('http://127.0.0.1:5500/iChatBot/index.html');
   await page.waitForTimeout(2000);
 
   // Bacis-WorkFlow----------------------------------------------------------------------------------------------------------------------
@@ -127,7 +127,7 @@ const puppeteer = require('puppeteer');
   await page.waitForTimeout(2000);
 
   const inputUploadHandle = await page.$('input[type=file]');
-  inputUploadHandle.uploadFile('D:/Projects/iChatbot/iChatBot/example.html');
+  inputUploadHandle.uploadFile('D:/Projects/iChatbot/iChatBot/index.html');
   await page.waitForTimeout(2000);
   await page.focus('input[type=file]');
   await page.keyboard.press(String.fromCharCode(13));

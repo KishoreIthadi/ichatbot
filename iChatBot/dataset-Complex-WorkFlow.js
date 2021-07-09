@@ -10,7 +10,7 @@ var iChatBotDataset_CWF =
         "QueryID": "",
         "SearchInQueries": true,
         "SearchKeywords": "",
-        "FireSubscribedEvent": false,
+        "FireSubscribedEvent": true,
         "Validation": "",
         "ValidationErrorMsg": ""
       },

@@ -113,13 +113,20 @@ export class AppComponent {
         ]
     }
 
-    iChatBot.Initialize(iChatBotConfig, iChatBotDataset);
+    iChatBot.initialize(iChatBotConfig, iChatBotDataset);
 
     //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
-    var userTextEvent = function UserText(chatSession: any) {
-      console.log('ichatbot : user text input event fired')
-      console.log(chatSession);
-    }
+     var userTextEvent = function UserText(chatSession, event) {
+        console.log('ichatbot : user text input event fired')
+        console.log(chatSession);
+        console.log(event.searchFailed);
+
+        // In case you want to execute own logic when keyword is not found
+        // event.stop() will stop the functionality of showing "Keyword not found" message and call the configured query
+        if (event.searchFailed) {
+            // event.stop();
+          }
+      }
 
     var buttonClickEvent = function ButtonClick(chatSession: any) {
       console.log('ichatbot : user button click event fired')
@@ -141,22 +148,22 @@ export class AppComponent {
       console.log(files);
       console.log(chatSession);
 
-      iChatBot.SimpleQuery("<b>File Uploaded Sucessfully</b>")
-      iChatBot.LoadQuery(5);
+      iChatBot.simpleQuery("<b>File Uploaded Sucessfully</b>")
+      iChatBot.loadQuery(5);
 
-      console.log(iChatBot.GetChatSession());
+      console.log(iChatBot.getChatSession());
     }
 
-    iChatBot.SubscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
+    iChatBot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
 
-    // iChatBot.ShowLoader(5000);
-    // iChatBot.HideLoader();
+    // iChatBot.showLoader(5000);
+    // iChatBot.hideLoader();
 
-    // iChatBot.OpenChatBot();
-    // iChatBot.CloseChatBot();
+    // iChatBot.openChatBot();
+    // iChatBot.closeChatBot();
 
-    // iChatBot.ShowErrorMsg("Error Message");
-    // iChatBot.GetChatSession();
+    // iChatBot.showErrorMsg("Error Message");
+    // iChatBot.getChatSession();
   }
 }
 
@@ -221,14 +228,20 @@ Add below in body section
                 ]
         }
         // iChatBotConfig is loaded from iChatBotConfig.js
-        iChatBot.Initialize(iChatBotConfig, iChatBotDataset, null);
+        iChatBot.initialize(iChatBotConfig, iChatBotDataset, null);
 
-        //Subscribing to events
-        var userTextEvent = function UserText(chatSession) {
-            console.log('ichatbot : user text input event fired')
-            console.log(chatSession);
+        //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
+        var userTextEvent = function UserText(chatSession, event) {
+          console.log('ichatbot : user text input event fired')
+          console.log(chatSession);
+          console.log(event.searchFailed);
+
+          // In case you want to execute own logic when keyword is not found
+          // event.stop() will stop the functionality of showing "Keyword not found" message and call the configured query
+          if (event.searchFailed) {
+            // event.stop();
+          }
         }
-
         var buttonClickEvent = function ButtonClick(chatSession) {
             console.log('ichatbot : user button click event fired')
             console.log(chatSession);
@@ -249,22 +262,22 @@ Add below in body section
             console.log(files);
             console.log(chatSession);
 
-            iChatBot.SimpleQuery("<b>File Uploaded Sucessfully</b>")
-            iChatBot.LoadQuery(5);
+            iChatBot.simpleQuery("<b>File Uploaded Sucessfully</b>")
+            iChatBot.loadQuery(5);
 
-            console.log(iChatBot.GetChatSession());
+            console.log(iChatBot.getChatSession());
         }
 
-        iChatBot.SubscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
+        iChatBot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
 
-        // iChatBot.ShowLoader(5000);
-        // iChatBot.HideLoader();
+        // iChatBot.showLoader(5000);
+        // iChatBot.hideLoader();
 
-        // iChatBot.OpenChatBot();
-        // iChatBot.CloseChatBot();
+        // iChatBot.openChatBot();
+        // iChatBot.closeChatBot();
 
-        // iChatBot.ShowErrorMsg("Error Message");
-        // iChatBot.GetChatSession();
+        // iChatBot.showErrorMsg("Error Message");
+        // iChatBot.getChatSession();
 
     </script>
 </body>
@@ -281,7 +294,7 @@ The following image explains most of the properties
 1. **IntialQueryID: "1"**
     
    Query to be loaded initially, you can also set this while initializing ichatbot
-   iChatBot.Initialize(config, dataset, IntialQueryID);
+   iChatBot.initialize(config, dataset, IntialQueryID);
 
 2. **UserInputMinLen: "5"**
    **UserInputMaxLen": "50"**
@@ -316,7 +329,7 @@ The following image explains most of the properties
 7. **ResetChatHistoryOnReset: true**
    **ResetChatHistoryOnClose: true**
 
-   by default all the activity is stored in sequential order and this can be accessed by calling GetChatSession() method
+   by default all the activity is stored in sequential order and this can be accessed by calling getChatSession() method
 
 ### **Dataset**
 
