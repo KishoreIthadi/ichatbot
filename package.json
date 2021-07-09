@@ -7,7 +7,9 @@
   ],
   "scripts": {
     "test": "node ./iChatBot/iChatBot.test.js",
-    "minify": "gulp minify"
+    "postinstall": "copyCmd.js",
+    "minify": "gulp release",
+    "deploy-gh-pages": "gulp gh-pages && gh-pages -d gh-pages"
   },
   "repository": {
     "type": "git",

@@ -10,11 +10,11 @@ var fs = require('fs')
 var json = JSON.parse(fs.readFileSync('./package.json'))
 
 gulp.task('clean', function () {
-    return del('dist/**', { force: true });
+    return del(['dist/**', 'gh-pages/**'], { force: true });
 });
 
 gulp.task('minify-js', function () {
-    return gulp.src(['iChatBot/iChatBot.js'])
+    return gulp.src('iChatBot/iChatBot.js')
         .pipe(minify({
             noSource: true,
             ext: {
@@ -26,16 +26,11 @@ gulp.task('minify-js', function () {
 });
 
 gulp.task('minify-css', function () {
-    return gulp.src(['iChatBot/iChatBotStyle.css'])
+    return gulp.src('iChatBot/iChatBotStyle.css')
         .pipe(cleanCss())
         .pipe(rename({ suffix: '-' + json.version + '.min' }))
         .pipe(header('/* iChatbot library v' + json.version + '  *************** */ \n'))
         .pipe(gulp.dest('dist/'));
-});
-
-gulp.task('copy-md-files', function () {
-    return gulp.src(['README.md', 'CHANGELOG.md'])
-        .pipe(gulp.dest('dist/'))
 });
 
 gulp.task('copy-original-files', function () {
@@ -45,4 +40,23 @@ gulp.task('copy-original-files', function () {
         .pipe(gulp.dest('dist/'))
 });
 
-gulp.task('minify', gulp.series('clean', 'minify-js', 'minify-css', 'copy-original-files'));
+gulp.task('copy-files', function () {
+    return gulp.src(['iChatBot/iChatBotConfig.js', 'copyCmd.js', 'package.json'])
+        .pipe(gulp.dest('dist/'))
+});
+
+gulp.task('copy-gh-files', function () {
+    return gulp.src(['iChatBot/iChatBotConfig.js', 'iChatBot/iChatBotStyle.css', 'iChatBot/iChatBot.js', 'iChatBot/index.html',
+        'iChatBot/dataset-Basic-WorkFlow.js', 'iChatBot/dataset-Complex-WorkFlow.js', 'iChatBot/dataset-FileUpload-WorkFlow.js',
+        'README.md'])
+        .pipe(gulp.dest('gh-pages/'))
+});
+
+gulp.task('copy-gh-images', function () {
+    return gulp.src(['images/complex.gif', 'images/fileupload.gif',
+        'images/ichatbotconfig.png', 'images/simple.gif'])
+        .pipe(gulp.dest('gh-pages/images/'))
+});
+
+gulp.task('release', gulp.series('clean', 'minify-js', 'minify-css', 'copy-original-files', 'copy-files'));
+gulp.task('gh-pages', gulp.series('copy-gh-files', 'copy-gh-images'));

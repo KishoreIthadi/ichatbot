@@ -5,13 +5,13 @@
     <title> iChatBot </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
-    <link rel="stylesheet" href="iChatBotStyle.css">
+    <link rel="stylesheet" href="./iChatBotStyle.css">
 
-    <script src="iChatBot.js"></script>
-    <script src="iChatBotConfig.js"></script>
-    <script src="Dataset-Basic-WorkFlow.js"></script>
-    <script src="Dataset-Complex-WorkFlow.js"></script>
-    <script src="Dataset-FileUpload-WorkFlow.js"></script>
+    <script src="./iChatBot.js"></script>
+    <script src="./iChatBotConfig.js"></script>
+    <script src="./dataset-Basic-WorkFlow.js"></script>
+    <script src="./dataset-Complex-WorkFlow.js"></script>
+    <script src="./dataset-FileUpload-WorkFlow.js"></script>
 </head>
 
 <body>
@@ -31,6 +31,14 @@
         <button id="btn_hideerrormsg" onclick="HideErrorMsg()">Hide Error Message</button>
         <br><br>
         <button id="btn_showchatsession" onclick="ShowChatSession()">Console.log(ChatSession)</button>
+        <br><br>
+        <h2>Work Flow Datasets</h2>
+        <ul>
+            <li> <a href="dataset-Basic-WorkFlow.js" target="_blank">Basic</a></li>
+            <li><a href="dataset-Complex-WorkFlow.js" target="_blank">Complex</a></li>
+            <li><a href="dataset-FileUpload-WorkFlow.js" target="_blank">FileUpload</a></li>
+        </ul>
+        <br><br>
     </div>
 
     <div id="ichatbot-div">
@@ -139,8 +147,6 @@
                 e.target.classList.add('border-blue-color');
             });
         }
-
-
 
     </script>
 </body>

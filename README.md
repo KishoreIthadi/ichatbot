@@ -270,41 +270,43 @@ The following image explains most of the properties
 
 <img src="images/ichatbotconfig.png">
 
-1. IntialQueryID: "1"
+1. **IntialQueryID: "1"**
     
    Query to be loaded initially, you can also set this while initializing ichatbot
    iChatBot.Initialize(config, dataset, IntialQueryID);
 
-2. UserInputMinLen: "5"
-   UserInputMaxLen": "50"
+2. **UserInputMinLen: "5"**
+   **UserInputMaxLen": "50"**
 
    User text input minimum and maximum character lenght. The text box border will be red if this criteria is not met
 
-3. IChatBotCSSClass: "class1 class2"
+3. **IChatBotCSSClass: "class1 class2"**
 
    These css classes will be applied to chatbot by overriding default styles applied to outermost div, specify multiple classes seperated by space
 
-4. DisableSelectedButton: true
+4. **DisableSelectedButton: true**
 
    Whether the clickable option/button should be disabled after user clicks on it
 
-5. TitleIconFAClass: "fa fa-info blue-color"
-   TitleImagePath: ""
-   TitleImageCSSClass: ""
+5. **TitleIconFAClass: "fa fa-info blue-color"**
+   **TitleImagePath: ""**
+   **TitleImageCSSClass: ""**
 
    Icon displayed on top left of chatbot
    Set either TitleIconFAClass (font-awesome class) **or** TitleImagePath along with TitleImageCSSClass(optional) as below
 
-   TitleIconFAClass: ""
-   TitleImagePath: "~/images/tiltleicon.png"
-   TitleImageCSSClass: "class1 class2"
+   **TitleIconFAClass: ""**
+   **TitleImagePath: "~/images/tiltleicon.png"**
+   **TitleImageCSSClass: "class1 class2"**
 
    The above is applicable for Resets, Close, FloatingIcon, ChatQueryIcon, ChatUserInputIcon
 
-6. SearchNotFoundMsg: "Keyword not found!!"
+6. **SearchNotFoundMsg: "Keyword not found!!"**
 
-7. ResetChatHistoryOnReset: true,
-   ResetChatHistoryOnClose: true,
+   If not provided a default message will be shown
+
+7. **ResetChatHistoryOnReset: true**
+   **ResetChatHistoryOnClose: true**
 
    by default all the activity is stored in sequential order and this can be accessed by calling GetChatSession() method
 
