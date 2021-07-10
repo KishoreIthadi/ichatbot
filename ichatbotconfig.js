@@ -1,4 +1,4 @@
-var ichatbotConfig =
+var ichatbotconfig =
 {
     "IntialQueryID": "1",
     "UserInputMinLen": "5",

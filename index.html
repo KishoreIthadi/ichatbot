@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./ichatbotstyle.css">
 
     <script src="./ichatbot.js"></script>
-    <script src="./ichatbotConfig.js"></script>
+    <script src="./ichatbotconfig.js"></script>
     <script src="./dataset-basic-workflow.js"></script>
     <script src="./dataset-complex-workflow.js"></script>
     <script src="./dataset-fileupload-workflow.js"></script>
@@ -64,8 +64,8 @@
                 dataset = dataset_FUWL;
             }
 
-            // ichatbotConfig is loaded from ichatbotConfig.js, script is added in header section
-            ichatbot.initialize(ichatbotConfig, dataset), null;
+            // ichatbotconfig is loaded from ichatbotconfig.js, script is added in header section
+            ichatbot.initialize(ichatbotconfig, dataset), null;
 
             //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
             var userTextEvent = function UserText(chatSession, event) {

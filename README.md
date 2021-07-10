@@ -17,7 +17,7 @@
 * [Installation](#Installation)
     * [1. NPM-Angular](#1-NPM-Angular)
     * [2. HTML](#2-HTML)
-* [ichatbotConfig.js](#ichatbotconfigjs)
+* [ichatbotconfig.js](#ichatbotconfigjs)
 * [Dataset](#dataset)
 * [Workflows](#Add-Remove-Project-Reference)
     * [Simple Workflow](#Add-Remove-DLL-Reference)
@@ -45,10 +45,10 @@ Add styles and scripts in **angular.json**
 
 ```json
 "styles": [
-  "node_modules/ichatbot/ichatbot-1.0.0.min.css"
+  "node_modules/ichatbot/ichatbotstyle-1.0.0.min.css"
 ],
 "scripts": [
-  "node_modules/ichatbot/ichatbot-1.0.0.js",
+  "node_modules/ichatbot/ichatbot-1.0.0.min.js",
   "src/ichatbotconfig.js"
 ]
 ```
@@ -116,7 +116,7 @@ export class AppComponent {
     ichatbot.initialize(ichatbotconfig, ichatbotDataset);
 
     //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
-     var userTextEvent = function UserText(chatSession, event) {
+     var userTextEvent = function UserText(chatSession: any, event: any) {
         console.log('ichatbot : user text input event fired')
         console.log(chatSession);
         console.log(event.searchFailed);
@@ -184,9 +184,9 @@ Add link and script in head section
     <!-- Font-Awesome is for appying default icons, please update as per your requirement -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
-    <link rel="stylesheet" href="ichatbotstyle.css">
+    <link rel="stylesheet" href="ichatbotstyle-1.0.0.min.css">
 
-    <script src="ichatbot.js"></script>
+    <script src="ichatbot-1.0.0.min.js"></script>
     <script src="ichatbotconfig.js"></script>
 </head>
 ```
@@ -285,7 +285,7 @@ Add below in body section
 
 ---
 
-### **ichatbotConfig.js**
+### **ichatbotconfig.js**
 
 The following image explains most of the properties
 
