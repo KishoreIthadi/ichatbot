@@ -348,9 +348,7 @@ var iChatBot = (function () {
                     }
                 }
 
-                if (e.code === "Enter" || e.code === "NumpadEnter") {
-
-                    console.log(e.keyCode);
+                if (e.code === "Enter" || e.code === "NumpadEnter" || e.key == "13") {
 
                     //Checking if the input type is textbox
                     if (e.target.type.toLowerCase() == "text") {
