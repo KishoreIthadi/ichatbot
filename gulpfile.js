@@ -47,7 +47,7 @@ gulp.task('copy-files', function () {
 
 gulp.task('copy-gh-files', function () {
     return gulp.src(['iChatBot/iChatBotConfig.js', 'iChatBot/iChatBotStyle.css', 'iChatBot/iChatBot.js', 'iChatBot/index.html',
-        'iChatBot/dataset-Basic-WorkFlow.js', 'iChatBot/dataset-Complex-WorkFlow.js', 'iChatBot/dataset-FileUpload-WorkFlow.js',
+        'iChatBot/dataset-basic-workflow.js', 'iChatBot/dataset-complex-workflow.js', 'iChatBot/dataset-fileupload-workflow.js',
         'README.md'])
         .pipe(gulp.dest('gh-pages/'))
 });

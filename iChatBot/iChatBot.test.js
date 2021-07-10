@@ -132,7 +132,7 @@ const puppeteer = require('puppeteer');
   await page.focus('input[type=file]');
   await page.keyboard.press(String.fromCharCode(13));
   await page.waitForTimeout(2000);
-  inputUploadHandle.uploadFile('D:/Projects/iChatbot/iChatBot/dataset-Basic-WorkFlow.js');
+  inputUploadHandle.uploadFile('D:/Projects/iChatbot/iChatBot/dataset-basic-workflow.js');
   await page.waitForTimeout(2000);
   await page.focus("#ichatbot-userinput");
   await page.keyboard.press(String.fromCharCode(13));
