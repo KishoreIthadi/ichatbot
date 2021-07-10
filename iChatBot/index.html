@@ -2,13 +2,13 @@
 <html>
 
 <head>
-    <title> iChatBot </title>
+    <title> ichatbot </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
-    <link rel="stylesheet" href="./iChatBotStyle.css">
+    <link rel="stylesheet" href="./ichatbotstyle.css">
 
-    <script src="./iChatBot.js"></script>
-    <script src="./iChatBotConfig.js"></script>
+    <script src="./ichatbot.js"></script>
+    <script src="./ichatbotConfig.js"></script>
     <script src="./dataset-basic-workflow.js"></script>
     <script src="./dataset-complex-workflow.js"></script>
     <script src="./dataset-fileupload-workflow.js"></script>
@@ -53,19 +53,19 @@
 
             if (value == "Basic") {
                 // Reading dataset from Basic-WorkFlow.js
-                dataset = iChatBotDataset_BWF
+                dataset = dataset_BWF
             }
             else if (value == "Complex") {
                 // Reading dataset from Complex-WorkFlow.js
-                dataset = iChatBotDataset_CWF
+                dataset = dataset_CWF
             }
             else {
                 // Reading dataset from File-Upload-WorkFlow.js
-                dataset = iChatBotDataset_FUWL;
+                dataset = dataset_FUWL;
             }
 
-            // iChatBotConfig is loaded from iChatBotConfig.js, script is added in header section
-            iChatBot.initialize(iChatBotConfig, dataset), null;
+            // ichatbotConfig is loaded from ichatbotConfig.js, script is added in header section
+            ichatbot.initialize(ichatbotConfig, dataset), null;
 
             //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
             var userTextEvent = function UserText(chatSession, event) {
@@ -100,46 +100,46 @@
                 console.log(files);
                 console.log(chatSession);
 
-                iChatBot.simpleQuery("<b>File Uploaded Sucessfully</b>")
-                iChatBot.loadQuery(5);
+                ichatbot.simpleQuery("<b>File Uploaded Sucessfully</b>")
+                ichatbot.loadQuery(5);
 
-                console.log(iChatBot.getChatSession());
+                console.log(ichatbot.getChatSession());
             }
 
-            iChatBot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
+            ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
         }
 
         function showLoader() {
-            iChatBot.openChatBot();
-            iChatBot.showLoader(5000);
+            ichatbot.openChatBot();
+            ichatbot.showLoader(5000);
         }
 
         function hideLoader() {
-            iChatBot.openChatBot();
-            iChatBot.hideLoader();
+            ichatbot.openChatBot();
+            ichatbot.hideLoader();
         }
 
         function openChatBot() {
-            iChatBot.openChatBot();
+            ichatbot.openChatBot();
         }
 
         function closeChatBot() {
-            iChatBot.closeChatBot();
-            iChatBot.hideLoader();
+            ichatbot.closeChatBot();
+            ichatbot.hideLoader();
         }
 
         function showErrorMsg() {
-            iChatBot.openChatBot();
-            iChatBot.showErrorMsg("Error Message");
+            ichatbot.openChatBot();
+            ichatbot.showErrorMsg("Error Message");
         }
 
         function HideErrorMsg() {
-            iChatBot.openChatBot();
-            iChatBot.showErrorMsg("");
+            ichatbot.openChatBot();
+            ichatbot.showErrorMsg("");
         }
 
         function ShowChatSession() {
-            console.log(iChatBot.getChatSession());
+            console.log(ichatbot.getChatSession());
         }
 
         // Logic for adding border to selected button

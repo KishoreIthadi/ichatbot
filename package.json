@@ -1,26 +1,26 @@
 {
   "name": "ichatbot",
   "version": "1.0.0",
-  "description": "iChatBot is a fully customizable javascript library that enables you to create a chatbot with various workflows in a very short time.",
+  "description": "ichatbot is a fully customizable javascript library that enables you to create a chatbot with various workflows in a very short time.",
   "keywords": [
-    "iChatBot"
+    "ichatbot"
   ],
   "scripts": {
-    "test": "node ./iChatBot/iChatBot.test.js",
-    "postinstall": "copyCmd.js",
+    "test": "node ./ichatbot/ichatbot.test.js",
+    "postinstall": "./copyCmd.js",
     "minify": "gulp release",
     "deploy-gh-pages": "gulp gh-pages && gh-pages -d gh-pages"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KishoreIthadi/iChatbot.git"
+    "url": "git+https://github.com/KishoreIthadi/ichatbot.git"
   },
   "author": "KishoreIthadi",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/KishoreIthadi/iChatbot/issues"
+    "url": "https://github.com/KishoreIthadi/ichatbot/issues"
   },
-  "homepage": "https://github.com/KishoreIthadi/iChatbot#readme",
+  "homepage": "https://github.com/KishoreIthadi/ichatbot#readme",
   "devDependencies": {
     "del": "^6.0.0",
     "gulp": "^4.0.2",

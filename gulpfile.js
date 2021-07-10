@@ -14,40 +14,40 @@ gulp.task('clean', function () {
 });
 
 gulp.task('minify-js', function () {
-    return gulp.src('iChatBot/iChatBot.js')
+    return gulp.src('ichatbot/ichatbot.js')
         .pipe(minify({
             noSource: true,
             ext: {
                 min: '-' + json.version + '.min.js',
             }
         }))
-        .pipe(header('/* iChatbot library v' + json.version + '  *************** */ \n'))
+        .pipe(header('/* ichatbot library v' + json.version + '  *************** */ \n'))
         .pipe(gulp.dest('dist/'))
 });
 
 gulp.task('minify-css', function () {
-    return gulp.src('iChatBot/iChatBotStyle.css')
+    return gulp.src('ichatbot/ichatbotstyle.css')
         .pipe(cleanCss())
         .pipe(rename({ suffix: '-' + json.version + '.min' }))
-        .pipe(header('/* iChatbot library v' + json.version + '  *************** */ \n'))
+        .pipe(header('/* ichatbot library v' + json.version + '  *************** */ \n'))
         .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('copy-original-files', function () {
-    return gulp.src(['iChatBot/iChatBotStyle.css', 'iChatBot/iChatBot.js'])
+    return gulp.src(['ichatbot/ichatbotstyle.css', 'ichatbot/ichatbot.js'])
         .pipe(rename({ suffix: '-' + json.version }))
-        .pipe(header('/* iChatbot library v' + json.version + '  *************** */ \n'))
+        .pipe(header('/* ichatbot library v' + json.version + '  *************** */ \n'))
         .pipe(gulp.dest('dist/'))
 });
 
 gulp.task('copy-files', function () {
-    return gulp.src(['iChatBot/iChatBotConfig.js', 'copyCmd.js', 'package.json'])
+    return gulp.src(['ichatbot/ichatbotConfig.js', 'copyCmd.js', 'package.json'])
         .pipe(gulp.dest('dist/'))
 });
 
 gulp.task('copy-gh-files', function () {
-    return gulp.src(['iChatBot/iChatBotConfig.js', 'iChatBot/iChatBotStyle.css', 'iChatBot/iChatBot.js', 'iChatBot/index.html',
-        'iChatBot/dataset-basic-workflow.js', 'iChatBot/dataset-complex-workflow.js', 'iChatBot/dataset-fileupload-workflow.js',
+    return gulp.src(['ichatbot/ichatbotConfig.js', 'ichatbot/ichatbotstyle.css', 'ichatbot/ichatbot.js', 'ichatbot/index.html',
+        'ichatbot/dataset-basic-workflow.js', 'ichatbot/dataset-complex-workflow.js', 'ichatbot/dataset-fileupload-workflow.js',
         'README.md'])
         .pipe(gulp.dest('gh-pages/'))
 });

@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 (async () => {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
-  await page.goto('http://127.0.0.1:5500/iChatBot/index.html');
+  await page.goto('http://127.0.0.1:5500/ichatbot/index.html');
   await page.waitForTimeout(2000);
 
   // Bacis-WorkFlow----------------------------------------------------------------------------------------------------------------------
@@ -21,6 +21,7 @@ const puppeteer = require('puppeteer');
     let linkText = await text.jsonValue();
     if (linkText == "Link1" || linkText == "Link2") {
       await links[i].click();
+      await page.bringToFront();
     }
   }
 
@@ -127,12 +128,12 @@ const puppeteer = require('puppeteer');
   await page.waitForTimeout(2000);
 
   const inputUploadHandle = await page.$('input[type=file]');
-  inputUploadHandle.uploadFile('D:/Projects/iChatbot/iChatBot/index.html');
+  inputUploadHandle.uploadFile('D:/Projects/ichatbot/ichatbot/index.html');
   await page.waitForTimeout(2000);
   await page.focus('input[type=file]');
   await page.keyboard.press(String.fromCharCode(13));
   await page.waitForTimeout(2000);
-  inputUploadHandle.uploadFile('D:/Projects/iChatbot/iChatBot/dataset-basic-workflow.js');
+  inputUploadHandle.uploadFile('D:/Projects/ichatbot/ichatbot/dataset-basic-workflow.js');
   await page.waitForTimeout(2000);
   await page.focus("#ichatbot-userinput");
   await page.keyboard.press(String.fromCharCode(13));
@@ -153,6 +154,21 @@ const puppeteer = require('puppeteer');
   await page.click('#btn_hideerrormsg');
   await page.waitForTimeout(2000);
   await page.click('#btn_showchatsession');
+  await page.waitForTimeout(2000);
+
+  // Opening dataset links ------------------------------------------------------------------------------------------------------------------------------
+
+  const datasetLinks = await page.$$('a')
+  datasetLinks[0].click();
+  await page.waitForTimeout(2000);
+  await page.bringToFront();
+  datasetLinks[1].click();
+  await page.waitForTimeout(2000);
+  await page.bringToFront();
+  datasetLinks[2].click();
+  await page.waitForTimeout(2000);
+  await page.bringToFront();
+
   await page.waitForTimeout(5000);
 
   //await browser.close();

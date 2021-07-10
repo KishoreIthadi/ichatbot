@@ -1,4 +1,4 @@
-var iChatBotDataset_FUWL =
+var dataset_FUWL =
 {
   "Queries":
     [
