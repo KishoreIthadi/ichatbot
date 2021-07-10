@@ -324,6 +324,7 @@ var ichatbot = (function () {
         document.getElementById("ichatbot-userinput")
             .addEventListener("keyup", function (e) {
 
+alert(e.key);
                 var minLength = e.target.minLength;
                 var charCount = e.target.value.length;
 
