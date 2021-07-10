@@ -313,10 +313,6 @@ var iChatBot = (function () {
         // Event for handling user text input on enter/numpad enter keys
         document.getElementById("ichatbot-userinput")
             .addEventListener("keyup", function (e) {
-            
-               alert(e.keyCode);
-                alert(e.code);
-                alert(e.key);
 
                 var minLength = e.target.minLength;
                 var charCount = e.target.value.length;
@@ -342,7 +338,7 @@ var iChatBot = (function () {
                     }
                 }
 
-                if (e.code === "Enter" || e.code === "NumpadEnter") {
+                if (e.code === "Enter" || e.code === "NumpadEnter" || e.key === "Enter") {
                     //Checking if the input type is textbox
                     if (e.target.type.toLowerCase() == "text") {
 
