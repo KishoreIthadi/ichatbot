@@ -551,6 +551,7 @@ var ichatbot = (function () {
             document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML +=
                 chatTemplate.format(query.ID, _gConfig.ChatQueryCSSClass, queryText, templateGenerated);
             document.getElementById("ichatbot-loader").scrollIntoView();
+            document.getElementById("ichatbot-reset").classList.remove("ichatbot-disabled-buttons");
         }, isNullOrEmpty(_gConfig.LoaderTimeout) ? 600 : _gConfig.LoaderTimeout);
 
         _gRecentQuery = query;
@@ -609,6 +610,8 @@ var ichatbot = (function () {
 
     // Function that Resets chat
     function resetChat() {
+        document.getElementById("ichatbot-reset").classList.add("ichatbot-disabled-buttons");
+
         document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML = "";
         document.getElementById("ichatbot-char-count").innerHTML = "0/" + _gConfig.UserInputMaxLen;
         document.getElementById("ichatbot-error-msg").innerHTML = "";
