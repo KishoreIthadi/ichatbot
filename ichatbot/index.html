@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> ichatbot </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <link rel="stylesheet" href="./ichatbotstyle.css">
+
+    <script src="./ichatbot.js"></script>
+    <script src="./ichatbotConfig.js"></script>
+    <script src="./dataset-basic-workflow.js"></script>
+    <script src="./dataset-complex-workflow.js"></script>
+    <script src="./dataset-fileupload-workflow.js"></script>
+</head>
+
+<body>
+
+    <div style="margin: 30px;">
+        <button id="btn_bwf" onclick="LoadChatBot('Basic')">Basic-WorkFlow</button>
+        <button id="btn_cwf" onclick="LoadChatBot('Complex')">Complex-WorkFlow</button>
+        <button id="btn_fuwf" onclick="LoadChatBot('FileUpload')">File-Upload-WorkFlow</button>
+        <br><br>
+        <button id="btn_showloader" onclick="showLoader(10000)">Show Loader(10000 ms)</button>
+        <button id="btn_hideloader" onclick="hideLoader()">Hide Loader</button>
+        <br><br>
+        <button id="btn_showbot" onclick="openChatBot(10000)">Show ChatBot</button>
+        <button id="btn_hidebot" onclick="closeChatBot()">Hide ChatBot</button>
+        <br><br>
+        <button id="btn_showerrormsg" onclick="showErrorMsg()">Show Error Message</button>
+        <button id="btn_hideerrormsg" onclick="HideErrorMsg()">Hide Error Message</button>
+        <br><br>
+        <button id="btn_showchatsession" onclick="ShowChatSession()">Console.log(ChatSession)</button>
+        <br><br>
+        <h2>Work Flow Datasets</h2>
+        <ul>
+            <li> <a href="dataset-basic-workflow.js" target="_blank">Basic</a></li>
+            <li><a href="dataset-complex-workflow.js" target="_blank">Complex</a></li>
+            <li><a href="dataset-fileupload-workflow.js" target="_blank">FileUpload</a></li>
+        </ul>
+        <br><br>
+    </div>
+
+    <div id="ichatbot-div">
+    </div>
+
+    <script>
+        // setting basic work flow on page load
+        LoadChatBot("Basic");
+        document.getElementsByTagName("button")[0].classList.add('border-blue-color');
+
+        function LoadChatBot(value) {
+
+            if (value == "Basic") {
+                // Reading dataset from Basic-WorkFlow.js
+                dataset = dataset_BWF
+            }
+            else if (value == "Complex") {
+                // Reading dataset from Complex-WorkFlow.js
+                dataset = dataset_CWF
+            }
+            else {
+                // Reading dataset from File-Upload-WorkFlow.js
+                dataset = dataset_FUWL;
+            }
+
+            // ichatbotConfig is loaded from ichatbotConfig.js, script is added in header section
+            ichatbot.initialize(ichatbotConfig, dataset), null;
+
+            //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
+            var userTextEvent = function UserText(chatSession, event) {
+                console.log('ichatbot : user text input event fired')
+                console.log(chatSession);
+                console.log(event.searchFailed);
+
+                // In case you want to execute own logic when keyword is not found
+                // event.stop() will stop the functionality of showing "Keyword not found" message and call the configured query
+                if (event.searchFailed) {
+                    // event.stop();
+                }
+            }
+
+            var buttonClickEvent = function ButtonClick(chatSession) {
+                console.log('ichatbot : user button click event fired')
+                console.log(chatSession);
+            }
+
+            var resetEvent = function Reset(chatSession) {
+                console.log('ichatbot : chat reset event fired')
+                console.log(chatSession);
+            }
+
+            var closeEvent = function Close(chatSession) {
+                console.log('ichatbot : chat close event fired')
+                console.log(chatSession);
+            }
+
+            var fileUploadEvent = function FileUpload(files, chatSession) {
+                console.log('ichatbot : file upload event fired')
+                console.log(files);
+                console.log(chatSession);
+
+                ichatbot.simpleQuery("<b>File Uploaded Sucessfully</b>")
+                ichatbot.loadQuery(5);
+
+                console.log(ichatbot.getChatSession());
+            }
+
+            ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
+        }
+
+        function showLoader() {
+            ichatbot.openChatBot();
+            ichatbot.showLoader(5000);
+        }
+
+        function hideLoader() {
+            ichatbot.openChatBot();
+            ichatbot.hideLoader();
+        }
+
+        function openChatBot() {
+            ichatbot.openChatBot();
+        }
+
+        function closeChatBot() {
+            ichatbot.closeChatBot();
+            ichatbot.hideLoader();
+        }
+
+        function showErrorMsg() {
+            ichatbot.openChatBot();
+            ichatbot.showErrorMsg("Error Message");
+        }
+
+        function HideErrorMsg() {
+            ichatbot.openChatBot();
+            ichatbot.showErrorMsg("");
+        }
+
+        function ShowChatSession() {
+            console.log(ichatbot.getChatSession());
+        }
+
+        // Logic for adding border to selected button
+        var buttons = document.getElementsByTagName("button");
+        for (var i = 0; i < buttons.length; i++) {
+
+            buttons[i].addEventListener("click", function (e) {
+                var temp = document.getElementsByTagName("button");
+                for (var j = 0; j < temp.length; j++) {
+                    temp[j].classList.remove('border-blue-color');
+                }
+                e.target.classList.add('border-blue-color');
+            });
+        }
+
+    </script>
+</body>
+
+</html>

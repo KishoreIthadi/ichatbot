@@ -6,8 +6,8 @@
     "ichatbot"
   ],
   "scripts": {
-    "test": "node ./ichatbot/ichatbot.test.js",
-    "postinstall": "./copyCmd.js",
+    "test": "node ichatbot/ichatbot.test.js",
+    "postinstall": "copycmd.js",
     "minify": "gulp release",
     "deploy-gh-pages": "gulp gh-pages && gh-pages -d gh-pages"
   },
