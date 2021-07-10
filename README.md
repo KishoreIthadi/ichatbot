@@ -17,7 +17,7 @@
 * [Installation](#Installation)
     * [1. NPM-Angular](#1-NPM-Angular)
     * [2. HTML](#2-HTML)
-* [ichatbotConfig.js](#ichatbotconfigjs)
+* [ichatbotconfig.js](#ichatbotconfigjs)
 * [Dataset](#dataset)
 * [Workflows](#Add-Remove-Project-Reference)
     * [Simple Workflow](#Add-Remove-DLL-Reference)
@@ -285,7 +285,7 @@ Add below in body section
 
 ---
 
-### **ichatbotConfig.js**
+### **ichatbotconfig.js**
 
 The following image explains most of the properties
 

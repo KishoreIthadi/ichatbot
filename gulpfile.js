@@ -41,12 +41,12 @@ gulp.task('copy-original-files', function () {
 });
 
 gulp.task('copy-files', function () {
-    return gulp.src(['ichatbot/ichatbotConfig.js', 'copyCmd.js', 'package.json'])
+    return gulp.src(['ichatbot/ichatbotconfig.js', 'copycmd.js', 'package.json'])
         .pipe(gulp.dest('dist/'))
 });
 
 gulp.task('copy-gh-files', function () {
-    return gulp.src(['ichatbot/ichatbotConfig.js', 'ichatbot/ichatbotstyle.css', 'ichatbot/ichatbot.js', 'ichatbot/index.html',
+    return gulp.src(['ichatbot/ichatbotconfig.js', 'ichatbot/ichatbotstyle.css', 'ichatbot/ichatbot.js', 'ichatbot/index.html',
         'ichatbot/dataset-basic-workflow.js', 'ichatbot/dataset-complex-workflow.js', 'ichatbot/dataset-fileupload-workflow.js',
         'README.md'])
         .pipe(gulp.dest('gh-pages/'))
