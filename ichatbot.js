@@ -315,7 +315,7 @@ var ichatbot = (function () {
             .addEventListener("keydown", function (e) {
 
                 // This will prevent opening on file upload on enter
-                if (e.code === "Enter" || e.code === "NumpadEnter") {
+                if (e.code === "Enter" || e.code === "NumpadEnter" || e.key === "13") {
                     e.preventDefault();
                 }
             });
@@ -324,9 +324,6 @@ var ichatbot = (function () {
         document.getElementById("ichatbot-userinput")
             .addEventListener("keyup", function (e) {
 
-            
-            alert(e.key);
-            
                 var minLength = e.target.minLength;
                 var charCount = e.target.value.length;
 
