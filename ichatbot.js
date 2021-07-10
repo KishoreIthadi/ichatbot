@@ -324,6 +324,9 @@ var ichatbot = (function () {
         document.getElementById("ichatbot-userinput")
             .addEventListener("keyup", function (e) {
 
+            
+            alert(e.key);
+            
                 var minLength = e.target.minLength;
                 var charCount = e.target.value.length;
 
@@ -348,7 +351,7 @@ var ichatbot = (function () {
                     }
                 }
 
-                if (e.code === "Enter" || e.code === "NumpadEnter" || e.key == "13") {
+                if (e.code === "Enter" || e.code === "NumpadEnter" || e.key === "13") {
 
                     //Checking if the input type is textbox
                     if (e.target.type.toLowerCase() == "text") {
