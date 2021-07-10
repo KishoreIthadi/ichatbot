@@ -1,4 +1,4 @@
-## **iChatBot**
+## **ichatbot**
 
 <img src="images/complex.gif" width="49%" height="50%">  <img src="images/fileupload.gif" width="49%" height="50%">
 
@@ -7,17 +7,17 @@
 ### **Example Workflows**
 
 <big><pre>
-[https://github.com/user/repo/blob/branch/other_file.md](https://kishoreithadi.github.io/iChatbot/)
+[https://kishoreithadi.github.io/ichatbot/](https://kishoreithadi.github.io/ichatbot/)
 </pre></big>
 
 ---
 
 ### **Table of Contents**
-* [What is **iChatBot**?](#what-is-ichatbot)
+* [What is **ichatbot**?](#what-is-ichatbot)
 * [Installation](#Installation)
     * [1. NPM-Angular](#1-NPM-Angular)
     * [2. HTML](#2-HTML)
-* [iChatbotConfig.js](#ichatbotconfigjs)
+* [ichatbotConfig.js](#ichatbotconfigjs)
 * [Dataset](#dataset)
 * [Workflows](#Add-Remove-Project-Reference)
     * [Simple Workflow](#Add-Remove-DLL-Reference)
@@ -27,9 +27,9 @@
 
 ---
 
-### **What is iChatBot?**
+### **What is ichatbot?**
 
-iChatBot is a fully customizable javascript library that enables you to create a chatbot with various workflows in a very short time.
+ichatbot is a fully customizable javascript library that enables you to create a chatbot with various workflows in a very short time.
 
 ---
 
@@ -45,11 +45,11 @@ Add styles and scripts in **angular.json**
 
 ```json
 "styles": [
-  "node_modules/iChatBot/iChatBot-1.0.0.min.css"
+  "node_modules/ichatbot/ichatbot-1.0.0.min.css"
 ],
 "scripts": [
-  "node_modules/iChatBot/iChatBot-1.0.0.js",
-  "src/iChatBotConfig.js"
+  "node_modules/ichatbot/ichatbot-1.0.0.js",
+  "src/ichatbotconfig.js"
 ]
 ```
 
@@ -70,8 +70,8 @@ In your component
 ```javascript
 import { Component } from '@angular/core';
 
-declare var iChatBot: any;
-declare var iChatBotConfig: any;
+declare var ichatbot: any;
+declare var ichatbotconfig: any;
 
 @Component({
   selector: 'app-root',
@@ -83,7 +83,7 @@ export class AppComponent {
 
   ngOnInit() {
 
-    var iChatBotDataset =
+    var ichatbotDataset =
     {
       "Queries":
         [
@@ -91,7 +91,7 @@ export class AppComponent {
             "ID": "1",
             "Query": "Welcome to chatbot",
             "Options": "101",
-            "Type": "Link",
+            "Type": "",
             "QueryID": "",
             "SearchInQueries": false,
             "SearchKeywords": "",
@@ -106,14 +106,14 @@ export class AppComponent {
             "ID": "101",
             "Text": "Documentation",
             "Type": "Link",
-            "URL": "https://github.com/KishoreIthadi/iChatbot",
+            "URL": "https://github.com/KishoreIthadi/ichatbot",
             "Query": "",
             "FireSubscribedEvent": false
           }
         ]
     }
 
-    iChatBot.initialize(iChatBotConfig, iChatBotDataset);
+    ichatbot.initialize(ichatbotconfig, ichatbotDataset);
 
     //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
      var userTextEvent = function UserText(chatSession, event) {
@@ -148,22 +148,22 @@ export class AppComponent {
       console.log(files);
       console.log(chatSession);
 
-      iChatBot.simpleQuery("<b>File Uploaded Sucessfully</b>")
-      iChatBot.loadQuery(5);
+      ichatbot.simpleQuery("<b>File Uploaded Sucessfully</b>")
+      ichatbot.loadQuery(5);
 
-      console.log(iChatBot.getChatSession());
+      console.log(ichatbot.getChatSession());
     }
 
-    iChatBot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
+    ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
 
-    // iChatBot.showLoader(5000);
-    // iChatBot.hideLoader();
+    // ichatbot.showLoader(5000);
+    // ichatbot.hideLoader();
 
-    // iChatBot.openChatBot();
-    // iChatBot.closeChatBot();
+    // ichatbot.openChatBot();
+    // ichatbot.closeChatBot();
 
-    // iChatBot.showErrorMsg("Error Message");
-    // iChatBot.getChatSession();
+    // ichatbot.showErrorMsg("Error Message");
+    // ichatbot.getChatSession();
   }
 }
 
@@ -172,7 +172,7 @@ export class AppComponent {
 
 #### **2. HTML**
 
-Download iChatBot.js, iChatBotConfig.js & iChatBotStyle.css from below link and add it to your project.
+Download ichatbot.js, ichatbotconfig.js & ichatbotstyle.css from below link and add it to your project.
 
 ```link
 https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css
@@ -184,10 +184,10 @@ Add link and script in head section
     <!-- Font-Awesome is for appying default icons, please update as per your requirement -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
-    <link rel="stylesheet" href="iChatBotStyle.css">
+    <link rel="stylesheet" href="ichatbotstyle.css">
 
-    <script src="iChatBot.js"></script>
-    <script src="iChatBotConfig.js"></script>
+    <script src="ichatbot.js"></script>
+    <script src="ichatbotconfig.js"></script>
 </head>
 ```
 
@@ -198,7 +198,7 @@ Add below in body section
     </div>
 
     <script>
-        var iChatBotDataset =
+        var ichatbotDataset =
         {
             "Queries":
                 [
@@ -206,7 +206,7 @@ Add below in body section
                         "ID": "1",
                         "Query": "Welcome to chatbot",
                         "Options": "101",
-                        "Type": "Link",
+                        "Type": "",
                         "QueryID": "",
                         "SearchInQueries": false,
                         "SearchKeywords": "",
@@ -221,14 +221,14 @@ Add below in body section
                         "ID": "101",
                         "Text": "Documentation",
                         "Type": "Link",
-                        "URL": "https://github.com/KishoreIthadi/iChatbot#readme",
+                        "URL": "https://github.com/KishoreIthadi/ichatbot#readme",
                         "Query": "",
                         "FireSubscribedEvent": false
                     }
                 ]
         }
-        // iChatBotConfig is loaded from iChatBotConfig.js
-        iChatBot.initialize(iChatBotConfig, iChatBotDataset, null);
+        // ichatbotconfig is loaded from ichatbotconfig.js
+        ichatbot.initialize(ichatbotconfig, ichatbotDataset, null);
 
         //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
         var userTextEvent = function UserText(chatSession, event) {
@@ -262,22 +262,22 @@ Add below in body section
             console.log(files);
             console.log(chatSession);
 
-            iChatBot.simpleQuery("<b>File Uploaded Sucessfully</b>")
-            iChatBot.loadQuery(5);
+            ichatbot.simpleQuery("<b>File Uploaded Sucessfully</b>")
+            ichatbot.loadQuery(5);
 
-            console.log(iChatBot.getChatSession());
+            console.log(ichatbot.getChatSession());
         }
 
-        iChatBot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
+        ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
 
-        // iChatBot.showLoader(5000);
-        // iChatBot.hideLoader();
+        // ichatbot.showLoader(5000);
+        // ichatbot.hideLoader();
 
-        // iChatBot.openChatBot();
-        // iChatBot.closeChatBot();
+        // ichatbot.openChatBot();
+        // ichatbot.closeChatBot();
 
-        // iChatBot.showErrorMsg("Error Message");
-        // iChatBot.getChatSession();
+        // ichatbot.showErrorMsg("Error Message");
+        // ichatbot.getChatSession();
 
     </script>
 </body>
@@ -285,7 +285,7 @@ Add below in body section
 
 ---
 
-### **iChatbotConfig.js**
+### **ichatbotConfig.js**
 
 The following image explains most of the properties
 
@@ -294,7 +294,7 @@ The following image explains most of the properties
 1. **IntialQueryID: "1"**
     
    Query to be loaded initially, you can also set this while initializing ichatbot
-   iChatBot.initialize(config, dataset, IntialQueryID);
+   ichatbot.initialize(config, dataset, IntialQueryID);
 
 2. **UserInputMinLen: "5"**
    **UserInputMaxLen": "50"**
@@ -336,7 +336,7 @@ The following image explains most of the properties
 Dataset consists of two arrays queries and oprions as shown below
 
 ```javascript
-var iChatBotDataset =
+var ichatbotDataset =
 {
   "Queries":
     [

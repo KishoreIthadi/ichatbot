@@ -1,4 +1,4 @@
-var iChatBotDataset_BWF =
+var dataset_BWF =
 {
   "Queries":
     [

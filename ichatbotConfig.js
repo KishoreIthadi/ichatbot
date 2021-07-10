@@ -1,4 +1,4 @@
-var iChatBotConfig =
+var ichatbotConfig =
 {
     "IntialQueryID": "1",
     "UserInputMinLen": "5",
@@ -11,9 +11,9 @@ var iChatBotConfig =
     "TitleCSSClass": "font-bold-true",
     "DisableSelectedButton": true,
 
-    "iChatBotHeight": "400px",
-    "iChatBotWidth": "400px",
-    "iChatBotBackgroundColor": "rgb(255, 255, 255)",
+    "ichatbotHeight": "400px",
+    "ichatbotWidth": "400px",
+    "ichatbotBackgroundColor": "rgb(255, 255, 255)",
     "MessagesBackgroundColor": "rgb(232, 238, 238)",
 
     "ErrorMessageCSSClass": "ichatbot-error-msg",
