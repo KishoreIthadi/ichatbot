@@ -315,7 +315,7 @@ var ichatbot = (function () {
             .addEventListener("keydown", function (e) {
 
                 // This will prevent opening on file upload on enter
-                if (e.code === "Enter" || e.code === "NumpadEnter" || e.key === "13") {
+                if (e.code === "Enter" || e.code === "NumpadEnter" || e.key === "13" || e.key === "Enter") {
                     e.preventDefault();
                 }
             });
@@ -349,7 +349,7 @@ alert(e.key);
                     }
                 }
 
-                if (e.code === "Enter" || e.code === "NumpadEnter" || e.key === "13") {
+                if (e.code === "Enter" || e.code === "NumpadEnter" || e.key === "13" || e.key === "Enter") {
 
                     //Checking if the input type is textbox
                     if (e.target.type.toLowerCase() == "text") {
