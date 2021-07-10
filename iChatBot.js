@@ -16,8 +16,18 @@ var iChatBot = (function () {
     var _chatButtonClickEvent = null;
     var _fileUploadEvent = null;
 
+    var _stopEventExecution = false;
+
+    // event for text input search failed 
+    var stopEventExecutionFun = {
+        searchFailed: false,
+        stop: function () {
+            _stopEventExecution = true;
+        }
+    };
+
     // Checks if the variable is undefine/null/empty
-    function IsNullOrEmpty(value) {
+    function isNullOrEmpty(value) {
         return (value == undefined || value == "" || value.length == 0 || value == null);
     }
 
@@ -32,7 +42,7 @@ var iChatBot = (function () {
     };
 
     // Shows the loader, also can set timeout
-    function ShowLoader(timeOut) {
+    function showLoader(timeOut) {
         document.getElementById("ichatbot-loader").style.visibility = "visible";
 
         if (timeOut != "") {
@@ -44,18 +54,18 @@ var iChatBot = (function () {
     }
 
     // Hides the loader
-    function HideLoader() {
+    function hideLoader() {
         document.getElementById("ichatbot-loader").style.visibility = "hidden";
         document.getElementById("ichatbot-loader").scrollIntoView();
     }
 
     // Display error message
-    function ShowErrorMsg(msg) {
+    function showErrorMsg(msg) {
         document.getElementById("ichatbot-error-msg").innerHTML = msg;
     }
 
     // Formats long user text inputs, break down words by 25 characters
-    function ParseUserTextInput(userInput) {
+    function parseUserTextInput(userInput) {
         var result = "";
         var maxLength = 25;
         var numOfLines = Math.floor(userInput.length / maxLength);
@@ -67,141 +77,141 @@ var iChatBot = (function () {
     }
 
     // Initialize function is the starting point. Setting dataset, configurations and rendering popup template.
-    function Initialize(config, dataset, intialQueryID) {
+    function initialize(config, dataset, intialQueryID) {
         _gChatSession = new Array();
         _gConfig = config;
         _gDataset = dataset;
 
-        ValidateConfiguration();
+        validateConfiguration();
 
-        RenderHTMLTemplate();
-        RegisterEvents();
+        renderHTMLTemplate();
+        registerEvents();
 
-        if (!IsNullOrEmpty(intialQueryID)) {
-            LoadQuery(intialQueryID);
+        if (!isNullOrEmpty(intialQueryID)) {
+            loadQuery(intialQueryID);
         }
-        else if (!IsNullOrEmpty(_gConfig.IntialQueryID)) {
-            LoadQuery(_gConfig.IntialQueryID);
+        else if (!isNullOrEmpty(_gConfig.IntialQueryID)) {
+            loadQuery(_gConfig.IntialQueryID);
         }
     }
 
     // Validates all the required and optional configurations
-    function ValidateConfiguration() {
+    function validateConfiguration() {
 
         // Errors : essential configurations
-        if (IsNullOrEmpty(_gConfig)) {
+        if (isNullOrEmpty(_gConfig)) {
             console.error("iChatBot : configuration file/object not found");
         }
-        if (IsNullOrEmpty(_gDataset)) {
+        if (isNullOrEmpty(_gDataset)) {
             console.error("iChatBot : dataset file/object not found");
         }
-        if (IsNullOrEmpty(_gConfig.FloatingIconFAClass) && IsNullOrEmpty(_gConfig.FloatingIconImagePath)) {
+        if (isNullOrEmpty(_gConfig.FloatingIconFAClass) && isNullOrEmpty(_gConfig.FloatingIconImagePath)) {
             console.error("iChatBot : Set either FloatingIconFAClass or FloatingIconImagePath property");
         }
-        if (IsNullOrEmpty(_gConfig.ResetFAClass) && IsNullOrEmpty(_gConfig.ResetImagePath)) {
+        if (isNullOrEmpty(_gConfig.ResetFAClass) && isNullOrEmpty(_gConfig.ResetImagePath)) {
             console.error("iChatBot : Set either ResetFAClass or ResetImagePath property");
         }
-        if (IsNullOrEmpty(_gConfig.CloseFAClass) && IsNullOrEmpty(_gConfig.CloseImagePath)) {
+        if (isNullOrEmpty(_gConfig.CloseFAClass) && isNullOrEmpty(_gConfig.CloseImagePath)) {
             console.error("iChatBot : Set either CloseFAClass or CloseImagePath property");
         }
-        if (IsNullOrEmpty(_gConfig.LoaderCSSClass)) {
+        if (isNullOrEmpty(_gConfig.LoaderCSSClass)) {
             console.error("iChatBot : LoaderCSSClass property cannot be null/undefined");
         }
 
         // Warnings : optional configuarations
-        if (IsNullOrEmpty(_gConfig.IntialQueryID)) {
+        if (isNullOrEmpty(_gConfig.IntialQueryID)) {
             console.warn("iChatBot : IntialQueryID property is not set in config.");
         }
-        if (IsNullOrEmpty(_gConfig.ChatQueryIconFAClass) && IsNullOrEmpty(_gConfig.ChatQueryIconImagePath)) {
+        if (isNullOrEmpty(_gConfig.ChatQueryIconFAClass) && isNullOrEmpty(_gConfig.ChatQueryIconImagePath)) {
             console.warn("iChatBot : Set either ChatQueryIconFAClass or ChatQueryIconImagePath property");
         }
-        if (IsNullOrEmpty(_gConfig.ChatUserInputIconFAClass) && IsNullOrEmpty(_gConfig.ChatUserInputIconImagePath)) {
+        if (isNullOrEmpty(_gConfig.ChatUserInputIconFAClass) && isNullOrEmpty(_gConfig.ChatUserInputIconImagePath)) {
             console.warn("iChatBot : Set either ChatUserInputIconFAClass or ChatResponseIconImagePath property");
         }
-        if (IsNullOrEmpty(_gConfig.UserInputMinLen)) {
+        if (isNullOrEmpty(_gConfig.UserInputMinLen)) {
             console.warn("iChatBot : UserInputMinLen property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.UserInputMaxLen)) {
+        if (isNullOrEmpty(_gConfig.UserInputMaxLen)) {
             console.warn("iChatBot : UserInputMaxLen property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.IChatBotCSSClass)) {
+        if (isNullOrEmpty(_gConfig.IChatBotCSSClass)) {
             console.warn("iChatBot : IChatBotCSSClass property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.Title)) {
+        if (isNullOrEmpty(_gConfig.Title)) {
             console.warn("iChatBot : Title property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.DisableSelectedButton)) {
+        if (isNullOrEmpty(_gConfig.DisableSelectedButton)) {
             console.warn("iChatBot : DisableSelectedButton property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.iChatBotHeight)) {
+        if (isNullOrEmpty(_gConfig.iChatBotHeight)) {
             console.warn("iChatBot : iChatBotHeight property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.iChatBotWidth)) {
+        if (isNullOrEmpty(_gConfig.iChatBotWidth)) {
             console.warn("iChatBot : iChatBotWidth property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.iChatBotBackgroundColor)) {
+        if (isNullOrEmpty(_gConfig.iChatBotBackgroundColor)) {
             console.warn("iChatBot : iChatBotBackgroundColor property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.MessagesBackgroundColor)) {
+        if (isNullOrEmpty(_gConfig.MessagesBackgroundColor)) {
             console.warn("iChatBot : MessagesBackgroundColor property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.ButtonCSSClass)) {
+        if (isNullOrEmpty(_gConfig.ButtonCSSClass)) {
             console.warn("iChatBot : ButtonCSSClass property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.LinkCSSClass)) {
+        if (isNullOrEmpty(_gConfig.LinkCSSClass)) {
             console.warn("iChatBot : LinkCSSClass property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.FloatingIconImageCSSClass)) {
+        if (isNullOrEmpty(_gConfig.FloatingIconImageCSSClass)) {
             console.warn("iChatBot : FloatingIconImageCSSClass property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.ResetCSSClass)) {
+        if (isNullOrEmpty(_gConfig.ResetCSSClass)) {
             console.warn("iChatBot : ResetCSSClass property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.CloseCSSClass)) {
+        if (isNullOrEmpty(_gConfig.CloseCSSClass)) {
             console.warn("iChatBot : CloseCSSClass property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.ChatQueryIconCSSClass)) {
+        if (isNullOrEmpty(_gConfig.ChatQueryIconCSSClass)) {
             console.warn("iChatBot : ChatQueryIconCSSClass property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.ChatQueryCSSClass)) {
+        if (isNullOrEmpty(_gConfig.ChatQueryCSSClass)) {
             console.warn("iChatBot : ChatQueryCSSClass property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.ChatUserInputIconCSSClass)) {
+        if (isNullOrEmpty(_gConfig.ChatUserInputIconCSSClass)) {
             console.warn("iChatBot : ChatUserInputIconCSSClass property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.ChatUserInputCSSClass)) {
+        if (isNullOrEmpty(_gConfig.ChatUserInputCSSClass)) {
             console.warn("iChatBot : ChatUserInputCSSClass property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.LoaderTimeout)) {
+        if (isNullOrEmpty(_gConfig.LoaderTimeout)) {
             console.warn("iChatBot : LoaderTimeout property is undefined or null, default will be set to 600");
         }
-        if (IsNullOrEmpty(_gConfig.SearchNotFoundMsg)) {
+        if (isNullOrEmpty(_gConfig.SearchNotFoundMsg)) {
             console.warn("iChatBot : SearchNotFoundMsg property is undefined or null, default will be set to 'Keyword Not Found!!'");
         }
-        if (IsNullOrEmpty(_gConfig.ResetChatHistoryOnReset)) {
-            console.warn("iChatBot : ResetChatHistoryOnReset property is undefined or null, default will be set to false");
+        if (isNullOrEmpty(_gConfig.resetChatHistoryOnReset)) {
+            console.warn("iChatBot : resetChatHistoryOnReset property is undefined or null, default will be set to false");
         }
-        if (IsNullOrEmpty(_gConfig.ResetChatHistoryOnClose)) {
-            console.warn("iChatBot : ResetChatHistoryOnClose property is undefined or null, default will be set to false");
+        if (isNullOrEmpty(_gConfig.resetChatHistoryOnClose)) {
+            console.warn("iChatBot : resetChatHistoryOnClose property is undefined or null, default will be set to false");
         }
-        if (IsNullOrEmpty(_gConfig.FloatingIconCSSClass)) {
+        if (isNullOrEmpty(_gConfig.FloatingIconCSSClass)) {
             console.warn("iChatBot : FloatingIconCSSClass property is undefined or null");
         }
-        if (IsNullOrEmpty(_gConfig.TitleIconFAClass) && IsNullOrEmpty(_gConfig.TitleImagePath)) {
+        if (isNullOrEmpty(_gConfig.TitleIconFAClass) && isNullOrEmpty(_gConfig.TitleImagePath)) {
             console.warn("iChatBot : Set either TitleIconFAClass or TitleImagePath property");
         }
     }
 
     // Returns query template html
-    function CreateQueryTemplate() {
+    function createQueryTemplate() {
         var chatQueryIcon;
 
         // Picks either the FA user icon, or Image user icon for chat messages. 
-        if (!IsNullOrEmpty(_gConfig.ChatQueryIconFAClass)) {
+        if (!isNullOrEmpty(_gConfig.ChatQueryIconFAClass)) {
             chatQueryIcon = "<i class='" + _gConfig.ChatQueryIconFAClass + "'></i>";
         }
-        else if (!IsNullOrEmpty(_gConfig.ChatQueryIconImagePath)) {
-            var cssClass = (!IsNullOrEmpty(_gConfig.ChatQueryIconCSSClass)) ? "class='" + _gConfig.ChatQueryIconCSSClass + "'" : "";
+        else if (!isNullOrEmpty(_gConfig.ChatQueryIconImagePath)) {
+            var cssClass = (!isNullOrEmpty(_gConfig.ChatQueryIconCSSClass)) ? "class='" + _gConfig.ChatQueryIconCSSClass + "'" : "";
             chatQueryIcon = "<img decoding  src='" + _gConfig.ChatQueryIconImagePath + "' " + cssClass + "></img>  ";
         }
 
@@ -214,7 +224,7 @@ var iChatBot = (function () {
     }
 
     // Renders ichatbot html template into user created element #ichatbot-div  
-    function RenderHTMLTemplate() {
+    function renderHTMLTemplate() {
 
         // chatbot height, width and background color
         var ichatbotStyle = "style='background-color:" + _gConfig.iChatBotBackgroundColor + ";' ";
@@ -227,38 +237,38 @@ var iChatBot = (function () {
         var titleIcon = "";
 
         // Floating icon
-        if (!IsNullOrEmpty(_gConfig.FloatingIconFAClass)) {
-            floatingIcon = " <i onclick ='iChatBot.OpenChatBot(true)' class='" + _gConfig.FloatingIconFAClass + "'></i> ";;
+        if (!isNullOrEmpty(_gConfig.FloatingIconFAClass)) {
+            floatingIcon = " <i onclick ='iChatBot.openChatBot(true)' class='" + _gConfig.FloatingIconFAClass + "'></i> ";;
         }
-        else if (!IsNullOrEmpty(_gConfig.FloatingIconImagePath)) {
-            var cssClass = (!IsNullOrEmpty(_gConfig.FloatingIconImageCSSClass)) ? "class='" + _gConfig.FloatingIconImageCSSClass + "'" : "";
-            floatingIcon = "<img onclick ='iChatBot.OpenChatBot(true)' src='" + _gConfig.FloatingIconImagePath + "' " + cssClass + "></img>";
+        else if (!isNullOrEmpty(_gConfig.FloatingIconImagePath)) {
+            var cssClass = (!isNullOrEmpty(_gConfig.FloatingIconImageCSSClass)) ? "class='" + _gConfig.FloatingIconImageCSSClass + "'" : "";
+            floatingIcon = "<img onclick ='iChatBot.openChatBot(true)' src='" + _gConfig.FloatingIconImagePath + "' " + cssClass + "></img>";
         }
 
         // Reset icon
-        if (!IsNullOrEmpty(_gConfig.ResetFAClass)) {
-            resetIcon = "<i onclick ='iChatBot.ResetChat()' class='" + _gConfig.ResetFAClass + "' title='Reset'></i> ";
+        if (!isNullOrEmpty(_gConfig.ResetFAClass)) {
+            resetIcon = "<i onclick ='iChatBot.resetChat()' class='" + _gConfig.ResetFAClass + "' title='Reset'></i> ";
         }
-        else if (!IsNullOrEmpty(_gConfig.ResetImagePath)) {
-            var cssClass = (!IsNullOrEmpty(_gConfig.ResetCSSClass)) ? "class='" + _gConfig.ResetCSSClass + "'" : "";
-            resetIcon = "<img onclick='iChatBot.ResetChat()' src='" + _gConfig.ResetImagePath + "' " + cssClass + "></img>";
+        else if (!isNullOrEmpty(_gConfig.ResetImagePath)) {
+            var cssClass = (!isNullOrEmpty(_gConfig.ResetCSSClass)) ? "class='" + _gConfig.ResetCSSClass + "'" : "";
+            resetIcon = "<img onclick='iChatBot.resetChat()' src='" + _gConfig.ResetImagePath + "' " + cssClass + "></img>";
         }
 
         // Close icon
-        if (!IsNullOrEmpty(_gConfig.CloseFAClass)) {
-            closeIcon = " <i onclick ='iChatBot.CloseChatBot()' class='" + _gConfig.CloseFAClass + "' title='Close'></i> ";;
+        if (!isNullOrEmpty(_gConfig.CloseFAClass)) {
+            closeIcon = " <i onclick ='iChatBot.closeChatBot()' class='" + _gConfig.CloseFAClass + "' title='Close'></i> ";;
         }
-        else if (!IsNullOrEmpty(_gConfig.CloseImagePath)) {
-            var cssClass = (!IsNullOrEmpty(_gConfig.CloseCSSClass)) ? "class='" + _gConfig.CloseCSSClass + "'" : "";
-            closeIcon = "<img onclick ='iChatBot.CloseChatBot()' src='" + _gConfig.CloseImagePath + "' " + cssClass + "></img>";
+        else if (!isNullOrEmpty(_gConfig.CloseImagePath)) {
+            var cssClass = (!isNullOrEmpty(_gConfig.CloseCSSClass)) ? "class='" + _gConfig.CloseCSSClass + "'" : "";
+            closeIcon = "<img onclick ='iChatBot.closeChatBot()' src='" + _gConfig.CloseImagePath + "' " + cssClass + "></img>";
         }
 
         // title icon
-        if (!IsNullOrEmpty(_gConfig.TitleIconFAClass)) {
+        if (!isNullOrEmpty(_gConfig.TitleIconFAClass)) {
             titleIcon = " <i class='" + _gConfig.TitleIconFAClass + "'></i> ";;
         }
-        else if (!IsNullOrEmpty(_gConfig.TitleImagePath)) {
-            var cssClass = (!IsNullOrEmpty(_gConfig.TitleImageCSSClass)) ? "class='" + _gConfig.TitleImageCSSClass + "'" : "";
+        else if (!isNullOrEmpty(_gConfig.TitleImagePath)) {
+            var cssClass = (!isNullOrEmpty(_gConfig.TitleImageCSSClass)) ? "class='" + _gConfig.TitleImageCSSClass + "'" : "";
             titleIcon = "<img src='" + _gConfig.TitleImagePath + "' " + cssClass + "></img>";
         }
 
@@ -299,7 +309,7 @@ var iChatBot = (function () {
     }
 
     // Handling user text input and user option button click events
-    function RegisterEvents() {
+    function registerEvents() {
 
         document.getElementById("ichatbot-userinput")
             .addEventListener("keydown", function (e) {
@@ -319,16 +329,16 @@ var iChatBot = (function () {
 
                 // Validation check
                 e.target.classList.remove('ichatbot-userinput-error');
-                ShowErrorMsg("");
+                showErrorMsg("");
 
                 if (e.target.type.toLowerCase() == "text") {
 
                     document.getElementById("ichatbot-char-count").innerHTML = e.target.value.length + '/' + e.target.maxLength;
 
-                    if (!IsNullOrEmpty(_gRecentQuery.Validation)) {
+                    if (!isNullOrEmpty(_gRecentQuery.Validation)) {
                         if (!new RegExp(_gRecentQuery.Validation).test(e.target.value)) {
                             e.target.classList.add('ichatbot-userinput-error');
-                            ShowErrorMsg(_gRecentQuery.ValidationErrorMsg);
+                            showErrorMsg(_gRecentQuery.ValidationErrorMsg);
                             return;
                         }
                     }
@@ -338,7 +348,8 @@ var iChatBot = (function () {
                     }
                 }
 
-                if (e.code === "Enter" || e.code === "NumpadEnter" || e.key === "Enter") {
+                if (e.code === "Enter" || e.code === "NumpadEnter" || e.key == "13") {
+
                     //Checking if the input type is textbox
                     if (e.target.type.toLowerCase() == "text") {
 
@@ -346,53 +357,59 @@ var iChatBot = (function () {
                         e.target.disabled = true;
                         e.target.value = "";
 
-                        UserTextInputDisplay(input);
+                        document.getElementById("ichatbot-char-count").innerHTML = "0/" + e.target.maxLength;
+
+                        userTextInputDisplay(input);
                         _gChatSession.push({ "UserTextInput": input });
 
                         if (_gRecentQuery.SearchInQueries == false) {
 
                             if (_gRecentQuery.FireSubscribedEvent == true) {
-                                FireUserTextEvent();
+                                fireUserTextEvent();
                             }
-                            if (!IsNullOrEmpty(_gRecentQuery.QueryID)) {
-                                LoadQuery(_gRecentQuery.QueryID);
+                            if (!isNullOrEmpty(_gRecentQuery.QueryID)) {
+                                loadQuery(_gRecentQuery.QueryID);
                             }
                         }
                         else {
-                            var isQueryFound = false;
+                            stopEventExecutionFun.searchFailed = true;
+                            _stopEventExecution = false;
 
                             for (var i = 0; i <= _gDataset.Queries.length - 1; i++) {
-                                if (!IsNullOrEmpty(_gDataset.Queries[i].SearchKeywords)) {
+                                if (!isNullOrEmpty(_gDataset.Queries[i].SearchKeywords)) {
                                     if (_gDataset.Queries[i].SearchKeywords.toLowerCase().search(input.toLowerCase()) == 0) {
                                         if (_gRecentQuery.FireSubscribedEvent == true) {
-                                            FireUserTextEvent();
+                                            stopEventExecutionFun.searchFailed = false;
+                                            fireUserTextEvent();
                                         }
-                                        LoadQuery(_gDataset.Queries[i].ID);
-                                        isQueryFound = true;
+                                        loadQuery(_gDataset.Queries[i].ID);
                                         break;
                                     }
                                 }
                             }
 
                             // if keyword not found as part of search in queries
-                            if (!isQueryFound) {
-                                LoadQuery(SimpleQuery(IsNullOrEmpty(_gConfig.SearchNotFoundMsg) ? "Keyword not found!!" : _gConfig.SearchNotFoundMsg));
-                                document.getElementById("ichatbot-userinput").focus();
+                            if (stopEventExecutionFun.searchFailed) {
 
                                 if (_gRecentQuery.FireSubscribedEvent == true) {
-                                    FireUserTextEvent();
+                                    fireUserTextEvent();
                                 }
 
-                                if (!IsNullOrEmpty(_gRecentQuery.QueryID)) {
-                                    LoadQuery(_gRecentQuery.QueryID);
+                                if (_stopEventExecution) {
+                                    return;
+                                }
+
+                                loadQuery(simpleQuery(isNullOrEmpty(_gConfig.SearchNotFoundMsg) ? "Keyword not found!!" : _gConfig.SearchNotFoundMsg));
+                                document.getElementById("ichatbot-userinput").focus();
+
+                                if (!isNullOrEmpty(_gRecentQuery.QueryID)) {
+                                    loadQuery(_gRecentQuery.QueryID);
                                 }
                                 else {
-                                    LoadQuery(_gRecentQuery.ID);
+                                    loadQuery(_gRecentQuery.ID);
                                 }
                             }
                         }
-
-                        document.getElementById("ichatbot-char-count").innerHTML = "0/" + e.target.maxLength;
                     }
 
                     //Checking if the input type is file
@@ -404,9 +421,9 @@ var iChatBot = (function () {
                                 fileNames += e.target.files[i].name + ',';
 
                                 // Validating file extension
-                                if (!IsNullOrEmpty(_gRecentQuery.Validation)) {
+                                if (!isNullOrEmpty(_gRecentQuery.Validation)) {
                                     if (_gRecentQuery.Validation.toLowerCase().search(e.target.files[i].name.split('.').pop().toLowerCase()) == -1) {
-                                        ShowErrorMsg(!IsNullOrEmpty(_gRecentQuery.ValidationErrorMsg) ? _gRecentQuery.ValidationErrorMsg : _gRecentQuery.Validation + " are allowed");
+                                        showErrorMsg(!isNullOrEmpty(_gRecentQuery.ValidationErrorMsg) ? _gRecentQuery.ValidationErrorMsg : _gRecentQuery.Validation + " are allowed");
                                         return;
                                     }
                                 }
@@ -416,7 +433,7 @@ var iChatBot = (function () {
 
                             // Makes sure events are fired only when FireSubscribedEvent propert is true. 
                             if (_gRecentQuery.FireSubscribedEvent == true) {
-                                FireFileUploadEvent(e.target.files);
+                                fireFileUploadEvent(e.target.files);
                             }
 
                             e.target.type = "text";
@@ -436,7 +453,7 @@ var iChatBot = (function () {
 
                 if (e.target.classList.contains('ichatbotbtn')) {
 
-                    if (!IsNullOrEmpty(e.target.attributes.id)) {
+                    if (!isNullOrEmpty(e.target.attributes.id)) {
 
                         var SelectedID = e.target.attributes.id.value;
                         var option = _gDataset.Options.find((x) => x.ID == SelectedID);
@@ -444,12 +461,12 @@ var iChatBot = (function () {
                         _gChatSession.push({ "Selected Option": option });
 
                         // Makes sure events are fired only when FireSubscribedEvent propert is true
-                        if (option != null && !IsNullOrEmpty(option.FireSubscribedEvent) && option.FireSubscribedEvent == true) {
-                            FireUserButtonClickEvent();
+                        if (option != null && !isNullOrEmpty(option.FireSubscribedEvent) && option.FireSubscribedEvent == true) {
+                            fireUserButtonClickEvent();
                         }
 
-                        if (!IsNullOrEmpty(option.Query)) {
-                            LoadQuery(option.Query)
+                        if (!isNullOrEmpty(option.Query)) {
+                            loadQuery(option.Query)
                         }
                     }
                 }
@@ -457,16 +474,16 @@ var iChatBot = (function () {
     }
 
     // Loads a query with options and add to chatbot
-    function LoadQuery(id) {
+    function loadQuery(id) {
 
-        if (IsNullOrEmpty(id)) {
+        if (isNullOrEmpty(id)) {
             return;
         }
 
         document.getElementById("ichatbot-loader").style.visibility = "visible";
 
         // Disabling the selected clickable buttons
-        if (!IsNullOrEmpty(_gConfig.DisableSelectedButton)) {
+        if (!isNullOrEmpty(_gConfig.DisableSelectedButton)) {
             if (_gConfig.DisableSelectedButton == true) {
 
                 var clickableButtons = document.getElementsByClassName("ichatbotbtn");
@@ -496,7 +513,7 @@ var iChatBot = (function () {
             document.getElementById("ichatbot-userinput").focus();
             document.getElementById("ichatbot-userinput").disabled = false;
             document.getElementById("ichatbot-userinput").type = "file";
-            document.getElementById("ichatbot-userinput").accept = !IsNullOrEmpty(query.Validation) ? query.Validation : "";
+            document.getElementById("ichatbot-userinput").accept = !isNullOrEmpty(query.Validation) ? query.Validation : "";
 
             if (query.Type.toLowerCase() == "multiplefiles") {
                 document.getElementById("ichatbot-userinput").multiple = true;
@@ -510,7 +527,7 @@ var iChatBot = (function () {
         var templateGenerated = '';
 
         // Are being sent to a format function, to be parsed correctly. 
-        if (!IsNullOrEmpty(query.Options)) {
+        if (!isNullOrEmpty(query.Options)) {
 
             var optionIDS = query.Options.split(',');
 
@@ -521,60 +538,60 @@ var iChatBot = (function () {
                     templateGenerated += buttonTemplate.format(element, option.Text);
                 }
                 else if (option.Type.toLowerCase() == "link") {
-                    templateGenerated += linkTemplate.format(option.URL, !IsNullOrEmpty(option.Text) ? option.Text : "link");
+                    templateGenerated += linkTemplate.format(option.URL, !isNullOrEmpty(option.Text) ? option.Text : "link");
                 }
             });
         }
 
         // Template for Chat query
-        var chatTemplate = CreateQueryTemplate();
+        var chatTemplate = createQueryTemplate();
 
         setTimeout(() => {
             document.getElementById("ichatbot-loader").style.visibility = "hidden";
             document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML +=
                 chatTemplate.format(query.ID, _gConfig.ChatQueryCSSClass, queryText, templateGenerated);
             document.getElementById("ichatbot-loader").scrollIntoView();
-        }, IsNullOrEmpty(_gConfig.LoaderTimeout) ? 600 : _gConfig.LoaderTimeout);
+        }, isNullOrEmpty(_gConfig.LoaderTimeout) ? 600 : _gConfig.LoaderTimeout);
 
         _gRecentQuery = query;
 
         // Loading next query in recursive way
-        if (!IsNullOrEmpty(query.QueryID)) {
+        if (!isNullOrEmpty(query.QueryID)) {
             if (query.SearchInQueries == false && query.Type == "") {
-                LoadQuery(query.QueryID);
+                loadQuery(query.QueryID);
             }
         }
     }
 
     // This function will add a query will message, it will not have any options
     // This function can be called by user code for displaying custom messages to end user
-    function SimpleQuery(message) {
+    function simpleQuery(message) {
         document.getElementById("ichatbot-loader").style.visibility = "visible";
 
         // Template for Chat query
-        var chatTemplate = CreateQueryTemplate();
+        var chatTemplate = createQueryTemplate();
 
         setTimeout(() => {
             document.getElementById("ichatbot-loader").style.visibility = "hidden";
             document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML +=
                 chatTemplate.format(null, _gConfig.ChatQueryCSSClass, message, "");
             document.getElementById("ichatbot-loader").scrollIntoView();
-        }, IsNullOrEmpty(_gConfig.LoaderTimeout) ? 600 : _gConfig.LoaderTimeout);
+        }, isNullOrEmpty(_gConfig.LoaderTimeout) ? 600 : _gConfig.LoaderTimeout);
 
-        _gChatSession.push({ "SimpleQuery": message });
+        _gChatSession.push({ "simpleQuery": message });
     }
 
     // Function for creating UserText input template and adding it to chat
-    function UserTextInputDisplay(userInput) {
-        var parsedInput = ParseUserTextInput(userInput);
+    function userTextInputDisplay(userInput) {
+        var parsedInput = parseUserTextInput(userInput);
         var chatUserInputIcon = "";
 
         // Picks either the FA icon, or Image for chat user text input template
-        if (!IsNullOrEmpty(_gConfig.ChatUserInputIconFAClass)) {
+        if (!isNullOrEmpty(_gConfig.ChatUserInputIconFAClass)) {
             chatUserInputIcon = "<i class='" + _gConfig.ChatUserInputIconFAClass + "'></i>";
         }
-        else if (!IsNullOrEmpty(_gConfig.ChatUserInputIconImagePath)) {
-            var cssClass = (!IsNullOrEmpty(_gConfig.ChatUserInputIconCSSClass)) ? "class='" + _gConfig.ChatUserInputIconCSSClass + "'" : "";
+        else if (!isNullOrEmpty(_gConfig.ChatUserInputIconImagePath)) {
+            var cssClass = (!isNullOrEmpty(_gConfig.ChatUserInputIconCSSClass)) ? "class='" + _gConfig.ChatUserInputIconCSSClass + "'" : "";
             chatUserInputIcon = "<img decoding  src='" + _gConfig.ChatUserInputIconImagePath + "' " + cssClass + "></img>  ";
         }
 
@@ -591,7 +608,7 @@ var iChatBot = (function () {
     }
 
     // Function that Resets chat
-    function ResetChat() {
+    function resetChat() {
         document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML = "";
         document.getElementById("ichatbot-char-count").innerHTML = "0/" + _gConfig.UserInputMaxLen;
         document.getElementById("ichatbot-error-msg").innerHTML = "";
@@ -600,26 +617,26 @@ var iChatBot = (function () {
 
         _gChatSession.push({ "Reset": "UserReset" });
 
-        // Clearing chatsession if ResetChatHistoryOnReset is true
-        if (!IsNullOrEmpty(_gConfig.ResetChatHistoryOnReset)) {
-            if (_gConfig.ResetChatHistoryOnReset == true) {
+        // Clearing chatsession if resetChatHistoryOnReset is true
+        if (!isNullOrEmpty(_gConfig.resetChatHistoryOnReset)) {
+            if (_gConfig.resetChatHistoryOnReset == true) {
                 _gChatSession = [];
             }
         }
 
-        LoadQuery(_gConfig.IntialQueryID);
-        FireChatResetEvent();
+        loadQuery(_gConfig.IntialQueryID);
+        fireChatResetEvent();
     }
 
     // Function that closes chat
-    function CloseChatBot() {
+    function closeChatBot() {
         document.getElementById('ichatbot').classList.remove("ichatbot-show");
 
         _gChatSession.push({ "Close": "UserClose" });
 
-        // Clearing chatsession if ResetChatHistoryOnClose is true
-        if (!IsNullOrEmpty(_gConfig.ResetChatHistoryOnClose)) {
-            if (_gConfig.ResetChatHistoryOnClose == true) {
+        // Clearing chatsession if resetChatHistoryOnClose is true
+        if (!isNullOrEmpty(_gConfig.resetChatHistoryOnClose)) {
+            if (_gConfig.resetChatHistoryOnClose == true) {
                 document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML = "";
                 document.getElementById("ichatbot-error-msg").innerHTML = "";
                 document.getElementById("ichatbot-char-count").innerHTML = "0/" + _gConfig.UserInputMaxLen;;
@@ -628,20 +645,20 @@ var iChatBot = (function () {
 
                 _gChatSession = [];
 
-                LoadQuery(_gConfig.IntialQueryID);
+                loadQuery(_gConfig.IntialQueryID);
             }
         }
 
-        FireChatCloseEvent();
+        fireChatCloseEvent();
     }
 
     // Function that open and close chat without user clicking the floating icon
-    function OpenChatBot() {
+    function openChatBot() {
         document.getElementById('ichatbot').classList.add("ichatbot-show");
     }
 
     // Setting the user passedd functions to event handlers
-    function SubscribeEvent(userTextEvent, buttonClickEvent, chatResetEvent, chatCloseEvent, fileUploadEvent) {
+    function subscribeEvent(userTextEvent, buttonClickEvent, chatResetEvent, chatCloseEvent, fileUploadEvent) {
         _userTextEvent = userTextEvent;
         _chatButtonClickEvent = buttonClickEvent;
         _chatResetEvent = chatResetEvent;
@@ -649,51 +666,51 @@ var iChatBot = (function () {
         _fileUploadEvent = fileUploadEvent;
     }
 
-    function FireUserTextEvent() {
-        if (!IsNullOrEmpty(_userTextEvent)) {
-            _userTextEvent(_gChatSession);
+    function fireUserTextEvent() {
+        if (!isNullOrEmpty(_userTextEvent)) {
+            _userTextEvent(_gChatSession, stopEventExecutionFun);
         }
     }
 
-    function FireChatResetEvent() {
-        if (!IsNullOrEmpty(_chatResetEvent)) {
+    function fireChatResetEvent() {
+        if (!isNullOrEmpty(_chatResetEvent)) {
             _chatResetEvent(_gChatSession);
         }
     }
 
-    function FireChatCloseEvent() {
-        if (!IsNullOrEmpty(_chatCloseEvent)) {
+    function fireChatCloseEvent() {
+        if (!isNullOrEmpty(_chatCloseEvent)) {
             _chatCloseEvent(_gChatSession);
         }
     }
 
-    function FireUserButtonClickEvent() {
-        if (!IsNullOrEmpty(_chatButtonClickEvent)) {
+    function fireUserButtonClickEvent() {
+        if (!isNullOrEmpty(_chatButtonClickEvent)) {
             _chatButtonClickEvent(_gChatSession);
         }
     }
 
-    function FireFileUploadEvent(e) {
-        if (!IsNullOrEmpty(_fileUploadEvent)) {
+    function fireFileUploadEvent(e) {
+        if (!isNullOrEmpty(_fileUploadEvent)) {
             _fileUploadEvent(e, _gChatSession);
         }
     }
 
-    function GetChatSession() {
+    function getChatSession() {
         return _gChatSession;
     }
 
     return {
-        Initialize: Initialize,
-        LoadQuery: LoadQuery,
-        OpenChatBot: OpenChatBot,
-        ResetChat: ResetChat,
-        CloseChatBot: CloseChatBot,
-        SubscribeEvent: SubscribeEvent,
-        SimpleQuery: SimpleQuery,
-        GetChatSession: GetChatSession,
-        ShowLoader: ShowLoader,
-        HideLoader: HideLoader,
-        ShowErrorMsg: ShowErrorMsg
+        initialize: initialize,
+        loadQuery: loadQuery,
+        openChatBot: openChatBot,
+        resetChat: resetChat,
+        closeChatBot: closeChatBot,
+        subscribeEvent: subscribeEvent,
+        simpleQuery: simpleQuery,
+        getChatSession: getChatSession,
+        showLoader: showLoader,
+        hideLoader: hideLoader,
+        showErrorMsg: showErrorMsg
     }
 })();
