@@ -188,11 +188,11 @@ var ichatbot = (function () {
         if (isNullOrEmpty(_gConfig.SearchNotFoundMsg)) {
             console.warn("ichatbot : SearchNotFoundMsg property is undefined or null, default will be set to 'Keyword Not Found!!'");
         }
-        if (isNullOrEmpty(_gConfig.resetChatHistoryOnReset)) {
-            console.warn("ichatbot : resetChatHistoryOnReset property is undefined or null, default will be set to false");
+        if (isNullOrEmpty(_gConfig.ResetChatHistoryOnReset)) {
+            console.warn("ichatbot : ResetChatHistoryOnReset property is undefined or null, default will be set to false");
         }
-        if (isNullOrEmpty(_gConfig.resetChatHistoryOnClose)) {
-            console.warn("ichatbot : resetChatHistoryOnClose property is undefined or null, default will be set to false");
+        if (isNullOrEmpty(_gConfig.ResetChatHistoryOnClose)) {
+            console.warn("ichatbot : ResetChatHistoryOnClose property is undefined or null, default will be set to false");
         }
         if (isNullOrEmpty(_gConfig.FloatingIconCSSClass)) {
             console.warn("ichatbot : FloatingIconCSSClass property is undefined or null");
@@ -311,14 +311,44 @@ var ichatbot = (function () {
     // Handling user text input and user option button click events
     function registerEvents() {
 
-        document.getElementById("ichatbot-userinput")
-            .addEventListener("keydown", function (e) {
+        // Event for handling file upload
+        document.getElementById("ichatbot-userinput").onchange = function (e) {
 
-                // This will prevent opening on file upload on enter
-                if (e.code === "Enter" || e.code === "NumpadEnter" || e.key === "13" || e.key === "Enter") {
-                    e.preventDefault();
+            //Checking if the input type is file
+            if (e.target.type.toLowerCase() == "file") {
+
+                // Validation check for text input
+                e.target.classList.remove('ichatbot-userinput-error');
+                showErrorMsg("");
+
+                if (e.target.files.length > 0) {
+
+                    var fileNames = "";
+                    for (var i = 0; i < e.target.files.length; i++) {
+                        fileNames += e.target.files[i].name + ',';
+
+                        // Validating file extension
+                        if (!isNullOrEmpty(_gRecentQuery.Validation)) {
+                            if (_gRecentQuery.Validation.toLowerCase().search(e.target.files[i].name.split('.').pop().toLowerCase()) == -1) {
+                                showErrorMsg(!isNullOrEmpty(_gRecentQuery.ValidationErrorMsg) ? _gRecentQuery.ValidationErrorMsg : _gRecentQuery.Validation + " are allowed");
+                                return;
+                            }
+                        }
+                    }
+
+                    _gChatSession.push({ "files Uploaded": fileNames.slice(0, -1) });
+
+                    // Makes sure events are fired only when FireSubscribedEvent propert is true. 
+                    if (_gRecentQuery.FireSubscribedEvent == true) {
+                        fireFileUploadEvent(e.target.files);
+                    }
+
+                    e.target.type = "text";
+                    e.target.disabled = true;
+                    e.target.value = "";
                 }
-            });
+            }
+        };
 
         // Event for handling user text input on enter/numpad enter keys
         document.getElementById("ichatbot-userinput")
@@ -327,7 +357,7 @@ var ichatbot = (function () {
                 var minLength = e.target.minLength;
                 var charCount = e.target.value.length;
 
-                // Validation check
+                // Validation check for text input
                 e.target.classList.remove('ichatbot-userinput-error');
                 showErrorMsg("");
 
@@ -348,7 +378,7 @@ var ichatbot = (function () {
                     }
                 }
 
-                if (e.code === "Enter" || e.code === "NumpadEnter" || e.key === "13" || e.key === "Enter") {
+                if (e.code === "Enter" || e.code === "NumpadEnter" || e.key === "Enter") {
 
                     //Checking if the input type is textbox
                     if (e.target.type.toLowerCase() == "text") {
@@ -409,36 +439,6 @@ var ichatbot = (function () {
                                     loadQuery(_gRecentQuery.ID);
                                 }
                             }
-                        }
-                    }
-
-                    //Checking if the input type is file
-                    if (e.target.type.toLowerCase() == "file") {
-                        if (e.target.files.length > 0) {
-
-                            var fileNames = "";
-                            for (var i = 0; i < e.target.files.length; i++) {
-                                fileNames += e.target.files[i].name + ',';
-
-                                // Validating file extension
-                                if (!isNullOrEmpty(_gRecentQuery.Validation)) {
-                                    if (_gRecentQuery.Validation.toLowerCase().search(e.target.files[i].name.split('.').pop().toLowerCase()) == -1) {
-                                        showErrorMsg(!isNullOrEmpty(_gRecentQuery.ValidationErrorMsg) ? _gRecentQuery.ValidationErrorMsg : _gRecentQuery.Validation + " are allowed");
-                                        return;
-                                    }
-                                }
-                            }
-
-                            _gChatSession.push({ "files Uploaded": fileNames.slice(0, -1) });
-
-                            // Makes sure events are fired only when FireSubscribedEvent propert is true. 
-                            if (_gRecentQuery.FireSubscribedEvent == true) {
-                                fireFileUploadEvent(e.target.files);
-                            }
-
-                            e.target.type = "text";
-                            e.target.disabled = true;
-                            e.target.value = "";
                         }
                     }
                 }
@@ -609,7 +609,7 @@ var ichatbot = (function () {
     }
 
     // Function that Resets chat
-    function resetChat() {
+    function resetChat(loadinitialQuery = true) {
         document.getElementById("ichatbot-reset").classList.add("ichatbot-disabled-buttons");
 
         document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML = "";
@@ -620,26 +620,29 @@ var ichatbot = (function () {
 
         _gChatSession.push({ "Reset": "UserReset" });
 
-        // Clearing chatsession if resetChatHistoryOnReset is true
-        if (!isNullOrEmpty(_gConfig.resetChatHistoryOnReset)) {
-            if (_gConfig.resetChatHistoryOnReset == true) {
+        // Clearing chatsession if ResetChatHistoryOnReset is true
+        if (!isNullOrEmpty(_gConfig.ResetChatHistoryOnReset)) {
+            if (_gConfig.ResetChatHistoryOnReset == true) {
                 _gChatSession = [];
             }
         }
 
-        loadQuery(_gConfig.IntialQueryID);
+        if (loadinitialQuery) {
+            loadQuery(_gConfig.IntialQueryID);
+        }
+
         fireChatResetEvent();
     }
 
     // Function that closes chat
-    function closeChatBot() {
+    function closeChatBot(loadinitialQuery = true) {
         document.getElementById('ichatbot').classList.remove("ichatbot-show");
 
         _gChatSession.push({ "Close": "UserClose" });
 
-        // Clearing chatsession if resetChatHistoryOnClose is true
-        if (!isNullOrEmpty(_gConfig.resetChatHistoryOnClose)) {
-            if (_gConfig.resetChatHistoryOnClose == true) {
+        // Clearing chatsession if ResetChatHistoryOnClose is true
+        if (!isNullOrEmpty(_gConfig.ResetChatHistoryOnClose)) {
+            if (_gConfig.ResetChatHistoryOnClose == true) {
                 document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML = "";
                 document.getElementById("ichatbot-error-msg").innerHTML = "";
                 document.getElementById("ichatbot-char-count").innerHTML = "0/" + _gConfig.UserInputMaxLen;;
@@ -648,7 +651,9 @@ var ichatbot = (function () {
 
                 _gChatSession = [];
 
-                loadQuery(_gConfig.IntialQueryID);
+                if (loadinitialQuery) {
+                    loadQuery(_gConfig.IntialQueryID);
+                }
             }
         }
 
@@ -703,6 +708,14 @@ var ichatbot = (function () {
         return _gChatSession;
     }
 
+    function getDataset() {
+        return _gDataset;
+    }
+
+    function updateDataset(dataset) {
+        return _gDataset = dataset;
+    }
+
     return {
         initialize: initialize,
         loadQuery: loadQuery,
@@ -714,6 +727,8 @@ var ichatbot = (function () {
         getChatSession: getChatSession,
         showLoader: showLoader,
         hideLoader: hideLoader,
-        showErrorMsg: showErrorMsg
+        showErrorMsg: showErrorMsg,
+        getDataset: getDataset,
+        updateDataset: updateDataset
     }
 })();

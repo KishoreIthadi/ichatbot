@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title> ichatbot </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
@@ -17,22 +19,26 @@
 <body>
 
     <div style="margin: 30px;">
-        <button id="btn_bwf" onclick="LoadChatBot('Basic')">Basic-WorkFlow</button>
-        <button id="btn_cwf" onclick="LoadChatBot('Complex')">Complex-WorkFlow</button>
-        <button id="btn_fuwf" onclick="LoadChatBot('FileUpload')">File-Upload-WorkFlow</button>
+        <button id="btn_bwf" onclick="loadChatbot('Basic')">Basic-WorkFlow</button>
+        <button id="btn_cwf" onclick="loadChatbot('Complex')">Complex-WorkFlow</button>
+        <button id="btn_fuwf" onclick="loadChatbot('FileUpload')">File-Upload-WorkFlow</button>
         <br><br>
         <button id="btn_showloader" onclick="showLoader(10000)">Show Loader(10000 ms)</button>
         <button id="btn_hideloader" onclick="hideLoader()">Hide Loader</button>
         <br><br>
         <button id="btn_showbot" onclick="openChatBot(10000)">Show ChatBot</button>
+        <button id="btn_resetbot" onclick="resetChatBot()">Reset ChatBot</button>
         <button id="btn_hidebot" onclick="closeChatBot()">Hide ChatBot</button>
         <br><br>
         <button id="btn_showerrormsg" onclick="showErrorMsg()">Show Error Message</button>
-        <button id="btn_hideerrormsg" onclick="HideErrorMsg()">Hide Error Message</button>
+        <button id="btn_hideerrormsg" onclick="hideErrorMsg()">Hide Error Message</button>
         <br><br>
-        <button id="btn_showchatsession" onclick="ShowChatSession()">Console.log(ChatSession)</button>
+        <button id="btn_getDataset" onclick="getDataset()">Get Dataset</button>
+        <button id="btn_updateDataset" onclick="updateDataset()">Update Dataset</button>
         <br><br>
-        <h2>Work Flow Datasets</h2>
+        <button id="btn_showchatsession" onclick="showChatSession()">Console.log(ChatSession)</button>
+        <br><br>
+        <h2>Example Datasets</h2>
         <ul>
             <li> <a href="dataset-basic-workflow.js" target="_blank">Basic</a></li>
             <li><a href="dataset-complex-workflow.js" target="_blank">Complex</a></li>
@@ -46,10 +52,10 @@
 
     <script>
         // setting basic work flow on page load
-        LoadChatBot("Basic");
+        loadChatbot("Basic");
         document.getElementsByTagName("button")[0].classList.add('border-blue-color');
 
-        function LoadChatBot(value) {
+        function loadChatbot(value) {
 
             if (value == "Basic") {
                 // Reading dataset from Basic-WorkFlow.js
@@ -79,22 +85,22 @@
                 }
             }
 
-            var buttonClickEvent = function ButtonClick(chatSession) {
+            var buttonClickEvent = function buttonClick(chatSession) {
                 console.log('ichatbot : user button click event fired')
                 console.log(chatSession);
             }
 
-            var resetEvent = function Reset(chatSession) {
+            var resetEvent = function reset(chatSession) {
                 console.log('ichatbot : chat reset event fired')
                 console.log(chatSession);
             }
 
-            var closeEvent = function Close(chatSession) {
+            var closeEvent = function close(chatSession) {
                 console.log('ichatbot : chat close event fired')
                 console.log(chatSession);
             }
 
-            var fileUploadEvent = function FileUpload(files, chatSession) {
+            var fileUploadEvent = function fileUpload(files, chatSession) {
                 console.log('ichatbot : file upload event fired')
                 console.log(files);
                 console.log(chatSession);
@@ -122,6 +128,10 @@
             ichatbot.openChatBot();
         }
 
+        function resetChatBot() {
+            ichatbot.resetChat();
+        }
+
         function closeChatBot() {
             ichatbot.closeChatBot();
             ichatbot.hideLoader();
@@ -132,12 +142,44 @@
             ichatbot.showErrorMsg("Error Message");
         }
 
-        function HideErrorMsg() {
+        function hideErrorMsg() {
             ichatbot.openChatBot();
             ichatbot.showErrorMsg("");
         }
 
-        function ShowChatSession() {
+        function getDataset(dataset) {
+            console.log(ichatbot.getDataset());
+        }
+
+        function updateDataset() {
+            var dataset = ichatbot.getDataset();
+            dataset.Queries.push({
+                "ID": "100",
+                "Query": "update dataset",
+                "Options": "300",
+                "Type": "",
+                "QueryID": "",
+                "SearchInQueries": false,
+                "SearchKeywords": "",
+                "FireSubscribedEvent": false,
+                "Validation": "",
+                "ValidationErrorMsg": ""
+            });
+
+            dataset.Options.push({
+                "ID": "300",
+                "Text": "Mobile",
+                "Type": "Button",
+                "URL": "",
+                "Query": "",
+                "FireSubscribedEvent": true
+            });
+            ichatbot.resetChat(false);
+            ichatbot.loadQuery(100);
+        }
+
+
+        function showChatSession() {
             console.log(ichatbot.getChatSession());
         }
 
