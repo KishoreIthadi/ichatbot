@@ -412,7 +412,7 @@ var ichatbot = (function () {
 
                             for (var i = 0; i <= _gDataset.Queries.length - 1; i++) {
                                 if (!isNullOrEmpty(_gDataset.Queries[i].SearchKeywords)) {
-                                    if (_gDataset.Queries[i].SearchKeywords.toLowerCase().search(input.toLowerCase()) == 0) {
+                                    if (_gDataset.Queries[i].SearchKeywords.toLowerCase().search(input.toLowerCase()) >= 0) {
                                         if (_gRecentQuery.FireSubscribedEvent == true) {
                                             stopEventExecutionFun.searchFailed = false;
                                             fireUserTextEvent();
