@@ -6,9 +6,9 @@
 
 ### **Example Workflows**
 
-<big><pre>
+```
 [https://kishoreithadi.github.io/ichatbot/](https://kishoreithadi.github.io/ichatbot/)
-</pre></big>
+```
 
 ---
 
@@ -119,7 +119,6 @@ export class AppComponent {
      var userTextEvent = function UserText(chatSession: any, event: any) {
         console.log('ichatbot : user text input event fired')
         console.log(chatSession);
-        console.log(event.searchFailed);
 
         // In case you want to execute own logic when keyword is not found
         // event.stop() will stop the functionality of showing "Keyword not found" message and call the configured query
@@ -128,22 +127,22 @@ export class AppComponent {
           }
       }
 
-    var buttonClickEvent = function ButtonClick(chatSession: any) {
+    var buttonClickEvent = function buttonClick(chatSession: any) {
       console.log('ichatbot : user button click event fired')
       console.log(chatSession);
     }
 
-    var resetEvent = function Reset(chatSession: any) {
+    var resetEvent = function reset(chatSession: any) {
       console.log('ichatbot : chat reset event fired')
       console.log(chatSession);
     }
 
-    var closeEvent = function Close(chatSession: any) {
+    var closeEvent = function close(chatSession: any) {
       console.log('ichatbot : chat close event fired')
       console.log(chatSession);
     }
 
-    var fileUploadEvent = function FileUpload(files: any, chatSession: any) {
+    var fileUploadEvent = function fileUpload(files: any, chatSession: any) {
       console.log('ichatbot : file upload event fired')
       console.log(files);
       console.log(chatSession);
@@ -156,11 +155,44 @@ export class AppComponent {
 
     ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
 
+    // function getDataset(dataset) {
+    //   console.log(ichatbot.getDataset());
+    // }
+
+    // function updateDataset() {
+    //   var dataset = ichatbot.getDataset();
+    //         dataset.Queries.push({
+    //             "ID": "100",
+    //             "Query": "update dataset",
+    //             "Options": "300",
+    //             "Type": "",
+    //             "QueryID": "",
+    //             "SearchInQueries": false,
+    //             "SearchKeywords": "",
+    //             "FireSubscribedEvent": false,
+    //             "Validation": "",
+    //             "ValidationErrorMsg": ""
+    //         });
+
+    //         dataset.Options.push({
+    //             "ID": "300",
+    //             "Text": "Mobile",
+    //             "Type": "Button",
+    //             "URL": "",
+    //             "Query": "",
+    //             "FireSubscribedEvent": true
+    //         });
+    //         ichatbot.resetChat(false);
+    //         ichatbot.loadQuery(100);
+    //   }          
+
     // ichatbot.showLoader(5000);
     // ichatbot.hideLoader();
 
     // ichatbot.openChatBot();
     // ichatbot.closeChatBot();
+
+    //ichatbot.resetChat();
 
     // ichatbot.showErrorMsg("Error Message");
     // ichatbot.getChatSession();
@@ -198,86 +230,119 @@ Add below in body section
     </div>
 
     <script>
-        var ichatbotDataset =
-        {
-            "Queries":
-                [
-                    {
-                        "ID": "1",
-                        "Query": "Welcome to chatbot",
-                        "Options": "101",
-                        "Type": "",
-                        "QueryID": "",
-                        "SearchInQueries": false,
-                        "SearchKeywords": "",
-                        "FireSubscribedEvent": false,
-                        "Validation": "",
-                        "ValidationErrorMsg": ""
-                    }
-                ],
-            "Options":
-                [
-                    {
-                        "ID": "101",
-                        "Text": "Documentation",
-                        "Type": "Link",
-                        "URL": "https://github.com/KishoreIthadi/ichatbot#readme",
-                        "Query": "",
-                        "FireSubscribedEvent": false
-                    }
-                ]
-        }
-        // ichatbotconfig is loaded from ichatbotconfig.js
-        ichatbot.initialize(ichatbotconfig, ichatbotDataset, null);
+    var ichatbotDataset =
+    {
+      "Queries":
+        [
+          {
+            "ID": "1",
+            "Query": "Welcome to chatbot",
+            "Options": "101",
+            "Type": "",
+            "QueryID": "",
+            "SearchInQueries": false,
+            "SearchKeywords": "",
+            "FireSubscribedEvent": false,
+            "Validation": "",
+            "ValidationErrorMsg": ""
+          }
+        ],
+      "Options":
+        [
+          {
+            "ID": "101",
+            "Text": "Documentation",
+            "Type": "Link",
+            "URL": "https://github.com/KishoreIthadi/ichatbot",
+            "Query": "",
+            "FireSubscribedEvent": false
+          }
+        ]
+    }
 
-        //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
-        var userTextEvent = function UserText(chatSession, event) {
-          console.log('ichatbot : user text input event fired')
-          console.log(chatSession);
-          console.log(event.searchFailed);
+    ichatbot.initialize(ichatbotconfig, ichatbotDataset);
 
-          // In case you want to execute own logic when keyword is not found
-          // event.stop() will stop the functionality of showing "Keyword not found" message and call the configured query
-          if (event.searchFailed) {
+    //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
+     var userTextEvent = function UserText(chatSession, event) {
+        console.log('ichatbot : user text input event fired')
+        console.log(chatSession);
+
+        // In case you want to execute own logic when keyword is not found
+        // event.stop() will stop the functionality of showing "Keyword not found" message and call the configured query
+        if (event.searchFailed) {
             // event.stop();
           }
-        }
-        var buttonClickEvent = function ButtonClick(chatSession) {
-            console.log('ichatbot : user button click event fired')
-            console.log(chatSession);
-        }
+      }
 
-        var resetEvent = function Reset(chatSession) {
-            console.log('ichatbot : chat reset event fired')
-            console.log(chatSession);
-        }
+    var buttonClickEvent = function buttonClick(chatSession) {
+      console.log('ichatbot : user button click event fired')
+      console.log(chatSession);
+    }
 
-        var closeEvent = function Close(chatSession) {
-            console.log('ichatbot : chat close event fired')
-            console.log(chatSession);
-        }
+    var resetEvent = function reset(chatSession) {
+      console.log('ichatbot : chat reset event fired')
+      console.log(chatSession);
+    }
 
-        var fileUploadEvent = function FileUpload(files, chatSession) {
-            console.log('ichatbot : file upload event fired')
-            console.log(files);
-            console.log(chatSession);
+    var closeEvent = function close(chatSession) {
+      console.log('ichatbot : chat close event fired')
+      console.log(chatSession);
+    }
 
-            ichatbot.simpleQuery("<b>File Uploaded Sucessfully</b>")
-            ichatbot.loadQuery(5);
+    var fileUploadEvent = function fileUpload(files, chatSession) {
+      console.log('ichatbot : file upload event fired')
+      console.log(files);
+      console.log(chatSession);
 
-            console.log(ichatbot.getChatSession());
-        }
+      ichatbot.simpleQuery("<b>File Uploaded Sucessfully</b>")
+      ichatbot.loadQuery(5);
 
-        ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
+      console.log(ichatbot.getChatSession());
+    }
 
-        // ichatbot.showLoader(5000);
-        // ichatbot.hideLoader();
+    ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
 
-        // ichatbot.openChatBot();
-        // ichatbot.closeChatBot();
+    // function getDataset(dataset) {
+    //   console.log(ichatbot.getDataset());
+    // }
 
-        // ichatbot.showErrorMsg("Error Message");
-        // ichatbot.getChatSession();
+    // function updateDataset() {
+    //   var dataset = ichatbot.getDataset();
+    //         dataset.Queries.push({
+    //             "ID": "100",
+    //             "Query": "update dataset",
+    //             "Options": "300",
+    //             "Type": "",
+    //             "QueryID": "",
+    //             "SearchInQueries": false,
+    //             "SearchKeywords": "",
+    //             "FireSubscribedEvent": false,
+    //             "Validation": "",
+    //             "ValidationErrorMsg": ""
+    //         });
+
+    //         dataset.Options.push({
+    //             "ID": "300",
+    //             "Text": "Mobile",
+    //             "Type": "Button",
+    //             "URL": "",
+    //             "Query": "",
+    //             "FireSubscribedEvent": true
+    //         });
+    //         ichatbot.resetChat(false);
+    //         ichatbot.loadQuery(100);
+    //   }          
+
+    // ichatbot.showLoader(5000);
+    // ichatbot.hideLoader();
+
+    // ichatbot.openChatBot();
+    // ichatbot.closeChatBot();
+
+    //ichatbot.resetChat();
+
+    // ichatbot.showErrorMsg("Error Message");
+    // ichatbot.getChatSession();
 
     </script>
 </body>
