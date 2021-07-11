@@ -162,7 +162,7 @@ export class AppComponent {
     //   var dataset = ichatbot.getDataset();
     //         dataset.Queries.push({
     //             "ID": "100",
-    //             "Query": "update dataset",
+    //             "Query": "Updated Query",
     //             "Options": "300",
     //             "Type": "",
     //             "QueryID": "",
@@ -175,7 +175,7 @@ export class AppComponent {
 
     //         dataset.Options.push({
     //             "ID": "300",
-    //             "Text": "Mobile",
+    //             "Text": "Updated Option",
     //             "Type": "Button",
     //             "URL": "",
     //             "Query": "",
@@ -309,7 +309,7 @@ Add below in body section
     //   var dataset = ichatbot.getDataset();
     //         dataset.Queries.push({
     //             "ID": "100",
-    //             "Query": "update dataset",
+    //             "Query": "Updated Query",
     //             "Options": "300",
     //             "Type": "",
     //             "QueryID": "",
@@ -322,7 +322,7 @@ Add below in body section
 
     //         dataset.Options.push({
     //             "ID": "300",
-    //             "Text": "Mobile",
+    //             "Text": "Updated Option",
     //             "Type": "Button",
     //             "URL": "",
     //             "Query": "",

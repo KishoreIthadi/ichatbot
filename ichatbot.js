@@ -334,7 +334,7 @@ var ichatbot = (function () {
 
                         // Validating file extension
                         if (!isNullOrEmpty(_gRecentQuery.Validation)) {
-                            if (_gRecentQuery.Validation.toLowerCase().search(e.target.files[i].name.split('.').pop().toLowerCase()) == -1) {
+                            if (_gRecentQuery.Validation.replace(/ /g, '').toLowerCase().search(e.target.files[i].name.split('.').pop().toLowerCase()) == -1) {
                                 showErrorMsg(!isNullOrEmpty(_gRecentQuery.ValidationErrorMsg) ? _gRecentQuery.ValidationErrorMsg : _gRecentQuery.Validation + " are allowed");
                                 return;
                             }
@@ -412,7 +412,7 @@ var ichatbot = (function () {
 
                             for (var i = 0; i <= _gDataset.Queries.length - 1; i++) {
                                 if (!isNullOrEmpty(_gDataset.Queries[i].SearchKeywords)) {
-                                    if (_gDataset.Queries[i].SearchKeywords.toLowerCase().search(input.toLowerCase()) == 0) {
+                                    if (_gDataset.Queries[i].SearchKeywords.toLowerCase().search(input.toLowerCase()) >= 0) {
                                         if (_gRecentQuery.FireSubscribedEvent == true) {
                                             stopEventExecutionFun.searchFailed = false;
                                             fireUserTextEvent();
