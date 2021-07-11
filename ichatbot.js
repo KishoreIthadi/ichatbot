@@ -8,6 +8,9 @@ var ichatbot = (function () {
     var _gDataset = null;
     var _gChatSession = null;
     var _gRecentQuery = null;
+    var _gInitialQueryID = null;
+
+
 
     // Event handlers
     var _userTextEvent = null;
@@ -82,6 +85,8 @@ var ichatbot = (function () {
         _gConfig = config;
         _gDataset = dataset;
 
+        _gInitialQueryID = !isNullOrEmpty(intialQueryID) ? intialQueryID : _gConfig.IntialQueryID;
+
         validateConfiguration();
 
         renderHTMLTemplate();
@@ -90,8 +95,8 @@ var ichatbot = (function () {
         if (!isNullOrEmpty(intialQueryID)) {
             loadQuery(intialQueryID);
         }
-        else if (!isNullOrEmpty(_gConfig.IntialQueryID)) {
-            loadQuery(_gConfig.IntialQueryID);
+        else if (!isNullOrEmpty(_gInitialQueryID)) {
+            loadQuery(_gInitialQueryID);
         }
     }
 
@@ -119,8 +124,8 @@ var ichatbot = (function () {
         }
 
         // Warnings : optional configuarations
-        if (isNullOrEmpty(_gConfig.IntialQueryID)) {
-            console.warn("ichatbot : IntialQueryID property is not set in config.");
+        if (isNullOrEmpty(_gInitialQueryID)) {
+            console.warn("ichatbot : IntialQueryID property is not set in config and alsno tot passed as argument in initialize() method");
         }
         if (isNullOrEmpty(_gConfig.ChatQueryIconFAClass) && isNullOrEmpty(_gConfig.ChatQueryIconImagePath)) {
             console.warn("ichatbot : Set either ChatQueryIconFAClass or ChatQueryIconImagePath property");
@@ -628,7 +633,7 @@ var ichatbot = (function () {
         }
 
         if (loadinitialQuery) {
-            loadQuery(_gConfig.IntialQueryID);
+            loadQuery(_gInitialQueryID);
         }
 
         fireChatResetEvent();
@@ -652,7 +657,7 @@ var ichatbot = (function () {
                 _gChatSession = [];
 
                 if (loadinitialQuery) {
-                    loadQuery(_gConfig.IntialQueryID);
+                    loadQuery(_gInitialQueryID);
                 }
             }
         }

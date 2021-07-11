@@ -23,7 +23,6 @@
     * [Simple Workflow](#Add-Remove-DLL-Reference)
     * [Complex Workflow](#Add/Remove-Nuget-packages)
     * [File Upload Workflow](#Publish-Project)
-* [License](#license)
 
 ---
 
@@ -119,31 +118,30 @@ export class AppComponent {
      var userTextEvent = function UserText(chatSession: any, event: any) {
         console.log('ichatbot : user text input event fired')
         console.log(chatSession);
-        console.log(event.searchFailed);
 
-        // In case you want to execute own logic when keyword is not found
+        // In case you want to execute you logic when keyword is not found
         // event.stop() will stop the functionality of showing "Keyword not found" message and call the configured query
         if (event.searchFailed) {
             // event.stop();
           }
       }
 
-    var buttonClickEvent = function ButtonClick(chatSession: any) {
+    var buttonClickEvent = function buttonClick(chatSession: any) {
       console.log('ichatbot : user button click event fired')
       console.log(chatSession);
     }
 
-    var resetEvent = function Reset(chatSession: any) {
+    var resetEvent = function reset(chatSession: any) {
       console.log('ichatbot : chat reset event fired')
       console.log(chatSession);
     }
 
-    var closeEvent = function Close(chatSession: any) {
+    var closeEvent = function close(chatSession: any) {
       console.log('ichatbot : chat close event fired')
       console.log(chatSession);
     }
 
-    var fileUploadEvent = function FileUpload(files: any, chatSession: any) {
+    var fileUploadEvent = function fileUpload(files: any, chatSession: any) {
       console.log('ichatbot : file upload event fired')
       console.log(files);
       console.log(chatSession);
@@ -156,11 +154,44 @@ export class AppComponent {
 
     ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
 
+    // function getDataset(dataset) {
+    //   console.log(ichatbot.getDataset());
+    // }
+
+    // function updateDataset() {
+    //   var dataset = ichatbot.getDataset();
+    //         dataset.Queries.push({
+    //             "ID": "100",
+    //             "Query": "update dataset",
+    //             "Options": "300",
+    //             "Type": "",
+    //             "QueryID": "",
+    //             "SearchInQueries": false,
+    //             "SearchKeywords": "",
+    //             "FireSubscribedEvent": false,
+    //             "Validation": "",
+    //             "ValidationErrorMsg": ""
+    //         });
+
+    //         dataset.Options.push({
+    //             "ID": "300",
+    //             "Text": "Mobile",
+    //             "Type": "Button",
+    //             "URL": "",
+    //             "Query": "",
+    //             "FireSubscribedEvent": true
+    //         });
+    //         ichatbot.resetChat(false);
+    //         ichatbot.loadQuery(100);
+    //   }          
+
     // ichatbot.showLoader(5000);
     // ichatbot.hideLoader();
 
     // ichatbot.openChatBot();
     // ichatbot.closeChatBot();
+
+    //ichatbot.resetChat();
 
     // ichatbot.showErrorMsg("Error Message");
     // ichatbot.getChatSession();
@@ -198,86 +229,119 @@ Add below in body section
     </div>
 
     <script>
-        var ichatbotDataset =
-        {
-            "Queries":
-                [
-                    {
-                        "ID": "1",
-                        "Query": "Welcome to chatbot",
-                        "Options": "101",
-                        "Type": "",
-                        "QueryID": "",
-                        "SearchInQueries": false,
-                        "SearchKeywords": "",
-                        "FireSubscribedEvent": false,
-                        "Validation": "",
-                        "ValidationErrorMsg": ""
-                    }
-                ],
-            "Options":
-                [
-                    {
-                        "ID": "101",
-                        "Text": "Documentation",
-                        "Type": "Link",
-                        "URL": "https://github.com/KishoreIthadi/ichatbot#readme",
-                        "Query": "",
-                        "FireSubscribedEvent": false
-                    }
-                ]
-        }
-        // ichatbotconfig is loaded from ichatbotconfig.js
-        ichatbot.initialize(ichatbotconfig, ichatbotDataset, null);
+    var ichatbotDataset =
+    {
+      "Queries":
+        [
+          {
+            "ID": "1",
+            "Query": "Welcome to chatbot",
+            "Options": "101",
+            "Type": "",
+            "QueryID": "",
+            "SearchInQueries": false,
+            "SearchKeywords": "",
+            "FireSubscribedEvent": false,
+            "Validation": "",
+            "ValidationErrorMsg": ""
+          }
+        ],
+      "Options":
+        [
+          {
+            "ID": "101",
+            "Text": "Documentation",
+            "Type": "Link",
+            "URL": "https://github.com/KishoreIthadi/ichatbot",
+            "Query": "",
+            "FireSubscribedEvent": false
+          }
+        ]
+    }
 
-        //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
-        var userTextEvent = function UserText(chatSession, event) {
-          console.log('ichatbot : user text input event fired')
-          console.log(chatSession);
-          console.log(event.searchFailed);
+    ichatbot.initialize(ichatbotconfig, ichatbotDataset);
 
-          // In case you want to execute own logic when keyword is not found
-          // event.stop() will stop the functionality of showing "Keyword not found" message and call the configured query
-          if (event.searchFailed) {
+    //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
+     var userTextEvent = function UserText(chatSession, event) {
+        console.log('ichatbot : user text input event fired')
+        console.log(chatSession);
+
+        // In case you want to execute your logic when keyword is not found
+        // event.stop() will stop the functionality of showing "Keyword not found" message and call the configured query
+        if (event.searchFailed) {
             // event.stop();
           }
-        }
-        var buttonClickEvent = function ButtonClick(chatSession) {
-            console.log('ichatbot : user button click event fired')
-            console.log(chatSession);
-        }
+      }
 
-        var resetEvent = function Reset(chatSession) {
-            console.log('ichatbot : chat reset event fired')
-            console.log(chatSession);
-        }
+    var buttonClickEvent = function buttonClick(chatSession) {
+      console.log('ichatbot : user button click event fired')
+      console.log(chatSession);
+    }
 
-        var closeEvent = function Close(chatSession) {
-            console.log('ichatbot : chat close event fired')
-            console.log(chatSession);
-        }
+    var resetEvent = function reset(chatSession) {
+      console.log('ichatbot : chat reset event fired')
+      console.log(chatSession);
+    }
 
-        var fileUploadEvent = function FileUpload(files, chatSession) {
-            console.log('ichatbot : file upload event fired')
-            console.log(files);
-            console.log(chatSession);
+    var closeEvent = function close(chatSession) {
+      console.log('ichatbot : chat close event fired')
+      console.log(chatSession);
+    }
 
-            ichatbot.simpleQuery("<b>File Uploaded Sucessfully</b>")
-            ichatbot.loadQuery(5);
+    var fileUploadEvent = function fileUpload(files, chatSession) {
+      console.log('ichatbot : file upload event fired')
+      console.log(files);
+      console.log(chatSession);
 
-            console.log(ichatbot.getChatSession());
-        }
+      ichatbot.simpleQuery("<b>File Uploaded Sucessfully</b>")
+      ichatbot.loadQuery(5);
 
-        ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
+      console.log(ichatbot.getChatSession());
+    }
 
-        // ichatbot.showLoader(5000);
-        // ichatbot.hideLoader();
+    ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
 
-        // ichatbot.openChatBot();
-        // ichatbot.closeChatBot();
+    // function getDataset(dataset) {
+    //   console.log(ichatbot.getDataset());
+    // }
 
-        // ichatbot.showErrorMsg("Error Message");
-        // ichatbot.getChatSession();
+    // function updateDataset() {
+    //   var dataset = ichatbot.getDataset();
+    //         dataset.Queries.push({
+    //             "ID": "100",
+    //             "Query": "update dataset",
+    //             "Options": "300",
+    //             "Type": "",
+    //             "QueryID": "",
+    //             "SearchInQueries": false,
+    //             "SearchKeywords": "",
+    //             "FireSubscribedEvent": false,
+    //             "Validation": "",
+    //             "ValidationErrorMsg": ""
+    //         });
+
+    //         dataset.Options.push({
+    //             "ID": "300",
+    //             "Text": "Mobile",
+    //             "Type": "Button",
+    //             "URL": "",
+    //             "Query": "",
+    //             "FireSubscribedEvent": true
+    //         });
+    //         ichatbot.resetChat(false);
+    //         ichatbot.loadQuery(100);
+    //   }          
+
+    // ichatbot.showLoader(5000);
+    // ichatbot.hideLoader();
+
+    // ichatbot.openChatBot();
+    // ichatbot.closeChatBot();
+
+    //ichatbot.resetChat();
+
+    // ichatbot.showErrorMsg("Error Message");
+    // ichatbot.getChatSession();
 
     </script>
 </body>
@@ -314,13 +378,13 @@ The following image explains most of the properties
    **TitleImageCSSClass: ""**
 
    Icon displayed on top left of chatbot
-   Set either TitleIconFAClass (font-awesome class) **or** TitleImagePath along with TitleImageCSSClass(optional) as below
+   Set either TitleIconFAClass (font-awesome class) **OR** TitleImagePath along with TitleImageCSSClass(optional) as below
 
    **TitleIconFAClass: ""**
    **TitleImagePath: "~/images/tiltleicon.png"**
    **TitleImageCSSClass: "class1 class2"**
 
-   The above is applicable for Resets, Close, FloatingIcon, ChatQueryIcon, ChatUserInputIcon
+   The above is applicable for Reset, Close, FloatingIcon, ChatQueryIcon, ChatUserInputIcon properties
 
 6. **SearchNotFoundMsg: "Keyword not found!!"**
 
@@ -387,4 +451,241 @@ var ichatbotDataset =
 }
 ```
 
+### **Queries**
+
+1. **ID**
+
+Unique identifier can be intiger or character or combination of both
+
+Can also be provided as part of initialisation 
+
+```
+ichatbot.initialize(ichatbotconfig, dataset, null);
+```
+
+2. **Query**
+
+Can be simple text of HTML
+
+"Query" : "Please select from below" **OR**
+"Query" : "<b>Please select from below </b>"
+
+3. **Options**
+
+Multiple option ID's seperated by ',' "Options": "103,104"
+
+4. **Type**
+
+"Type" can be **Text**  **OR** **File**  **OR** **MultipleFiles**
+
+When "Type" is **Text**, enables user to upload text input
+
+When "Type" is **File**, enables user to upload single file
+
+When "Type" is **MultipleFiles**, enables user to upload multiple files
+
+5. **Validation**
+
+When "Type" is **Text**, provide Regex expression as below
+
+"Validation": "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" **OR** "Validation": "^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$"
+
+When query "Type" is **File** **OR** **MultipleFiles**, provide file extension seperated by ',' as below
+
+"Validation": ".js,.css"
+
+6. **ValidationErrorMsg**
+
+This propery takes simple text as input and will be displayed to the use when validation is failed above textbox/file upload controls
+
+"ValidationErrorMsg": "Invalid email" **OR** "ValidationErrorMsg": "Supported .png extension"
+
+*Note* recommended to provide text less than 50 characters for better UI
+    
+In case ValidationErrorMsg is empty, default messages will be shown to the user upon failed validation
+
+7. **SearchInQueries** && 8. **SearchKeywords**
+
+These two properties work in sync. SearchInQueries takes true or false as input.
+
+if "SearchInQueries" = true && "Type" = "Text" then the text entered by the user will be matched against all the "SearchKeywords" in the Queries array
+
+if search is found then matched Query will be loaded else "Keyword not found" message will be displayed then --> "QueryID" is loaded if not null, if "QueryID" is null then the same query will be loaded
+
+9. **QueryID**
+
+This is typically the next query to be loaded. The case when "Type" = Text is explained above
+
+In case of "Type" = "File" **OR** "MultipleFiles" --> "QueryID" propery is not valid
+
+10. **FireSubscribedEvent**
+
+in case "FireSubscribedEvent" = true the subscribed events will be fired
+
+``` javascript
+ichatbot.initialize(ichatbotconfig, dataset);
+
+//Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
+
+var userTextEvent = function UserText(chatSession, event) {
+  console.log('ichatbot : user text input event fired')
+  console.log(chatSession);
+
+  // In case you want to execute your logic when keyword is not found
+  // event.stop() will stop the functionality of showing "Keyword not found" message and call the configured query
+  if (event.searchFailed) {
+      // event.stop();
+      }
+}           
+
+var buttonClickEvent = function buttonClick(chatSession) {
+  console.log('ichatbot : user button click event fired')
+  console.log(chatSession);
+}
+
+var resetEvent = function reset(chatSession) {
+  console.log('ichatbot : chat reset event fired')
+  console.log(chatSession);
+}
+
+var closeEvent = function close(chatSession) {
+  console.log('ichatbot : chat close event fired')
+  console.log(chatSession);
+}
+
+var fileUploadEvent = function fileUpload(files, chatSession) {
+  console.log('ichatbot : file upload event fired')
+  console.log(files);
+  console.log(chatSession);
+
+  ichatbot.simpleQuery("<b>File Uploaded Sucessfully</b>")
+  ichatbot.loadQuery(5);
+
+  console.log(ichatbot.getChatSession());
+}
+
+ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);         
+```
+
+### **Options**
+
+1. **ID**
+
+Unique identifier can be intiger or character or combination of both
+
+2. **Type**
+
+"Type" can be "Button" **OR** "Link"
+ 
+3. **Text**
+
+Diplay text for Buttor **OR** Link
+
+4. **URL**
+
+Valid when "Type" is link
+
+5. **Query**
+
+Valid when "Type" is button. Loads the "Query" when buton is selected by user
+
+"Query" ="1" **OR** "Query" = "2"
+
+6. **FireSubscribedEvent**
+
+Valid when "Type" is button. The subscribed event will be fired
+
 ---
+
+### **Methods**
+
+1.  **initialize(config, dataset, initialqueryID(nullable))**
+
+Initialises the chatbot.
+
+2. **loadQuery(QueryID)**
+
+Loads the query based on provided argument.
+
+3. **openChatBot()**
+
+4. **closeChatBot()**
+
+closeChatBot() will close the chatbot.
+closeChatBot(false) will not load the InitialQuery.
+
+5. **resetChat()**
+
+resetChat() will reset the chatbot and loads the InitialQueryID
+resetChat(false) will reset the chatbot and not load the InitialQuery
+
+6. **subscribeEvent()**
+
+Pass the events as argments
+
+subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
+
+7. **simpleQuery()**
+
+This will enable you to provide a simple message to the user. Takes text or HTML as input.
+
+simpleQuery("Welcome to ichatbot");
+simpleQuery("<b>Welcome to ichatbot</b>");
+
+
+8. **getChatSession()**
+
+iChatbot maintains all the user activity and can be retrived by using this method
+
+9. **showLoader()**
+
+showLoader() display the loader and will be hidden only on calling hideLoader()
+showLoader(2000) diplays loader for 2000 milli seconds
+
+10. **showErrorMsg()**
+
+Displays error message on top of textbox/fileupload.
+
+showErrorMsg("This is error");
+showErrorMsg(""); for removing the message
+
+11. **getDataset()**
+
+Returns the dataset passed as part of initialize()
+        
+12. **updateDataset()**
+
+Update the entire Dataset
+
+```javascript
+function updateDataset() {
+  var dataset = ichatbot.getDataset();
+  dataset.Queries.push({
+  "ID": "100",
+  "Query": "update dataset",
+  "Options": "300",
+  "Type": "",
+  "QueryID": "",
+  "SearchInQueries": false,
+  "SearchKeywords": "",
+  "FireSubscribedEvent": false,
+  "Validation": "",
+  "ValidationErrorMsg": ""
+  });
+
+  dataset.Options.push({
+  "ID": "300",
+  "Text": "Mobile",
+  "Type": "Button",
+  "URL": "",
+  "Query": "",
+  "FireSubscribedEvent": true
+  });
+  
+  ichatbot.resetChat(false);
+  ichatbot.loadQuery(100);
+}
+```
+    
+
+
