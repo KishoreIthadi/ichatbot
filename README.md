@@ -393,6 +393,7 @@ The following image explains most of the properties
    **TitleImageCSSClass: ""**
 
    Icon displayed on top left of chatbot
+   
    Set either TitleIconFAClass (font-awesome class) **OR** TitleImagePath along with TitleImageCSSClass(optional) as below
 
    **TitleIconFAClass: ""**
