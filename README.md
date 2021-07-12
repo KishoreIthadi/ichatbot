@@ -371,8 +371,7 @@ The following image explains most of the properties
    
    ichatbot.initialize(config, dataset, IntialQueryID);
 
-2. **UserInputMinLen: "5"**
-   
+2. **UserInputMinLen: "5"**   
    **UserInputMaxLen": "50"**
 
    User text input minimum and maximum character length. The text box border will be red if this criteria is not met
