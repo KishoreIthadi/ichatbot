@@ -4,6 +4,9 @@ var ichatbotconfig =
     "UserInputMinLen": "5",
     "UserInputMaxLen": "50",
 
+    //Size im bytes
+    "FileMaxSize": "10485760",
+
     // Use !important to override ichatbot styles
     "IChatBotCSSClass": "",
 
