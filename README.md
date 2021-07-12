@@ -490,8 +490,10 @@ var ichatbotDataset =
 
 4. **Type**
 
-   "Type" can be **"Text"**  **OR** **"File"**  **OR** **"MultipleFiles"**
+   "Type" can be **""** **OR** **"Text"** **OR** **"File"** **OR** **"MultipleFiles"**
 
+   When "Type" is **""**, query will be displayed with options(if provided)
+ 
    When "Type" is **Text**, enables user to enter text input
 
    When "Type" is **File**, enables user to upload single file
@@ -510,15 +512,15 @@ var ichatbotDataset =
 
 6. **ValidationErrorMsg**
 
-   This property takes simple text as input and will be displayed above textbox/file upload controls when validation is failed 
+   This property takes simple text as input and gets displayed above textbox/file upload control when validation fails 
 
    "ValidationErrorMsg": "Invalid email" **OR** "ValidationErrorMsg": "Supported .png extension"
 
    *Note* recommended to provide text less than 50 characters for better UI
     
-   In case ValidationErrorMsg is empty, default messages will be shown to the user upon failed validation
+   In case ValidationErrorMsg is empty, default messages will be shown
 
-7. **SearchInQueries** && 8. **SearchKeywords**
+7. **SearchInQueries** **SearchKeywords**
 
    These two properties work in sync. SearchInQueries takes true or false as input.
 
@@ -526,13 +528,13 @@ var ichatbotDataset =
 
    if search is found then matched Query will be loaded else "Keyword not found" message will be displayed then --> "QueryID" is loaded if not null, if "QueryID" is null then the same query will be loaded
 
-9. **QueryID**
+8. **QueryID**
 
    This is typically the next query to be loaded. The case when "Type" = Text is explained above
 
    In case of "Type" = "File" **OR** "MultipleFiles" --> "QueryID" propery is not valid
 
-10. **FireSubscribedEvent**
+9. **FireSubscribedEvent**
 
    in case "FireSubscribedEvent" = true the subscribed events will be fired
 
