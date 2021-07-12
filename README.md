@@ -539,57 +539,57 @@ var ichatbotDataset =
 
    in case "FireSubscribedEvent" = true the subscribed events will be fired
 
-``` javascript
-ichatbot.initialize(ichatbotconfig, dataset);
-```
+   ``` javascript
+   ichatbot.initialize(ichatbotconfig, dataset);
+   
 
-//Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
+   //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
 
-//Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
-var userTextEvent = function UserText(event) {
-  console.log('ichatbot : user text input event fired')
-  console.log(event.chatSession);
-  console.log(event.chatSession);
+   //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
+   var userTextEvent = function UserText(event) {
+     console.log('ichatbot : user text input event fired')
+     console.log(event.chatSession);
+     console.log(event.chatSession);
 
-  // In case you want to execute own logic on search failed
-  // event.stop() will stop the default functionality of showing "Keyword not found" message --> calling the configured query --> adding "text entered" in chat session
-  // if (event.searchFailed) {
-  //     event.stop();
-  //     ichatbot.loadQuery(1);
-  // }
-}
+     // In case you want to execute own logic on search failed
+     // event.stop() will stop the default functionality of showing "Keyword not found" message --> calling the configured query --> adding "text entered" in chat session
+     // if (event.searchFailed) {
+     //     event.stop();
+     //     ichatbot.loadQuery(1);
+     // }
+   }
 
-var fileUploadEvent = function fileUpload(event) {
-  console.log('ichatbot : file upload event fired')
-  console.log(event.files);
-  console.log(event.chatSession);
+   var fileUploadEvent = function fileUpload(event) {
+     console.log('ichatbot : file upload event fired')
+     console.log(event.files);
+     console.log(event.chatSession);
 
-  // In case you want to execute your own logic
-  // event.stop() will stop the default functionality of showing "File Upload Success" message --> calling the configured query--> adding "file uploaded" in chat session
+     // In case you want to execute your own logic
+     // event.stop() will stop the default functionality of showing "File Upload Success" message --> calling the configured query--> adding "file uploaded" in chat session
 
-  event.stop();
+     event.stop();
 
-  ichatbot.simpleQuery("<b>File Uploaded Sucessfully</b>")
-  ichatbot.loadQuery(5);
-}      
+     ichatbot.simpleQuery("<b>File Uploaded Sucessfully</b>")
+     ichatbot.loadQuery(5);
+   }      
 
-var buttonClickEvent = function buttonClick(chatSession) {
-  console.log('ichatbot : user button click event fired')
-  console.log(chatSession);
-}
+   var buttonClickEvent = function buttonClick(chatSession) {
+     console.log('ichatbot : user button click event fired')
+     console.log(chatSession);
+   }
 
-var resetEvent = function reset(chatSession) {
-  console.log('ichatbot : chat reset event fired')
-  console.log(chatSession);
-}
+   var resetEvent = function reset(chatSession) {
+     console.log('ichatbot : chat reset event fired')
+     console.log(chatSession);
+   }
 
-var closeEvent = function close(chatSession) {
-  console.log('ichatbot : chat close event fired')
-  console.log(chatSession);
-}
+   var closeEvent = function close(chatSession) {
+     console.log('ichatbot : chat close event fired')
+     console.log(chatSession);
+   }
 
-ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);         
-```
+   ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);         
+   ```
 
 ### **Options**
 
