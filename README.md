@@ -682,32 +682,32 @@ var ichatbotDataset =
 
      Update the entire Dataset
 
-```javascript
-function updateDataset() {
-  var dataset = ichatbot.getDataset();
-  dataset.Queries.push({
-  "ID": "100",
-  "Query": "update dataset",
-  "Options": "300",
-  "Type": "",
-  "QueryID": "",
-  "SearchInQueries": false,
-  "SearchKeywords": "",
-  "FireSubscribedEvent": false,
-  "Validation": "",
-  "ValidationErrorMsg": ""
-  });
+     ```javascript
+     function updateDataset() {
+       var dataset = ichatbot.getDataset();
+       dataset.Queries.push({
+       "ID": "100",
+       "Query": "update dataset",
+       "Options": "300",
+       "Type": "",
+       "QueryID": "",
+       "SearchInQueries": false,
+       "SearchKeywords": "",
+       "FireSubscribedEvent": false,
+       "Validation": "",
+       "ValidationErrorMsg": ""
+      });
 
-  dataset.Options.push({
-  "ID": "300",
-  "Text": "Mobile",
-  "Type": "Button",
-  "URL": "",
-  "Query": "",
-  "FireSubscribedEvent": true
-  });
+      dataset.Options.push({
+       "ID": "300",
+       "Text": "Mobile",
+       "Type": "Button",
+       "URL": "",
+       "Query": "",
+       "FireSubscribedEvent": true
+      });
   
-  ichatbot.resetChat(false);
-  ichatbot.loadQuery(100);
-}
+      ichatbot.resetChat(false);
+      ichatbot.loadQuery(100);
+    }
 ```
