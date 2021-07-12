@@ -471,13 +471,7 @@ var ichatbotDataset =
 
 1. **ID**
 
-   A unique identifier that accepts input as an integer or character or combination of both
-
-   Can also be provided as part of initialization 
-
-```
-ichatbot.initialize(ichatbotconfig, dataset, null);
-```
+   A unique identifier that accepts input as an integer **OR** character **OR** combination of both
 
 2. **Query**
 
@@ -490,7 +484,9 @@ ichatbot.initialize(ichatbotconfig, dataset, null);
 
 3. **Options**
 
-   Multiple option ID's seperated by ',' "Options": "103,104"
+   Multiple option ID's seperated by ',' 
+   
+   "Options": "103,104"
 
 4. **Type**
 
