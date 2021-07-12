@@ -520,19 +520,20 @@ var ichatbotDataset =
     
    In case ValidationErrorMsg is empty, default messages will be shown
 
-7. **SearchInQueries** **SearchKeywords**
+7. **SearchInQueries**              
+   **SearchKeywords**
 
-   These two properties work in sync. SearchInQueries takes true or false as input.
+   These two properties work in sync. SearchInQueries takes true **OR** false as input.
 
    if "SearchInQueries" = true && "Type" = "Text" then the text entered by the user will be matched against all the "SearchKeywords" in the Queries array
 
-   if search is found then matched Query will be loaded else "Keyword not found" message will be displayed then --> "QueryID" is loaded if not null, if "QueryID" is null then the same query will be loaded
+   if search is found then matched Query will be loaded else "Keyword not found" message will be displayed then --> "QueryID" is loaded if not null, if "QueryID" is null then the same query will be loaded.
 
 8. **QueryID**
 
    This is typically the next query to be loaded. The case when "Type" = Text is explained above
 
-   In case of "Type" = "File" **OR** "MultipleFiles" --> "QueryID" propery is not valid
+   It works similarly for all types of queries
 
 9. **FireSubscribedEvent**
 
