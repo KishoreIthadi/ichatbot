@@ -60,7 +60,7 @@ var dataset_CWF =
         "SearchKeywords": "",
         "FireSubscribedEvent": false,
         "Validation": "^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$",
-        "ValidationErrorMsg": ""
+        "ValidationErrorMsg": "invalid mobile"
       },
       {
         "ID": "6",

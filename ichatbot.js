@@ -32,6 +32,15 @@ var ichatbot = (function () {
         return (value == undefined || value == "" || value.length == 0 || value == null);
     }
 
+    //Convert bytes to MB
+    function bytesToMB(value) {
+        var l = 0, n = parseInt(value, 10) || 0;
+        while (n >= 1024 && ++l) {
+            n = n / 1024;
+        }
+        return (n.toFixed(n < 10 && l > 0 ? 1 : 0));
+    }
+
     // String parsing with arguments, replaces the argments within the string
     String.prototype.format = function () {
         var formatted = this;
@@ -299,8 +308,7 @@ var ichatbot = (function () {
             "</div>" +
             "<div class='ichatbot-footer'>" +
             "<span id='ichatbot-error-msg' class='float-start display-contents " + _gConfig.ErrorMessageCSSClass + "'></span>" +
-            "<div id='ichatbot-char-count' class='ichatbot-char-count float-end'>" +
-            "0/" + _gConfig.UserInputMaxLen + "</div>" +
+            "<div id='ichatbot-char-count' class='ichatbot-char-count float-end'></div>" +
             "<input id='ichatbot-userinput' type='text' class='ichatbot-userinput' disabled " +
             "minlength='" + _gConfig.UserInputMinLen + "' maxlength='" + _gConfig.UserInputMaxLen + "' " +
             "autocomplete='off'> " +
@@ -338,6 +346,14 @@ var ichatbot = (function () {
                         if (!isNullOrEmpty(_gRecentQuery.Validation)) {
                             if (_gRecentQuery.Validation.replace(/ /g, '').toLowerCase().search(e.target.files[i].name.split('.').pop().toLowerCase()) == -1) {
                                 showErrorMsg(!isNullOrEmpty(_gRecentQuery.ValidationErrorMsg) ? _gRecentQuery.ValidationErrorMsg : _gRecentQuery.Validation + " are allowed");
+                                return;
+                            }
+                        }
+
+                        // Validating file size
+                        if (!isNullOrEmpty(_gConfig.FileMaxSize)) {
+                            if (e.target.files[i].size > _gConfig.FileMaxSize) {
+                                showErrorMsg("max file size " + bytesToMB(_gConfig.FileMaxSize) + " MB");
                                 return;
                             }
                         }
@@ -404,10 +420,12 @@ var ichatbot = (function () {
                         e.target.disabled = true;
                         e.target.value = "";
 
-                        eventArgs.searchFailed = true;
+                        eventArgs.searchFailed = true;                        
+                        eventArgs.userInput = input;
+
                         _stopEventExecution = false;
 
-                        document.getElementById("ichatbot-char-count").innerHTML = "0/" + e.target.maxLength;
+                        document.getElementById("ichatbot-char-count").innerHTML = "";
 
                         userTextInputDisplay(input);
                         _gChatSession.push({ "UserTextInput": input });
@@ -518,12 +536,14 @@ var ichatbot = (function () {
 
         _gChatSession.push({ "Query": query });
 
+        document.getElementById("ichatbot-char-count").innerHTML = "";
         document.getElementById("ichatbot-userinput").disabled = true;
         document.getElementById("ichatbot-userinput").multiple = false;
         document.getElementById("ichatbot-userinput").type = "text";
 
         if (query.Type.toLowerCase() == "text") {
             document.getElementById("ichatbot-userinput").disabled = false;
+            document.getElementById("ichatbot-char-count").innerHTML = '0/' + _gConfig.UserInputMaxLen
             document.getElementById("ichatbot-userinput").focus();
         }
         else if (query.Type.toLowerCase() == "file" || query.Type.toLowerCase() == "multiplefiles") {
@@ -630,7 +650,7 @@ var ichatbot = (function () {
         document.getElementById("ichatbot-reset").classList.add("ichatbot-disabled-buttons");
 
         document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML = "";
-        document.getElementById("ichatbot-char-count").innerHTML = "0/" + _gConfig.UserInputMaxLen;
+        document.getElementById("ichatbot-char-count").innerHTML = "";
         document.getElementById("ichatbot-error-msg").innerHTML = "";
         document.getElementById("ichatbot-userinput").value = '';
         document.getElementById("ichatbot-userinput").classList.remove('ichatbot-userinput-error');
@@ -662,7 +682,7 @@ var ichatbot = (function () {
             if (_gConfig.ResetChatHistoryOnClose == true) {
                 document.getElementById("ichatbot-chat-inner-div").getElementsByTagName("div")[0].innerHTML = "";
                 document.getElementById("ichatbot-error-msg").innerHTML = "";
-                document.getElementById("ichatbot-char-count").innerHTML = "0/" + _gConfig.UserInputMaxLen;;
+                document.getElementById("ichatbot-char-count").innerHTML = "" + _gConfig;
                 document.getElementById("ichatbot-userinput").value = '';
                 document.getElementById("ichatbot-userinput").classList.remove('ichatbot-userinput-error');
 
