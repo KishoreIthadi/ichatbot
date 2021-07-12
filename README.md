@@ -61,7 +61,7 @@ Add below tag anywhere in **html** file
 <div id="ichatbot-div"></div>
 ```
 
-In your component
+In your component file
 
 ```javascript
 import { Component } from '@angular/core';
@@ -368,31 +368,37 @@ The following image explains most of the properties
 1. **IntialQueryID: "1"**
     
    Query to be loaded initially, you can also set this while initializing ichatbot
+   
    ichatbot.initialize(config, dataset, IntialQueryID);
 
-2. **UserInputMinLen: "5"**
+2. **UserInputMinLen: "5"**,   
    **UserInputMaxLen": "50"**
 
-   User text input minimum and maximum character lenght. The text box border will be red if this criteria is not met
+   User text input minimum and maximum character length. The text box border will be red if this criteria is not met
+   
+3. **FileMaxSize: "10485760"**   
+
+   User file upload mazximum size in bytes
 
 3. **IChatBotCSSClass: "class1 class2"**
 
-   These css classes will be applied to chatbot by overriding default styles applied to outermost div, specify multiple classes seperated by space
+   These css classes will be applied to chatbot outermost div by overriding default styles, specify multiple classes separated by space
 
 4. **DisableSelectedButton: true**
 
    Whether the clickable option/button should be disabled after user clicks on it
 
-5. **TitleIconFAClass: "fa fa-info blue-color"**
-   **TitleImagePath: ""**
+5. **TitleIconFAClass: "fa fa-info blue-color"**,                    
+   **TitleImagePath: ""**,                    
    **TitleImageCSSClass: ""**
 
    Icon displayed on top left of chatbot
+   
    Set either TitleIconFAClass (font-awesome class) **OR** TitleImagePath along with TitleImageCSSClass(optional) as below
 
-   **TitleIconFAClass: ""**
-   **TitleImagePath: "~/images/tiltleicon.png"**
-   **TitleImageCSSClass: "class1 class2"**
+   **TitleIconFAClass: ""**,             
+   **TitleImagePath: "~/images/tiltleicon.png"**,            
+   **TitleImageCSSClass: "class1 class2"**            
 
    The above is applicable for Reset, Close, FloatingIcon, ChatQueryIcon, ChatUserInputIcon properties
 
@@ -400,14 +406,14 @@ The following image explains most of the properties
 
    If not provided a default message will be shown
 
-7. **ResetChatHistoryOnReset: true**
+7. **ResetChatHistoryOnReset: true**,                  
    **ResetChatHistoryOnClose: true**
 
    by default all the activity is stored in sequential order and this can be accessed by calling getChatSession() method
 
 ### **Dataset**
 
-Dataset consists of two arrays queries and oprions as shown below
+Dataset consists of two arrays **Queries** and **Options** as shown below
 
 ```javascript
 var ichatbotDataset =
@@ -465,30 +471,30 @@ var ichatbotDataset =
 
 1. **ID**
 
-   Unique identifier can be intiger or character or combination of both
-
-   Can also be provided as part of initialisation 
-
-```
-ichatbot.initialize(ichatbotconfig, dataset, null);
-```
+   A unique identifier that accepts input as an integer **OR** character **OR** combination of both
 
 2. **Query**
 
-   Can be simple text of HTML
-
+   Can be a simple text **OR** HTML
+    
+   ```
    "Query" : "Please select from below" **OR**
    "Query" : "<b>Please select from below </b>"
+   ```
 
 3. **Options**
 
-   Multiple option ID's seperated by ',' "Options": "103,104"
+   Multiple option ID's seperated by ',' 
+   
+   "Options": "103,104"
 
 4. **Type**
 
-   "Type" can be **Text**  **OR** **File**  **OR** **MultipleFiles**
+   "Type" can be **""** **OR** **"Text"** **OR** **"File"** **OR** **"MultipleFiles"**
 
-   When "Type" is **Text**, enables user to upload text input
+   When "Type" is **""**, query will be displayed with options(if provided)
+ 
+   When "Type" is **Text**, enables user to enter text input
 
    When "Type" is **File**, enables user to upload single file
 
@@ -506,82 +512,90 @@ ichatbot.initialize(ichatbotconfig, dataset, null);
 
 6. **ValidationErrorMsg**
 
-   This propery takes simple text as input and will be displayed to the use when validation is failed above textbox/file upload controls
+   This property takes simple text as input and gets displayed above textbox/file upload control when validation fails 
 
    "ValidationErrorMsg": "Invalid email" **OR** "ValidationErrorMsg": "Supported .png extension"
 
    *Note* recommended to provide text less than 50 characters for better UI
     
-   In case ValidationErrorMsg is empty, default messages will be shown to the user upon failed validation
+   In case ValidationErrorMsg is empty, default messages will be shown
 
-7. **SearchInQueries** && 8. **SearchKeywords**
+7. **SearchInQueries**              
+   **SearchKeywords**
 
-   These two properties work in sync. SearchInQueries takes true or false as input.
+   These two properties work in sync. SearchInQueries takes true **OR** false as input.
 
    if "SearchInQueries" = true && "Type" = "Text" then the text entered by the user will be matched against all the "SearchKeywords" in the Queries array
 
-   if search is found then matched Query will be loaded else "Keyword not found" message will be displayed then --> "QueryID" is loaded if not null, if "QueryID" is null then the same query will be loaded
+   if search is found then matched Query will be loaded else "Keyword not found" message will be displayed then --> "QueryID" is loaded if not null, if "QueryID" is null then the same query will be loaded.
 
-9. **QueryID**
+8. **QueryID**
 
    This is typically the next query to be loaded. The case when "Type" = Text is explained above
 
-   In case of "Type" = "File" **OR** "MultipleFiles" --> "QueryID" propery is not valid
+   It works similarly for all types of queries
 
-10. **FireSubscribedEvent**
+9. **FireSubscribedEvent**
 
    in case "FireSubscribedEvent" = true the subscribed events will be fired
 
-``` javascript
-ichatbot.initialize(ichatbotconfig, dataset);
+   ``` javascript
+   ichatbot.initialize(ichatbotconfig, dataset);
+   
 
-//Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
+   //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
 
-var userTextEvent = function UserText(chatSession, event) {
-  console.log('ichatbot : user text input event fired')
-  console.log(chatSession);
+   //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
+   var userTextEvent = function UserText(event) {
+     console.log('ichatbot : user text input event fired')
+     console.log(event.chatSession);
+     console.log(event.chatSession);
 
-  // In case you want to execute your logic when keyword is not found
-  // event.stop() will stop the functionality of showing "Keyword not found" message and call the configured query
-  if (event.searchFailed) {
-      // event.stop();
-      }
-}           
+     // In case you want to execute own logic on search failed
+     // event.stop() will stop the default functionality of showing "Keyword not found" message --> calling the configured query --> adding "text entered" in chat session
+     // if (event.searchFailed) {
+     //     event.stop();
+     //     ichatbot.loadQuery(1);
+     // }
+   }
 
-var buttonClickEvent = function buttonClick(chatSession) {
-  console.log('ichatbot : user button click event fired')
-  console.log(chatSession);
-}
+   var fileUploadEvent = function fileUpload(event) {
+     console.log('ichatbot : file upload event fired')
+     console.log(event.files);
+     console.log(event.chatSession);
 
-var resetEvent = function reset(chatSession) {
-  console.log('ichatbot : chat reset event fired')
-  console.log(chatSession);
-}
+     // In case you want to execute your own logic
+     // event.stop() will stop the default functionality of showing "File Upload Success" message --> calling the configured query--> adding "file uploaded" in chat session
 
-var closeEvent = function close(chatSession) {
-  console.log('ichatbot : chat close event fired')
-  console.log(chatSession);
-}
+     event.stop();
 
-var fileUploadEvent = function fileUpload(files, chatSession) {
-  console.log('ichatbot : file upload event fired')
-  console.log(files);
-  console.log(chatSession);
+     ichatbot.simpleQuery("<b>File Uploaded Sucessfully</b>")
+     ichatbot.loadQuery(5);
+   }      
 
-  ichatbot.simpleQuery("<b>File Uploaded Sucessfully</b>")
-  ichatbot.loadQuery(5);
+   var buttonClickEvent = function buttonClick(chatSession) {
+     console.log('ichatbot : user button click event fired')
+     console.log(chatSession);
+   }
 
-  console.log(ichatbot.getChatSession());
-}
+   var resetEvent = function reset(chatSession) {
+     console.log('ichatbot : chat reset event fired')
+     console.log(chatSession);
+   }
 
-ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);         
-```
+   var closeEvent = function close(chatSession) {
+     console.log('ichatbot : chat close event fired')
+     console.log(chatSession);
+   }
+
+   ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);         
+   ```
 
 ### **Options**
 
 1. **ID**
 
-   Unique identifier can be intiger or character or combination of both
+   Unique identifier can be integer **OR** character **OR** combination of both
 
 2. **Type**
 
@@ -589,7 +603,7 @@ ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent,
  
 3. **Text**
 
-   Diplay text for Buttor **OR** Link
+   Display text for "Button" **OR** "Link"
 
 4. **URL**
 
@@ -597,13 +611,13 @@ ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent,
 
 5. **Query**
 
-   Valid when "Type" is button. Loads the "Query" when buton is selected by user
+   Valid when "Type" is ""Button. Loads the "Query" when buton is selected by user
 
    "Query" ="1" **OR** "Query" = "2"
 
 6. **FireSubscribedEvent**
 
-   Valid when "Type" is button. The subscribed event will be fired
+   Valid when "Type" is "Button". The subscribed event will be fired
 
 ---
 
@@ -611,88 +625,91 @@ ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent,
 
 1. **initialize(config, dataset, initialqueryID(nullable))**
 
-   Initialises the chatbot.
+   Initializes the chatbot.
 
 2. **loadQuery(QueryID)**
 
-   Loads the query based on provided argument.
+   Loads the query based on provided argument
 
 3. **openChatBot()**
 
 4. **closeChatBot()**
 
-   closeChatBot() will close the chatbot.
-   closeChatBot(false) will not load the InitialQuery.
+   closeChatBot() will close the chatbot           
+   closeChatBot(**false**) will not load the InitialQuery     
 
 5. **resetChat()**
 
-   resetChat() will reset the chatbot and loads the InitialQueryID
-   resetChat(false) will reset the chatbot and not load the InitialQuery
+   resetChat() will reset the chatbot and loads the InitialQueryID              
+   resetChat(**false**) will reset the chatbot and not load the InitialQuery
 
 6. **subscribeEvent()**
 
-   Pass the events as argments
+   Pass the events as arguments
 
    subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
 
 7. **simpleQuery()**
 
-   This will enable you to provide a simple message to the user. Takes text or HTML as input.
+   This will enable you to provide a simple message to the user. Takes **text** **OR** **HTML** as input
 
-   simpleQuery("Welcome to ichatbot");
+   ```
+   simpleQuery("Welcome to ichatbot");      
    simpleQuery("<b>Welcome to ichatbot</b>");
-
+   ```
 
 8. **getChatSession()**
 
-   iChatbot maintains all the user activity and can be retrived by using this method
+   iChatbot maintains all the user activity and can be retrieved by using this method
 
 9. **showLoader()**
 
-   showLoader() display the loader and will be hidden only on calling hideLoader()
-   showLoader(2000) diplays loader for 2000 milli seconds
+   showLoader() display the loader and will be hidden only on calling hideLoader()                                          
+   showLoader(**2000**) diplays loader for 2000 milli seconds
 
 10. **showErrorMsg()**
 
-   Displays error message on top of textbox/fileupload.
+     Displays error message on top of textbox/fileupload.
 
-   showErrorMsg("This is error");
-   showErrorMsg(""); for removing the message
+     showErrorMsg("This is error");
+     showErrorMsg(""); for removing the message
 
 11. **getDataset()**
 
-   Returns the dataset passed as part of initialize()
+     Returns the dataset passed as part of initialize()
         
 12. **updateDataset()**
 
-   Update the entire Dataset
+     Update the entire Dataset
 
-```javascript
-function updateDataset() {
-  var dataset = ichatbot.getDataset();
-  dataset.Queries.push({
-  "ID": "100",
-  "Query": "update dataset",
-  "Options": "300",
-  "Type": "",
-  "QueryID": "",
-  "SearchInQueries": false,
-  "SearchKeywords": "",
-  "FireSubscribedEvent": false,
-  "Validation": "",
-  "ValidationErrorMsg": ""
-  });
+     ```javascript
+     function updateDataset() {
+       var dataset = ichatbot.getDataset();
+       dataset.Queries.push({
+       "ID": "100",
+       "Query": "update dataset",
+       "Options": "300",
+       "Type": "",
+       "QueryID": "",
+       "SearchInQueries": false,
+       "SearchKeywords": "",
+       "FireSubscribedEvent": false,
+       "Validation": "",
+       "ValidationErrorMsg": ""
+      });
 
-  dataset.Options.push({
-  "ID": "300",
-  "Text": "Mobile",
-  "Type": "Button",
-  "URL": "",
-  "Query": "",
-  "FireSubscribedEvent": true
-  });
+      dataset.Options.push({
+       "ID": "300",
+       "Text": "Mobile",
+       "Type": "Button",
+       "URL": "",
+       "Query": "",
+       "FireSubscribedEvent": true
+      });
   
-  ichatbot.resetChat(false);
-  ichatbot.loadQuery(100);
-}
+      ichatbot.resetChat(false);
+      ichatbot.loadQuery(100);
+    }
 ```
+
+---
