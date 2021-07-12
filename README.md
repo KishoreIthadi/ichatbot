@@ -18,6 +18,7 @@
     * [1. NPM-Angular](#1-NPM-Angular)
     * [2. HTML](#2-HTML)
 * [ichatbotconfig.js](#ichatbotconfigjs)
+* [Dataset](#dataset)
 * [Methods](#methods)
 
 ---
