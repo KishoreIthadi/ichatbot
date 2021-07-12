@@ -61,7 +61,7 @@ Add below tag anywhere in **html** file
 <div id="ichatbot-div"></div>
 ```
 
-In your component
+In your component file
 
 ```javascript
 import { Component } from '@angular/core';
@@ -372,6 +372,7 @@ The following image explains most of the properties
    ichatbot.initialize(config, dataset, IntialQueryID);
 
 2. **UserInputMinLen: "5"**
+   
    **UserInputMaxLen": "50"**
 
    User text input minimum and maximum character length. The text box border will be red if this criteria is not met
