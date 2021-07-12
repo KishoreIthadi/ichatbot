@@ -34,7 +34,7 @@ var dataset_FUWL =
         "QueryID": "4",
         "SearchInQueries": false,
         "SearchKeywords": "",
-        "FireSubscribedEvent": false,
+        "FireSubscribedEvent": true,
         "Validation": "^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$",
         "ValidationErrorMsg": ""
       },
