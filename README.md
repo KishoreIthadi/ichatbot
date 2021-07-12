@@ -207,11 +207,11 @@ export class AppComponent {
 
 #### **2. HTML**
 
-Download ichatbot.js, ichatbotconfig.js & ichatbotstyle.css from below link and add it to your project.
+Download latest ichatbot.js, ichatbotconfig.js & ichatbotstyle.css using below link
 
-```link
-https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css
-```
+<big><pre>
+[https://github.com/KishoreIthadi/ichatbot/releases](https://github.com/KishoreIthadi/ichatbot/releases)
+</pre></big>
 
 Add link and script in head section
 ```html
