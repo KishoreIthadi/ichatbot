@@ -368,16 +368,17 @@ The following image explains most of the properties
 1. **IntialQueryID: "1"**
     
    Query to be loaded initially, you can also set this while initializing ichatbot
+   
    ichatbot.initialize(config, dataset, IntialQueryID);
 
 2. **UserInputMinLen: "5"**
    **UserInputMaxLen": "50"**
 
-   User text input minimum and maximum character lenght. The text box border will be red if this criteria is not met
+   User text input minimum and maximum character length. The text box border will be red if this criteria is not met
 
 3. **IChatBotCSSClass: "class1 class2"**
 
-   These css classes will be applied to chatbot by overriding default styles applied to outermost div, specify multiple classes seperated by space
+   These css classes will be applied to chatbot by overriding default styles applied to the outermost div, specify multiple classes separated by space
 
 4. **DisableSelectedButton: true**
 
@@ -407,7 +408,7 @@ The following image explains most of the properties
 
 ### **Dataset**
 
-Dataset consists of two arrays queries and oprions as shown below
+Dataset consists of two arrays queries and options as shown below
 
 ```javascript
 var ichatbotDataset =
@@ -465,9 +466,9 @@ var ichatbotDataset =
 
 1. **ID**
 
-   Unique identifier can be intiger or character or combination of both
+   A unique identifier that accepts input as an integer or character or combination of both
 
-   Can also be provided as part of initialisation 
+   Can also be provided as part of initialization 
 
 ```
 ichatbot.initialize(ichatbotconfig, dataset, null);
@@ -475,10 +476,12 @@ ichatbot.initialize(ichatbotconfig, dataset, null);
 
 2. **Query**
 
-   Can be simple text of HTML
-
+   Can be a simple text **OR** HTML
+    
+   ```
    "Query" : "Please select from below" **OR**
    "Query" : "<b>Please select from below </b>"
+   ```
 
 3. **Options**
 
@@ -506,7 +509,7 @@ ichatbot.initialize(ichatbotconfig, dataset, null);
 
 6. **ValidationErrorMsg**
 
-   This propery takes simple text as input and will be displayed to the use when validation is failed above textbox/file upload controls
+   This property takes simple text as input and will be displayed above textbox/file upload controls when validation is failed 
 
    "ValidationErrorMsg": "Invalid email" **OR** "ValidationErrorMsg": "Supported .png extension"
 
@@ -581,7 +584,7 @@ ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent,
 
 1. **ID**
 
-   Unique identifier can be intiger or character or combination of both
+   Unique identifier can be integer **OR** character **OR** combination of both
 
 2. **Type**
 
@@ -589,7 +592,7 @@ ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent,
  
 3. **Text**
 
-   Diplay text for Buttor **OR** Link
+   Display text for "Button" **OR** "Link"
 
 4. **URL**
 
@@ -597,13 +600,13 @@ ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent,
 
 5. **Query**
 
-   Valid when "Type" is button. Loads the "Query" when buton is selected by user
+   Valid when "Type" is ""Button. Loads the "Query" when buton is selected by user
 
    "Query" ="1" **OR** "Query" = "2"
 
 6. **FireSubscribedEvent**
 
-   Valid when "Type" is button. The subscribed event will be fired
+   Valid when "Type" is "Button". The subscribed event will be fired
 
 ---
 
@@ -611,7 +614,7 @@ ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent,
 
 1. **initialize(config, dataset, initialqueryID(nullable))**
 
-   Initialises the chatbot.
+   Initializes the chatbot.
 
 2. **loadQuery(QueryID)**
 
@@ -631,7 +634,7 @@ ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent,
 
 6. **subscribeEvent()**
 
-   Pass the events as argments
+   Pass the events as arguments
 
    subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent);
 
@@ -645,7 +648,7 @@ ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent,
 
 8. **getChatSession()**
 
-   iChatbot maintains all the user activity and can be retrived by using this method
+   iChatbot maintains all the user activity and can be retrieved by using this method
 
 9. **showLoader()**
 
