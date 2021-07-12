@@ -710,6 +710,5 @@ var ichatbotDataset =
       ichatbot.resetChat(false);
       ichatbot.loadQuery(100);
     }
-```
-
+    ```
 ---
