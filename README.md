@@ -382,7 +382,7 @@ The following image explains most of the properties
 
 3. **IChatBotCSSClass: "class1 class2"**
 
-   These css classes will be applied to chatbot by overriding default styles applied to the outermost div, specify multiple classes separated by space
+   These css classes will be applied to chatbot outermost div by overriding default styles, specify multiple classes separated by space
 
 4. **DisableSelectedButton: true**
 
