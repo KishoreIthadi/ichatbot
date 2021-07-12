@@ -1,15 +1,18 @@
-// used as postinstall script
+// used as postinstall script for copying config gile
 const fs = require('fs');
 
-if (fs.existsSync('./src')) {
-    fs.copyFile('node_modules/ichatbot/ichatbotconfig.js', 'src/ichatbotconfig.js', (err) => {
-        if (err) throw err;
-        console.log('unable to copy ichatbotconfig.js');
+var path = require('path');
+var appDir = path.dirname(require.main.filename).replace("node_modules", "").replace("ichatbot", "");
+
+if (fs.existsSync(appDir + '/src')) {
+    fs.copyFile('README.md', appDir + '/src/README.md', (err) => {
+        if (err)
+            console.log('unable to copy ichatbotconfig.js');
     });
 }
 else {
-    fs.copyFile('node_modules/ichatbot/ichatbotconfig.js', 'ichatbotconfig.js', (err) => {
-        if (err) throw err;
-        console.log('unable to copy ichatbotconfig.js');
+    fs.copyFile('README.md', '../../README.md', (err) => {
+        if (err)
+            console.log('unable to copy ichatbotconfig.js');
     });
 }

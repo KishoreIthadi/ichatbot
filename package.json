@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "test": "node ichatbot/ichatbot.test.js",
-    "postinstall": "node node_modules/ichatbot/copycmd.js",
+    "postinstall": "node copycmd.js",
     "release": "gulp release",
     "deploy-gh-pages": "gulp gh-pages && gh-pages -d gh-pages"
   },
