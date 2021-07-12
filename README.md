@@ -375,6 +375,10 @@ The following image explains most of the properties
    **UserInputMaxLen": "50"**
 
    User text input minimum and maximum character length. The text box border will be red if this criteria is not met
+   
+3. **FileMaxSize: "10485760"**   
+
+   User file upload mazximum size in bytes
 
 3. **IChatBotCSSClass: "class1 class2"**
 
