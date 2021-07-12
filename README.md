@@ -545,7 +545,7 @@ ichatbot.initialize(ichatbotconfig, dataset);
 //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
 
 //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
-var userTextEvent = function UserText(event: any) {
+var userTextEvent = function UserText(event) {
   console.log('ichatbot : user text input event fired')
   console.log(event.chatSession);
   console.log(event.chatSession);
@@ -558,7 +558,7 @@ var userTextEvent = function UserText(event: any) {
   // }
 }
 
-var fileUploadEvent = function fileUpload(event: any) {
+var fileUploadEvent = function fileUpload(event) {
   console.log('ichatbot : file upload event fired')
   console.log(event.files);
   console.log(event.chatSession);
@@ -628,19 +628,19 @@ ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent,
 
 2. **loadQuery(QueryID)**
 
-   Loads the query based on provided argument.
+   Loads the query based on provided argument
 
 3. **openChatBot()**
 
 4. **closeChatBot()**
 
-   closeChatBot() will close the chatbot.
-   closeChatBot(false) will not load the InitialQuery.
+   closeChatBot() will close the chatbot           
+   closeChatBot(**false**) will not load the InitialQuery     
 
 5. **resetChat()**
 
-   resetChat() will reset the chatbot and loads the InitialQueryID
-   resetChat(false) will reset the chatbot and not load the InitialQuery
+   resetChat() will reset the chatbot and loads the InitialQueryID              
+   resetChat(**false**) will reset the chatbot and not load the InitialQuery
 
 6. **subscribeEvent()**
 
@@ -650,11 +650,12 @@ ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent,
 
 7. **simpleQuery()**
 
-   This will enable you to provide a simple message to the user. Takes text or HTML as input.
+   This will enable you to provide a simple message to the user. Takes **text** **OR** **HTML** as input
 
-   simpleQuery("Welcome to ichatbot");
+   ```
+   simpleQuery("Welcome to ichatbot");      
    simpleQuery("<b>Welcome to ichatbot</b>");
-
+   ```
 
 8. **getChatSession()**
 
@@ -662,8 +663,8 @@ ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent,
 
 9. **showLoader()**
 
-   showLoader() display the loader and will be hidden only on calling hideLoader()
-   showLoader(2000) diplays loader for 2000 milli seconds
+   showLoader() display the loader and will be hidden only on calling hideLoader()                                          
+   showLoader(**2000**) diplays loader for 2000 milli seconds
 
 10. **showErrorMsg()**
 
