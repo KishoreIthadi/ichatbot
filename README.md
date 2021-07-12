@@ -490,9 +490,9 @@ var ichatbotDataset =
 
 4. **Type**
 
-   "Type" can be **Text**  **OR** **File**  **OR** **MultipleFiles**
+   "Type" can be **"Text"**  **OR** **"File"**  **OR** **"MultipleFiles"**
 
-   When "Type" is **Text**, enables user to upload text input
+   When "Type" is **Text**, enables user to enter text input
 
    When "Type" is **File**, enables user to upload single file
 
