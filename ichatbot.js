@@ -10,8 +10,6 @@ var ichatbot = (function () {
     var _gRecentQuery = null;
     var _gInitialQueryID = null;
 
-
-
     // Event handlers
     var _userTextEvent = null;
     var _chatCloseEvent = null;
@@ -21,9 +19,9 @@ var ichatbot = (function () {
 
     var _stopEventExecution = false;
 
-    // event for text input search failed 
-    var stopEventExecutionFun = {
-        searchFailed: false,
+    // event for text input & file upload
+    var eventArgs = {
+        chatSession: null,
         stop: function () {
             _stopEventExecution = true;
         }
@@ -319,8 +317,12 @@ var ichatbot = (function () {
         // Event for handling file upload
         document.getElementById("ichatbot-userinput").onchange = function (e) {
 
+            eventArgs.files = null;
+            _stopEventExecution = false;
+
             //Checking if the input type is file
             if (e.target.type.toLowerCase() == "file") {
+
 
                 // Validation check for text input
                 e.target.classList.remove('ichatbot-userinput-error');
@@ -341,16 +343,26 @@ var ichatbot = (function () {
                         }
                     }
 
-                    _gChatSession.push({ "files Uploaded": fileNames.slice(0, -1) });
-
                     // Makes sure events are fired only when FireSubscribedEvent propert is true. 
                     if (_gRecentQuery.FireSubscribedEvent == true) {
-                        fireFileUploadEvent(e.target.files);
+                        eventArgs.files = e.target.files;
+                        fireFileUploadEvent();
                     }
 
                     e.target.type = "text";
                     e.target.disabled = true;
                     e.target.value = "";
+
+                    if (_stopEventExecution) {
+                        return;
+                    }
+
+                    ichatbot.simpleQuery("<b>File Uploaded Sucessfully</b>")
+                    _gChatSession.push({ "files Uploaded": fileNames.slice(0, -1) });
+
+                    if (!isNullOrEmpty(_gRecentQuery.QueryID)) {
+                        loadQuery(_gRecentQuery.QueryID);
+                    }
                 }
             }
         };
@@ -392,6 +404,9 @@ var ichatbot = (function () {
                         e.target.disabled = true;
                         e.target.value = "";
 
+                        eventArgs.searchFailed = true;
+                        _stopEventExecution = false;
+
                         document.getElementById("ichatbot-char-count").innerHTML = "0/" + e.target.maxLength;
 
                         userTextInputDisplay(input);
@@ -407,14 +422,11 @@ var ichatbot = (function () {
                             }
                         }
                         else {
-                            stopEventExecutionFun.searchFailed = true;
-                            _stopEventExecution = false;
-
                             for (var i = 0; i <= _gDataset.Queries.length - 1; i++) {
                                 if (!isNullOrEmpty(_gDataset.Queries[i].SearchKeywords)) {
                                     if (_gDataset.Queries[i].SearchKeywords.toLowerCase().search(input.toLowerCase()) >= 0) {
                                         if (_gRecentQuery.FireSubscribedEvent == true) {
-                                            stopEventExecutionFun.searchFailed = false;
+                                            eventArgs.searchFailed = false;
                                             fireUserTextEvent();
                                         }
                                         loadQuery(_gDataset.Queries[i].ID);
@@ -424,7 +436,7 @@ var ichatbot = (function () {
                             }
 
                             // if keyword not found as part of search in queries
-                            if (stopEventExecutionFun.searchFailed) {
+                            if (eventArgs.searchFailed) {
 
                                 if (_gRecentQuery.FireSubscribedEvent == true) {
                                     fireUserTextEvent();
@@ -681,7 +693,15 @@ var ichatbot = (function () {
 
     function fireUserTextEvent() {
         if (!isNullOrEmpty(_userTextEvent)) {
-            _userTextEvent(_gChatSession, stopEventExecutionFun);
+            eventArgs.chatSession = _gChatSession;
+            _userTextEvent(eventArgs);
+        }
+    }
+
+    function fireFileUploadEvent() {
+        if (!isNullOrEmpty(_fileUploadEvent)) {
+            eventArgs.chatSession = _gChatSession;
+            _fileUploadEvent(eventArgs);
         }
     }
 
@@ -700,12 +720,6 @@ var ichatbot = (function () {
     function fireUserButtonClickEvent() {
         if (!isNullOrEmpty(_chatButtonClickEvent)) {
             _chatButtonClickEvent(_gChatSession);
-        }
-    }
-
-    function fireFileUploadEvent(e) {
-        if (!isNullOrEmpty(_fileUploadEvent)) {
-            _fileUploadEvent(e, _gChatSession);
         }
     }
 
