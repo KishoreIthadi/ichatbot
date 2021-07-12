@@ -47,8 +47,8 @@ var dataset_FUWL =
         "SearchInQueries": false,
         "SearchKeywords": "",
         "FireSubscribedEvent": true,
-        "Validation": ".js,.css",
-        "ValidationErrorMsg": "only js/css are allowed"
+        "Validation": ".js,.gif",
+        "ValidationErrorMsg": "only js/gif are allowed"
       },
       {
         "ID": "5",

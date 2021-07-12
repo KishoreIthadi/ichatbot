@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const path = require('path');
 
 (async () => {
   const browser = await puppeteer.launch({ headless: false });
@@ -127,16 +128,20 @@ const puppeteer = require('puppeteer');
   await page.keyboard.press(String.fromCharCode(13));
   await page.waitForTimeout(2000);
 
+  const root = path.dirname(require.main.filename)
+
   const inputUploadHandle = await page.$('input[type=file]');
-  inputUploadHandle.uploadFile('D:/Projects/ichatbot/ichatbot/index.html');
-  await page.waitForTimeout(2000);
+  inputUploadHandle.uploadFile(root + '/index.html');
+  await page.waitForTimeout(3000);
   await page.focus('input[type=file]');
-  //await page.keyboard.press(String.fromCharCode(13));
-  await page.waitForTimeout(2000);
-  inputUploadHandle.uploadFile('D:/Projects/ichatbot/ichatbot/dataset-basic-workflow.js');
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(3000);
+  inputUploadHandle.uploadFile(root.substring(0, root.length - 8) + 'images/complex.gif');
+  await page.waitForTimeout(3000);
+  await page.focus('input[type=file]');
+  await page.waitForTimeout(3000);
+  inputUploadHandle.uploadFile(root + '/dataset-basic-workflow.js');
+  await page.waitForTimeout(3000);
   await page.focus("#ichatbot-userinput");
-  //await page.keyboard.press(String.fromCharCode(13));
   await page.waitForTimeout(5000);
 
   // Reset, Close, Open testing------------------------------------------------------------------------------------------------------------------------------

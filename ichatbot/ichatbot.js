@@ -420,7 +420,9 @@ var ichatbot = (function () {
                         e.target.disabled = true;
                         e.target.value = "";
 
-                        eventArgs.searchFailed = true;
+                        eventArgs.searchFailed = true;                        
+                        eventArgs.userInput = input;
+
                         _stopEventExecution = false;
 
                         document.getElementById("ichatbot-char-count").innerHTML = "";
