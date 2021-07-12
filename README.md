@@ -18,11 +18,7 @@
     * [1. NPM-Angular](#1-NPM-Angular)
     * [2. HTML](#2-HTML)
 * [ichatbotconfig.js](#ichatbotconfigjs)
-* [Dataset](#dataset)
-* [Workflows](#Add-Remove-Project-Reference)
-    * [Simple Workflow](#Add-Remove-DLL-Reference)
-    * [Complex Workflow](#Add/Remove-Nuget-packages)
-    * [File Upload Workflow](#Publish-Project)
+* [Methods](#methods)
 
 ---
 
