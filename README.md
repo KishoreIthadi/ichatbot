@@ -4,7 +4,7 @@
 
 ---
 
-### **Example Workflows**
+### **Examples of different workflows**
 
 <big><pre>
 [https://kishoreithadi.github.io/ichatbot/](https://kishoreithadi.github.io/ichatbot/)
