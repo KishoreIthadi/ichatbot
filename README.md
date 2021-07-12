@@ -371,7 +371,7 @@ The following image explains most of the properties
    
    ichatbot.initialize(config, dataset, IntialQueryID);
 
-2. **UserInputMinLen: "5"**   
+2. **UserInputMinLen: "5"**,   
    **UserInputMaxLen": "50"**
 
    User text input minimum and maximum character length. The text box border will be red if this criteria is not met
@@ -388,17 +388,17 @@ The following image explains most of the properties
 
    Whether the clickable option/button should be disabled after user clicks on it
 
-5. **TitleIconFAClass: "fa fa-info blue-color"**
-   **TitleImagePath: ""**
+5. **TitleIconFAClass: "fa fa-info blue-color"**,                    
+   **TitleImagePath: ""**,                    
    **TitleImageCSSClass: ""**
 
    Icon displayed on top left of chatbot
    
    Set either TitleIconFAClass (font-awesome class) **OR** TitleImagePath along with TitleImageCSSClass(optional) as below
 
-   **TitleIconFAClass: ""**
-   **TitleImagePath: "~/images/tiltleicon.png"**
-   **TitleImageCSSClass: "class1 class2"**
+   **TitleIconFAClass: ""**,             
+   **TitleImagePath: "~/images/tiltleicon.png"**,            
+   **TitleImageCSSClass: "class1 class2"**            
 
    The above is applicable for Reset, Close, FloatingIcon, ChatQueryIcon, ChatUserInputIcon properties
 
@@ -406,7 +406,7 @@ The following image explains most of the properties
 
    If not provided a default message will be shown
 
-7. **ResetChatHistoryOnReset: true**
+7. **ResetChatHistoryOnReset: true**,
    **ResetChatHistoryOnClose: true**
 
    by default all the activity is stored in sequential order and this can be accessed by calling getChatSession() method
