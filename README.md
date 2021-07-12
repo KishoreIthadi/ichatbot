@@ -541,6 +541,7 @@ var ichatbotDataset =
 
 ``` javascript
 ichatbot.initialize(ichatbotconfig, dataset);
+```
 
 //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
 
@@ -668,18 +669,18 @@ ichatbot.subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent,
 
 10. **showErrorMsg()**
 
-   Displays error message on top of textbox/fileupload.
+     Displays error message on top of textbox/fileupload.
 
-   showErrorMsg("This is error");
-   showErrorMsg(""); for removing the message
+     showErrorMsg("This is error");
+     showErrorMsg(""); for removing the message
 
 11. **getDataset()**
 
-   Returns the dataset passed as part of initialize()
+     Returns the dataset passed as part of initialize()
         
 12. **updateDataset()**
 
-   Update the entire Dataset
+     Update the entire Dataset
 
 ```javascript
 function updateDataset() {
