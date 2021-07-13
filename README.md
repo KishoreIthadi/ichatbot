@@ -403,8 +403,8 @@ The following image explains most of the properties
         by default all the activity is stored in sequential order and this can be accessed by calling getChatSession() method
 
 ### **Dataset**                                                                
-        Dataset consists of two arrays **Queries** and **Options** as shown below                                   
-
+        Dataset consists of two arrays **Queries** and **Options** as shown below     
+        
 ```javascript
 var ichatbotDataset = {
     "Queries": [{
