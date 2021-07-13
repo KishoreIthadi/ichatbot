@@ -41,7 +41,7 @@ gulp.task('copy-original-files', function () {
 });
 
 gulp.task('copy-files', function () {
-    return gulp.src(['ichatbot/ichatbotconfig.js', 'copycmd.js', 'package.json'])
+    return gulp.src(['ichatbot/ichatbotconfig.js', 'copycmd.js', 'package.json','README.md'])
         .pipe(gulp.dest('dist/'))
 });
 
