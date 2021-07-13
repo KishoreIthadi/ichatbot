@@ -35,7 +35,7 @@ ichatbot is a fully customizable javascript library that enables you to create a
 #### **1. NPM Angular**
 
 ```bash
-npm install --save ichatbot
+npm install --save innovative-chatbot
 ```
 
 Add styles and scripts in **angular.json** 
