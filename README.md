@@ -367,9 +367,8 @@ The following image explains most of the properties
 
 <img src="images/ichatbotconfig.png">
 
-01. **IntialQueryID: "1"**
-        Query to be loaded initially, you can also set this while initializing ichatbot
-
+01. **IntialQueryID: "1"**                                            
+        Query to be loaded initially, you can also set this while initializing ichatbot              
         ichatbot.initialize(config, dataset, IntialQueryID); 
 
 02. **UserInputMinLen: "5"**,   
