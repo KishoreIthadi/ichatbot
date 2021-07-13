@@ -369,53 +369,49 @@ The following image explains most of the properties
 
 01. **IntialQueryID: "1"**
     
-   Query to be loaded initially, you can also set this while initializing ichatbot
-   
-   ichatbot.initialize(config, dataset, IntialQueryID); 
+        Query to be loaded initially, you can also set this while initializing ichatbot
+
+        ichatbot.initialize(config, dataset, IntialQueryID); 
 
 02. **UserInputMinLen: "5"**,   
     **UserInputMaxLen": "50"**
 
-   User text input minimum and maximum character length. The text box border will be red if this criteria is not met
-   
-03. **FileMaxSize: "10485760"**   
+        User text input minimum and maximum character length. The text box border will be red if this criteria is not met
 
-   User file upload mazximum size in bytes
+03. **FileMaxSize: "10485760"**   
+        User file upload mazximum size in bytes
 
 03. **IChatBotCSSClass: "class1 class2"**
-
-   These css classes will be applied to chatbot outermost div by overriding default styles, specify multiple classes separated by space
+        These css classes will be applied to chatbot outermost div by overriding default styles, specify multiple classes separated by space
 
 04. **DisableSelectedButton: true**
-
-   Whether the clickable option/button should be disabled after user clicks on it
+        Whether the clickable option/button should be disabled after user clicks on it
 
 05. **TitleIconFAClass: "fa fa-info blue-color"**,                    
-   **TitleImagePath: ""**, 
-   **TitleImageCSSClass: ""**
+    **TitleImagePath: ""**, 
+    **TitleImageCSSClass: ""**
 
-   Icon displayed on top left of chatbot
-   
-   Set either TitleIconFAClass (font-awesome class) **OR** TitleImagePath along with TitleImageCSSClass(optional) as below
+        Icon displayed on top left of chatbot
+
+        Set either TitleIconFAClass (font-awesome class) **OR** TitleImagePath along with TitleImageCSSClass(optional) as below
 
    **TitleIconFAClass: ""**, 
    **TitleImagePath: "~/images/tiltleicon.png"**, 
    **TitleImageCSSClass: "class1 class2"**            
 
-   The above is applicable for Reset, Close, FloatingIcon, ChatQueryIcon, ChatUserInputIcon properties
+        The above is applicable for Reset, Close, FloatingIcon, ChatQueryIcon, ChatUserInputIcon properties
 
 06. **SearchNotFoundMsg: "Keyword not found!!"**
-
-   If not provided a default message will be shown
+        If not provided a default message will be shown
 
 07. **ResetChatHistoryOnReset: true**,                  
    **ResetChatHistoryOnClose: true**
 
-   by default all the activity is stored in sequential order and this can be accessed by calling getChatSession() method
+        by default all the activity is stored in sequential order and this can be accessed by calling getChatSession() method
 
 ### **Dataset**
 
-Dataset consists of two arrays **Queries** and **Options** as shown below
+        Dataset consists of two arrays **Queries** and **Options** as shown below
 
 ```javascript
 var ichatbotDataset = {
@@ -467,12 +463,10 @@ var ichatbotDataset = {
 ### **Queries**
 
 01. **ID**
-
-   A unique identifier that accepts input as an integer **OR** character **OR** combination of both
+        A unique identifier that accepts input as an integer **OR** character **OR** combination of both
 
 02. **Query**
-
-   Can be a simple text **OR** HTML
+        Can be a simple text **OR** HTML
 
 ```javascript
    "Query": "Please select from below"; ** OR **
@@ -480,61 +474,60 @@ var ichatbotDataset = {
 ```
 
 03. **Options**
+        Multiple option ID's seperated by ', ' 
 
-   Multiple option ID's seperated by ', ' 
-   
-   "Options": "103, 104"
+        "Options": "103, 104"
 
 04. **Type**
 
-   "Type" can be **""** **OR** **"Text"** **OR** **"File"** **OR** **"MultipleFiles"**
+        "Type" can be **""** **OR** **"Text"** **OR** **"File"** **OR** **"MultipleFiles"**
 
-   When "Type" is **""**, query will be displayed with options(if provided)
+        When "Type" is **""**, query will be displayed with options(if provided)
  
-   When "Type" is **Text**, enables user to enter text input
+        When "Type" is **Text**, enables user to enter text input
 
-   When "Type" is **File**, enables user to upload single file
+        When "Type" is **File**, enables user to upload single file
 
-   When "Type" is **MultipleFiles**, enables user to upload multiple files
+        When "Type" is **MultipleFiles**, enables user to upload multiple files
 
 05. **Validation**
 
-   When "Type" is **Text**, provide Regex expression as below
+        When "Type" is **Text**, provide Regex expression as below
 
-   "Validation": "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" **OR** "Validation": "^([0|\+[0-9]{1, 5})?([7-9][0-9]{9})$"
+        "Validation": "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" **OR** "Validation": "^([0|\+[0-9]{1, 5})?([7-9][0-9]{9})$"
 
-   When query "Type" is **File** **OR** **MultipleFiles**, provide file extension seperated by ', ' as below
+        When query "Type" is **File** **OR** **MultipleFiles**, provide file extension seperated by ', ' as below
 
-   "Validation": ".js, .css"
+        "Validation": ".js, .css"
 
 06. **ValidationErrorMsg**
 
-   This property takes simple text as input and gets displayed above textbox/file upload control when validation fails 
+        This property takes simple text as input and gets displayed above textbox/file upload control when validation fails 
 
-   "ValidationErrorMsg": "Invalid email" **OR** "ValidationErrorMsg": "Supported .png extension"
+        "ValidationErrorMsg": "Invalid email" **OR** "ValidationErrorMsg": "Supported .png extension"
 
-   *Note* recommended to provide text less than 50 characters for better UI
+        *Note* recommended to provide text less than 50 characters for better UI
 
-   In case ValidationErrorMsg is empty, default messages will be shown
+         In case ValidationErrorMsg is empty, default messages will be shown
 
 07. **SearchInQueries**              
     **SearchKeywords**
 
-   These two properties work in sync. SearchInQueries takes true **OR** false as input.
+        These two properties work in sync. SearchInQueries takes true **OR** false as input.
 
-   if "SearchInQueries" = true && "Type" = "Text" then the text entered by the user will be matched against all the "SearchKeywords" in the Queries array
+        if "SearchInQueries" = true && "Type" = "Text" then the text entered by the user will be matched against all the "SearchKeywords" in the Queries array
 
-   if search is found then matched Query will be loaded else "Keyword not found" message will be displayed then --> "QueryID" is loaded if not null, if "QueryID" is null then the same query will be loaded. This flow can be paused by using e.stop() (go through the examples for more details)
+        if search is found then matched Query will be loaded else "Keyword not found" message will be displayed then --> "QueryID" is loaded if not null, if "QueryID" is null then the same query will be loaded. This flow can be paused by using e.stop() (go through the examples for more details)
 
 08. **QueryID**
 
-   This is typically the next query to be loaded. The case when "Type" = Text is explained above
+        This is typically the next query to be loaded. The case when "Type" = Text is explained above
 
-   It works similarly for all types of queries
+        It works similarly for all types of queries
 
 09. **FireSubscribedEvent**
 
-   in case "FireSubscribedEvent" = true the subscribed events will be fired
+        in case "FireSubscribedEvent" = true the subscribed events will be fired
 
 ```javascript
    ichatbot.initialize(ichatbotconfig, dataset);
@@ -593,29 +586,29 @@ var ichatbotDataset = {
 
 01. **ID**
 
-   Unique identifier can be integer **OR** character **OR** combination of both
+        Unique identifier can be integer **OR** character **OR** combination of both
 
 02. **Type**
 
-   "Type" can be "Button" **OR** "Link"
+        "Type" can be "Button" **OR** "Link"
  
 03. **Text**
 
-   Display text for "Button" **OR** "Link"
+        Display text for "Button" **OR** "Link"
 
 04. **URL**
 
-   Valid when "Type" is link
+        Valid when "Type" is link
 
 05. **Query**
 
-   Valid when "Type" is ""Button. Loads the "Query" when buton is selected by user
+        Valid when "Type" is ""Button. Loads the "Query" when buton is selected by user
 
-   "Query" ="1" **OR** "Query" = "2"
+        "Query" ="1" **OR** "Query" = "2"
 
 06. **FireSubscribedEvent**
 
-   Valid when "Type" is "Button". The subscribed event will be fired
+        Valid when "Type" is "Button". The subscribed event will be fired
 
 ---
 
@@ -623,33 +616,33 @@ var ichatbotDataset = {
 
 01. **initialize(config, dataset, initialqueryID(nullable))**
 
-   Initializes the chatbot.
+        Initializes the chatbot.
 
 02. **loadQuery(QueryID)**
 
-   Loads the query based on provided argument
+        Loads the query based on provided argument
 
 03. **openChatBot()**
 
 04. **closeChatBot()**
 
-   closeChatBot() will close the chatbot           
-   closeChatBot(**false**) will not load the InitialQuery     
+        closeChatBot() will close the chatbot           
+        closeChatBot(**false**) will not load the InitialQuery     
 
 05. **resetChat()**
 
-   resetChat() will reset the chatbot and loads the InitialQueryID              
-   resetChat(**false**) will reset the chatbot and not load the InitialQuery
+        resetChat() will reset the chatbot and loads the InitialQueryID              
+        resetChat(**false**) will reset the chatbot and not load the InitialQuery
 
 06. **subscribeEvent()**
 
-   Pass the events as arguments
+        Pass the events as arguments
 
-   subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent); 
+        subscribeEvent(userTextEvent, buttonClickEvent, resetEvent, closeEvent, fileUploadEvent); 
 
 07. **simpleQuery()**
 
-   This will enable you to provide a simple message to the user. Takes **text** **OR** **HTML** as input
+        This will enable you to provide a simple message to the user. Takes **text** **OR** **HTML** as input
    
 
 ```javascript
@@ -659,24 +652,26 @@ var ichatbotDataset = {
 
 08. **getChatSession()**
 
-   iChatbot maintains all the user activity and can be retrieved by using this method
+        iChatbot maintains all the user activity and can be retrieved by using this method
 
 09. **showLoader()**
 
-   showLoader() display the loader and will be hidden only on calling hideLoader()                                          
-   showLoader(**2000**) diplays loader for 2000 milli seconds
+        showLoader() display the loader and will be hidden only on calling hideLoader()                                          
+        showLoader(**2000**) diplays loader for 2000 milli seconds
 
 10. **showErrorMsg()**
-     Displays error message on top of textbox/fileupload.
 
-     showErrorMsg("This is error");
-     showErrorMsg(""); for removing the message
+        Displays error message on top of textbox/fileupload.
+
+        showErrorMsg("This is error");
+        showErrorMsg(""); for removing the message
 
 11. **getDataset()**
-     Returns the dataset passed as part of initialize()
+        Returns the dataset passed as part of initialize()
 
 12. **updateDataset()**
-     Update the entire Dataset
+
+        Update the entire Dataset
 
 ```javascript
      function updateDataset() {
