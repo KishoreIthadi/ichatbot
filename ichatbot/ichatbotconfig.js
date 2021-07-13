@@ -47,13 +47,13 @@ var ichatbotconfig =
     "CloseCSSClass": "",
 
     //Set ChatQueryIconFAClass or ChatQueryIconImagePath along with ChatQueryIconCSSClass(optional)
-    "ChatQueryIconFAClass": "fa fa-robot fa-2x fa-robot-custom",
+    "ChatQueryIconFAClass": "fa fa-robot",
     "ChatQueryIconImagePath": "",
     "ChatQueryIconCSSClass": "",
     "ChatQueryCSSClass": "ichatbot-chat-query",
 
     //Set ChatUserInputIconFAClass or ChatUserInputIconImagePath along with ChatUserInputIconCSSClass(optional)
-    "ChatUserInputIconFAClass": "fa fa-user-circle fa-2x",
+    "ChatUserInputIconFAClass": "fa fa-user-circle",
     "ChatUserInputIconImagePath": "",
     "ChatUserInputIconCSSClass": "",
     //Applied to text box
