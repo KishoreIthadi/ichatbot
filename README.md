@@ -402,8 +402,9 @@ The following image explains most of the properties
    **ResetChatHistoryOnClose: true**                
         by default all the activity is stored in sequential order and this can be accessed by calling getChatSession() method
 
-### **Dataset**                                                                
-        Dataset consists of two arrays **Queries** and **Options** as shown below     
+### **Dataset**                                                                                                                              
+        Dataset consists of two arrays **Queries** and **Options** as shown below                                 
+              
         
 ```javascript
 var ichatbotDataset = {
