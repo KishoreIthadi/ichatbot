@@ -59,19 +59,19 @@
 
             if (value == "Basic") {
                 // Reading dataset from Basic-WorkFlow.js
-                dataset = dataset_BWF
+                ichatbotdataset = dataset_BWF
             }
             else if (value == "Complex") {
                 // Reading dataset from Complex-WorkFlow.js
-                dataset = dataset_CWF
+                ichatbotdataset = dataset_CWF
             }
             else {
                 // Reading dataset from File-Upload-WorkFlow.js
-                dataset = dataset_FUWL;
+                ichatbotdataset = dataset_FUWL;
             }
 
-            // ichatbotconfig is loaded from ichatbotconfig.js, script is added in header section
-            ichatbot.initialize(ichatbotconfig, dataset, null);
+            // ichatbotconfig is loaded from ichatbotconfig.js
+            ichatbot.initialize(ichatbotconfig, ichatbotdataset, null);
 
             //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
             var userTextEvent = function UserText(e) {
