@@ -387,8 +387,7 @@ The following image explains most of the properties
 05. **TitleIconFAClass: "fa fa-info blue-color"**,                    
     **TitleImagePath: ""**, 
     **TitleImageCSSClass: ""**                   
-        Icon displayed on top left of chatbot
-
+        Icon displayed on top left of chatbot                      
         Set either TitleIconFAClass (font-awesome class) **OR** TitleImagePath along with TitleImageCSSClass(optional) as below
 
    **TitleIconFAClass: ""**, 
@@ -403,7 +402,7 @@ The following image explains most of the properties
    **ResetChatHistoryOnClose: true**                
         by default all the activity is stored in sequential order and this can be accessed by calling getChatSession() method
 
-### **Dataset**                          
+### **Dataset**                                                                
         Dataset consists of two arrays **Queries** and **Options** as shown below
 
 ```javascript
