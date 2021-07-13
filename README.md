@@ -15,9 +15,9 @@
 ### **Table of Contents**
 
 * [What is **ichatbot**?](#what-is-ichatbot)
-* [Installation](#Installation)
-    - [1. NPM-Angular](#1-NPM-Angular)
-    - [2. HTML](#2-HTML)
+* [Installation](#installation)
+    - [1. NPM-Angular](#1-npm-angular)
+    - [2. HTML](#2-html)
 * [ichatbotconfig.js](#ichatbotconfigjs)
 * [Dataset](#dataset)
 * [Methods](#methods)
@@ -388,11 +388,11 @@ The following image explains most of the properties
     **TitleImagePath: ""**, 
     **TitleImageCSSClass: ""**                   
         Icon displayed on top left of chatbot                      
-        Set either TitleIconFAClass (font-awesome class) **OR** TitleImagePath along with TitleImageCSSClass(optional) as below
-
-   **TitleIconFAClass: ""**, 
-   **TitleImagePath: "~/images/tiltleicon.png"**, 
-   **TitleImageCSSClass: "class1 class2"**                          
+        Set either TitleIconFAClass (font-awesome class) **OR** TitleImagePath along with TitleImageCSSClass(optional) as below                          
+      
+    **TitleIconFAClass: ""**,  <br />
+    **TitleImagePath: "~/images/tiltleicon.png"**,  <br />
+    **TitleImageCSSClass: "class1 class2"** <br /> 
         The above is applicable for Reset, Close, FloatingIcon, ChatQueryIcon, ChatUserInputIcon properties
 
 06. **SearchNotFoundMsg: "Keyword not found!!"**            
@@ -402,10 +402,10 @@ The following image explains most of the properties
    **ResetChatHistoryOnClose: true**                
         by default all the activity is stored in sequential order and this can be accessed by calling getChatSession() method
 
-### **Dataset**                                                                                                                              
-        Dataset consists of two arrays **Queries** and **Options** as shown below                                 
-              
-        
+### **Dataset**
+
+Dataset consists of two arrays **Queries** and **Options** as shown below  
+
 ```javascript
 var ichatbotDataset = {
     "Queries": [{
@@ -455,65 +455,51 @@ var ichatbotDataset = {
 
 ### **Queries**
 
-01. **ID**                             
+01. **ID**
         A unique identifier that accepts input as an integer **OR** character **OR** combination of both
 
-02. **Query**                                    
+02. **Query** <br />
         Can be a simple text **OR** HTML
 
 ```javascript
    "Query": "Please select from below"; ** OR **
-       "Query": "<b>Please select from below </b>";
+   "Query": "<b>Please select from below </b>";
 ```
 
-03. **Options**                           
+03. **Options**               
         Multiple option ID's seperated by ', ' 
-
         "Options": "103, 104"
 
 04. **Type**                            
-        "Type" can be **""** **OR** **"Text"** **OR** **"File"** **OR** **"MultipleFiles"**
-
-        When "Type" is **""**, query will be displayed with options(if provided) 
-
-        When "Type" is **Text**, enables user to enter text input
-
-        When "Type" is **File**, enables user to upload single file
-
-        When "Type" is **MultipleFiles**, enables user to upload multiple files
+        "Type" can be **""** **OR** **"Text"** **OR** **"File"** **OR** **"MultipleFiles"** <br />
+        When "Type" is **""**, query will be displayed with options(if provided)<br />
+        When "Type" is **Text**, enables user to enter text input <br />
+        When "Type" is **File**, enables user to upload single file <br />
+        When "Type" is **MultipleFiles**, enables user to upload multiple files                                                         
 
 05. **Validation**                                  
-        When "Type" is **Text**, provide Regex expression as below
-
-        "Validation": "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" **OR** "Validation": "^([0|\+[0-9]{1, 5})?([7-9][0-9]{9})$"
-
-        When query "Type" is **File** **OR** **MultipleFiles**, provide file extension seperated by ', ' as below
-
+        When "Type" is **Text**, provide Regex expression as below <br />
+        "Validation": "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" **OR** "Validation": "^([0|\+[0-9]{1, 5})?([7-9][0-9]{9})$"; <br />
+        When query "Type" is **File** **OR** **MultipleFiles**, provide file extension seperated by ', ' as below <br />
         "Validation": ".js, .css"
 
-06. **ValidationErrorMsg**                                               
-        This property takes simple text as input and gets displayed above textbox/file upload control when validation fails 
+06. **ValidationErrorMsg** <br />
+        This property takes simple text as input and gets displayed above textbox/file upload control when validation fails<br />
+        "ValidationErrorMsg": "Invalid email" **OR** "ValidationErrorMsg": "Supported .png extension"<br />
+        *Note* recommended to provide text less than 50 characters for better UI<br />
+        In case ValidationErrorMsg is empty, default messages will be shown                   
 
-        "ValidationErrorMsg": "Invalid email" **OR** "ValidationErrorMsg": "Supported .png extension"
-
-        *Note* recommended to provide text less than 50 characters for better UI
-
-         In case ValidationErrorMsg is empty, default messages will be shown
-
-07. **SearchInQueries**              
-    **SearchKeywords**                           
-        These two properties work in sync. SearchInQueries takes true **OR** false as input.
-
-        if "SearchInQueries" = true && "Type" = "Text" then the text entered by the user will be matched against all the "SearchKeywords" in the Queries array
-
+07. **SearchInQueries**    
+    **SearchKeywords** <br />
+        These two properties work in sync. SearchInQueries takes true **OR** false as input <br />
+        if "SearchInQueries" = true && "Type" = "Text" then the text entered by the user will be matched against all the "SearchKeywords" in the Queries array <br />
         if search is found then matched Query will be loaded else "Keyword not found" message will be displayed then --> "QueryID" is loaded if not null, if "QueryID" is null then the same query will be loaded. This flow can be paused by using e.stop() (go through the examples for more details)
 
-08. **QueryID**                                  
-        This is typically the next query to be loaded. The case when "Type" = Text is explained above
+08. **QueryID** <br />
+        This is typically the next query to be loaded. The case when "Type" = Text is explained above <br />
+        It works similarly for all types of queries <br />
 
-        It works similarly for all types of queries
-
-09. **FireSubscribedEvent**                                                        
+09. **FireSubscribedEvent** <br />
         in case "FireSubscribedEvent" = true the subscribed events will be fired
 
 ```javascript
@@ -574,22 +560,21 @@ var ichatbotDataset = {
 01. **ID**                                    
         Unique identifier can be integer **OR** character **OR** combination of both
 
-02. **Type**                        
+02. **Type**                                                            
         "Type" can be "Button" **OR** "Link"
 
  
-03. **Text**                 
+03. **Text**                                           
         Display text for "Button" **OR** "Link"
 
-04. **URL**                         
+04. **URL**                                      
         Valid when "Type" is link
 
-05. **Query**                      
-        Valid when "Type" is ""Button. Loads the "Query" when buton is selected by user
-
+05. **Query**                            
+        Valid when "Type" is ""Button. Loads the "Query" when buton is selected by user <br />
         "Query" ="1" **OR** "Query" = "2"
 
-06. **FireSubscribedEvent**                             
+06. **FireSubscribedEvent**                                                              
         Valid when "Type" is "Button". The subscribed event will be fired
 
 ---
