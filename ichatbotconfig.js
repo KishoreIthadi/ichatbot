@@ -17,7 +17,7 @@ var ichatbotconfig =
     "ichatbotHeight": "400px",
     "ichatbotWidth": "400px",
     "ichatbotBackgroundColor": "rgb(255, 255, 255)",
-    "MessagesBackgroundColor": "rgb(232, 238, 238)",
+    "MessagesBackgroundColor": "rgb(225 232 232)",
 
     "ErrorMessageCSSClass": "ichatbot-error-msg",
 
@@ -47,17 +47,17 @@ var ichatbotconfig =
     "CloseCSSClass": "",
 
     //Set ChatQueryIconFAClass or ChatQueryIconImagePath along with ChatQueryIconCSSClass(optional)
-    "ChatQueryIconFAClass": "fa fa-user-circle fa-2x",
+    "ChatQueryIconFAClass": "fa fa-robot",
     "ChatQueryIconImagePath": "",
     "ChatQueryIconCSSClass": "",
-    "ChatQueryCSSClass": "mar-left-5px mar-top-3px",
+    "ChatQueryCSSClass": "ichatbot-chat-query",
 
     //Set ChatUserInputIconFAClass or ChatUserInputIconImagePath along with ChatUserInputIconCSSClass(optional)
-    "ChatUserInputIconFAClass": "fa fa-user-circle fa-2x",
+    "ChatUserInputIconFAClass": "fa fa-user-circle",
     "ChatUserInputIconImagePath": "",
     "ChatUserInputIconCSSClass": "",
     //Applied to text box
-    "ChatUserInputCSSClass": "mar-right-5px mar-top-3px",
+    "ChatUserInputCSSClass": "ichatbot-chat-response",
 
     "LoaderCSSClass": "ichatbot-loader",
     //Loader timeout in milli seconds

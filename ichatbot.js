@@ -132,28 +132,10 @@ var ichatbot = (function () {
 
         // Warnings : optional configuarations
         if (isNullOrEmpty(_gInitialQueryID)) {
-            console.warn("ichatbot : IntialQueryID property is not set in config and alsno tot passed as argument in initialize() method");
-        }
-        if (isNullOrEmpty(_gConfig.ChatQueryIconFAClass) && isNullOrEmpty(_gConfig.ChatQueryIconImagePath)) {
-            console.warn("ichatbot : Set either ChatQueryIconFAClass or ChatQueryIconImagePath property");
-        }
-        if (isNullOrEmpty(_gConfig.ChatUserInputIconFAClass) && isNullOrEmpty(_gConfig.ChatUserInputIconImagePath)) {
-            console.warn("ichatbot : Set either ChatUserInputIconFAClass or ChatResponseIconImagePath property");
-        }
-        if (isNullOrEmpty(_gConfig.UserInputMinLen)) {
-            console.warn("ichatbot : UserInputMinLen property is undefined or null");
-        }
-        if (isNullOrEmpty(_gConfig.UserInputMaxLen)) {
-            console.warn("ichatbot : UserInputMaxLen property is undefined or null");
-        }
-        if (isNullOrEmpty(_gConfig.IChatBotCSSClass)) {
-            console.warn("ichatbot : IChatBotCSSClass property is undefined or null");
+            console.error("ichatbot : IntialQueryID property is not set in config and alsno tot passed as argument in initialize() method");
         }
         if (isNullOrEmpty(_gConfig.Title)) {
             console.warn("ichatbot : Title property is undefined or null");
-        }
-        if (isNullOrEmpty(_gConfig.DisableSelectedButton)) {
-            console.warn("ichatbot : DisableSelectedButton property is undefined or null");
         }
         if (isNullOrEmpty(_gConfig.ichatbotHeight)) {
             console.warn("ichatbot : ichatbotHeight property is undefined or null");
@@ -167,50 +149,8 @@ var ichatbot = (function () {
         if (isNullOrEmpty(_gConfig.MessagesBackgroundColor)) {
             console.warn("ichatbot : MessagesBackgroundColor property is undefined or null");
         }
-        if (isNullOrEmpty(_gConfig.ButtonCSSClass)) {
-            console.warn("ichatbot : ButtonCSSClass property is undefined or null");
-        }
-        if (isNullOrEmpty(_gConfig.LinkCSSClass)) {
-            console.warn("ichatbot : LinkCSSClass property is undefined or null");
-        }
-        if (isNullOrEmpty(_gConfig.FloatingIconImageCSSClass)) {
-            console.warn("ichatbot : FloatingIconImageCSSClass property is undefined or null");
-        }
-        if (isNullOrEmpty(_gConfig.ResetCSSClass)) {
-            console.warn("ichatbot : ResetCSSClass property is undefined or null");
-        }
-        if (isNullOrEmpty(_gConfig.CloseCSSClass)) {
-            console.warn("ichatbot : CloseCSSClass property is undefined or null");
-        }
-        if (isNullOrEmpty(_gConfig.ChatQueryIconCSSClass)) {
-            console.warn("ichatbot : ChatQueryIconCSSClass property is undefined or null");
-        }
-        if (isNullOrEmpty(_gConfig.ChatQueryCSSClass)) {
-            console.warn("ichatbot : ChatQueryCSSClass property is undefined or null");
-        }
-        if (isNullOrEmpty(_gConfig.ChatUserInputIconCSSClass)) {
-            console.warn("ichatbot : ChatUserInputIconCSSClass property is undefined or null");
-        }
-        if (isNullOrEmpty(_gConfig.ChatUserInputCSSClass)) {
-            console.warn("ichatbot : ChatUserInputCSSClass property is undefined or null");
-        }
         if (isNullOrEmpty(_gConfig.LoaderTimeout)) {
             console.warn("ichatbot : LoaderTimeout property is undefined or null, default will be set to 600");
-        }
-        if (isNullOrEmpty(_gConfig.SearchNotFoundMsg)) {
-            console.warn("ichatbot : SearchNotFoundMsg property is undefined or null, default will be set to 'Keyword Not Found!!'");
-        }
-        if (isNullOrEmpty(_gConfig.ResetChatHistoryOnReset)) {
-            console.warn("ichatbot : ResetChatHistoryOnReset property is undefined or null, default will be set to false");
-        }
-        if (isNullOrEmpty(_gConfig.ResetChatHistoryOnClose)) {
-            console.warn("ichatbot : ResetChatHistoryOnClose property is undefined or null, default will be set to false");
-        }
-        if (isNullOrEmpty(_gConfig.FloatingIconCSSClass)) {
-            console.warn("ichatbot : FloatingIconCSSClass property is undefined or null");
-        }
-        if (isNullOrEmpty(_gConfig.TitleIconFAClass) && isNullOrEmpty(_gConfig.TitleImagePath)) {
-            console.warn("ichatbot : Set either TitleIconFAClass or TitleImagePath property");
         }
     }
 
@@ -227,7 +167,7 @@ var ichatbot = (function () {
             chatQueryIcon = "<img decoding  src='" + _gConfig.ChatQueryIconImagePath + "' " + cssClass + "></img>  ";
         }
 
-        return "<div class='d-flex justify-content-start mar-top-bottom-5px'>" +
+        return "<div class='d-flex justify-content-start mar-top-bottom-8px'>" +
             chatQueryIcon +
             "<span id='{0}' class='{1}'>{2}</span>" +
             "</div>" +
@@ -634,7 +574,7 @@ var ichatbot = (function () {
         }
 
         // Template for user input
-        var userInputTemplate = "<div class='ichatbot-userinput-template mar-top-bottom-5px'>" +
+        var userInputTemplate = "<div class='ichatbot-userinput-template mar-top-bottom-8px'>" +
             "<div class='d-flex justify-content-end'>" +
             "<span class='" + _gConfig.ChatUserInputCSSClass + "'>{0}</span>" +
             chatUserInputIcon +

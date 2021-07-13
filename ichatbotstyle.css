@@ -59,6 +59,22 @@
   display: none;
 }
 
+.ichatbot-chat-query {
+  padding: 5px;
+  background: white;
+  border-radius: 8px;
+  margin-left: 5px;
+  margin-top: 3px
+}
+
+.ichatbot-chat-response {
+  padding: 5px;
+  background: white;
+  border-radius: 8px;
+  margin-right: 5px;
+  margin-top: 3px;
+}
+
 /* Query Options Styles --------------------------------- */
 
 .ichatbot-options {
@@ -167,24 +183,8 @@
 
 /* General Styles --------------------------------------- */
 
-​​​​​ .pad-right-5px {
-  padding-right: 5px;
-}
-
-.mar-top-bottom-5px {
-  margin: 5px 0px 5px 0px;
-}
-
-.mar-right-5px {
-  margin-right: 5px;
-}
-
-.mar-left-5px {
-  margin-left: 5px;
-}
-
-.mar-top-3px {
-  margin-top: 3px;
+.mar-top-bottom-8px {
+  margin: 8px 0px 8px 0px;
 }
 
 .mar-left-right-7px {
@@ -210,6 +210,7 @@
 
 .d-flex {
   display: flex!important;
+  align-items: center;
 }
 
 .float-start {
