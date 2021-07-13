@@ -17,7 +17,7 @@ var ichatbotconfig =
     "ichatbotHeight": "400px",
     "ichatbotWidth": "400px",
     "ichatbotBackgroundColor": "rgb(255, 255, 255)",
-    "MessagesBackgroundColor": "rgb(225 232 232)",
+    "MessagesBackgroundColor": "rgb(229 234 234)",
 
     "ErrorMessageCSSClass": "ichatbot-error-msg",
 
