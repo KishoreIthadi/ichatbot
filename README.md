@@ -105,10 +105,8 @@ export class AppComponent {
             }]
         }
 
-        ichatbot.initialize(ichatbotconfig, ichatbotDataset);
-
-        // ichatbotconfig is loaded from ichatbotconfig.js, script is added in header section
-        ichatbot.initialize(ichatbotconfig, dataset, null);
+        // ichatbotconfig is loaded from ichatbotconfig.js
+        ichatbot.initialize(ichatbotconfig, ichatbotDataset, null);
 
         //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
         var userTextEvent = function UserText(e: any) {
@@ -261,7 +259,8 @@ Add below in body section
             }]
         }
 
-        ichatbot.initialize(ichatbotconfig, ichatbotDataset);
+        // ichatbotconfig is loaded from ichatbotconfig.js
+        ichatbot.initialize(ichatbotconfig, ichatbotDataset, null);
 
         //Subscribing to UserInput Entered, User Button Click, Chat Reset, Chat Close events
         var userTextEvent = function UserText(e) {
