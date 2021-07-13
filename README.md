@@ -35,20 +35,22 @@ ichatbot is a fully customizable javascript library that enables you to create a
 #### **1. NPM Angular**
 
 ```bash
-npm install --save ichatbot
+npm install --save innovative-chatbot
 ```
 
 Add styles and scripts in **angular.json** 
 
 ```json
 "styles": [
-  "node_modules/ichatbot/ichatbotstyle-1.0.0.min.css"
+  "node_modules/innovative-chatbot/ichatbotstyle-1.0.2.min.css"
 ],
 "scripts": [
-  "node_modules/ichatbot/ichatbot-1.0.0.min.js",
+  "node_modules/innovative-chatbot/ichatbot-1.0.2.min.js",
   "src/ichatbotconfig.js"
 ]
 ```
+
+**NOTE** if ichatbotconfig.js is not created in src folder, manually copy it from node_modules/innovative-chatbot/
 
 Add below link for getting default **font-awesome icons**, later you can remove/updated based on requirement
 
@@ -221,9 +223,9 @@ Add link and script in head section
     <!-- Font-Awesome is for appying default icons, please update as per your requirement -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
-    <link rel="stylesheet" href="ichatbotstyle-1.0.0.min.css">
+    <link rel="stylesheet" href="ichatbotstyle-1.0.2.min.css">
 
-    <script src="ichatbot-1.0.0.min.js"></script>
+    <script src="ichatbot-1.0.2.min.js"></script>
     <script src="ichatbotconfig.js"></script>
 </head>
 ```
