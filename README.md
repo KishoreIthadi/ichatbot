@@ -42,10 +42,10 @@ Add styles and scripts in **angular.json**
 
 ```json
 "styles": [
-  "node_modules/innovative-chatbot/ichatbotstyle-1.0.2.min.css"
+  "node_modules/innovative-chatbot/ichatbotstyle-1.0.3.min.css"
 ],
 "scripts": [
-  "node_modules/innovative-chatbot/ichatbot-1.0.2.min.js",
+  "node_modules/innovative-chatbot/ichatbot-1.0.3.min.js",
   "src/ichatbotconfig.js"
 ]
 ```
@@ -223,9 +223,9 @@ Add link and script in head section
     <!-- Font-Awesome is for appying default icons, please update as per your requirement -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
-    <link rel="stylesheet" href="ichatbotstyle-1.0.2.min.css">
+    <link rel="stylesheet" href="ichatbotstyle-1.0.3.min.css">
 
-    <script src="ichatbot-1.0.2.min.js"></script>
+    <script src="ichatbot-1.0.3.min.js"></script>
     <script src="ichatbotconfig.js"></script>
 </head>
 ```
