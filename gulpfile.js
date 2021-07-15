@@ -54,7 +54,7 @@ gulp.task('copy-gh-files', function () {
 
 gulp.task('copy-gh-images', function () {
     return gulp.src(['images/complex.gif', 'images/fileupload.gif',
-        'images/ichatbotconfig.png', 'images/simple.gif'])
+        'images/ichatbotconfig.png', 'images/basic.gif'])
         .pipe(gulp.dest('gh-pages/images/'))
 });
 
